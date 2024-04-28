@@ -1,4 +1,3 @@
-import { DataTable } from "@/components/Resources/DataTable/datatable";
 import { Menu } from "@/components/Resources/Tabs/tabs";
 
 export default function Todolist() {
