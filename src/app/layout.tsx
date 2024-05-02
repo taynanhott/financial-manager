@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider"
- 
+
 import { Head } from "@/components/Html/Header/head";
 import { Footer } from "@/components/Html/Footer/footer";
 import dynamic from 'next/dynamic';
@@ -35,7 +35,11 @@ export default function RootLayout({ children }: Props) {
           >
             <ParticlesComponent id="particles" className="z-0 opacity-5" />
             <Head />
-            {children}
+            <div className="z-10">
+              <div className="mx-auto flex justify-center px-5">
+                {children}
+              </div>
+            </div>
             <Footer />
           </ThemeProvider>
         </body>
