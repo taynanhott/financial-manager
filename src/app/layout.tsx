@@ -36,9 +36,7 @@ export default function RootLayout({ children }: Props) {
             <ParticlesComponent id="particles" className="z-0 opacity-5" />
             <Head />
             <div className="z-10">
-              <div className="mx-auto flex justify-center px-5">
-                {children}
-              </div>
+              {children}
             </div>
             <Footer />
           </ThemeProvider>
