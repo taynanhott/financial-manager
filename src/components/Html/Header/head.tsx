@@ -3,7 +3,7 @@ import { NavigationMenuDemo } from "../../Resources/NavigationMenu/navigation";
 
 export function Head() {
     return (
-        <div className="z-20 bg-gray-900 relative flex items-center justify-between py-4 mb-10">
+        <div className="z-20 bg-gray-900 relative flex items-center justify-between py-4 mb-6">
             <div>
                 <div className="flex items-center">
                     <a

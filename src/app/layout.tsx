@@ -38,7 +38,6 @@ export default function RootLayout({ children }: Props) {
             <div className="z-10">
               {children}
             </div>
-            <Footer />
           </ThemeProvider>
         </body>
       </html>
