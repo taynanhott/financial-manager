@@ -5,12 +5,12 @@ export default function Gerenciar() {
     const cadastro = [
         {
             href: "gerenciar/cadastro/cadastrar",
-            src: "/image/todolist.jpg",
+            src: "/image/menu/escrevendo.png",
             option: "Cadastrar"
         },
         {
             href: "gerenciar/cadastro/gerenciar",
-            src: "/image/todolist.jpg",
+            src: "/image/menu/copiadora.png",
             option: "Gerenciar"
         }
     ];
@@ -18,20 +18,20 @@ export default function Gerenciar() {
     const analitico = [
         {
             href: "gerenciar/analitico/levantamento",
-            src: "/image/todolist.jpg",
+            src: "/image/menu/beneficiar.png",
             option: "Levantamento"
         },
         {
             href: "gerenciar/analitico/parametros",
-            src: "/image/todolist.jpg",
+            src: "/image/menu/configuracao.png",
             option: "Parâmetros"
         }
     ];
 
     return (
         <div className="">
-            <NavOption components={cadastro} title="Cadastro" />
-            <NavOption components={analitico} title="Analítico" />
+            <NavOption components={cadastro} title="CADASTRO" />
+            <NavOption components={analitico} title="ANALÍTICO" />
         </div>
     );
 }
