@@ -1,4 +1,5 @@
 import NavOption from "@/components/Resources/NavOption/navoption";
+import Redirecionar from "@/components/Resources/Redirection/redirection";
 
 export default function Gerenciar() {
 
@@ -30,6 +31,7 @@ export default function Gerenciar() {
 
     return (
         <div className="">
+            <Redirecionar />
             <NavOption components={cadastro} title="CADASTRO" />
             <NavOption components={analitico} title="ANALÍTICO" />
         </div>

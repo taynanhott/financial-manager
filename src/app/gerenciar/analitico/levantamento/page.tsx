@@ -1,6 +1,3 @@
-import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
-
 import {
     Breadcrumb,
     BreadcrumbItem,
@@ -10,40 +7,48 @@ import {
     BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
 
+import NavOption from "@/components/Resources/NavOption/navoption";
+
 export default function Gerenciar() {
 
+    const levantamento = [
+        {
+            href: "gerenciar/analitico/levantamento/faturamento",
+            src: "/image/menu/escrevendo.png",
+            option: "Faturamento"
+        },
+        {
+            href: "gerenciar/analitico/levantamento/mensal",
+            src: "/image/menu/copiadora.png",
+            option: "Mensal"
+        },
+        {
+            href: "gerenciar/analitico/levantamento/receber",
+            src: "/image/menu/escrevendo.png",
+            option: "À Receber"
+        },
+        {
+            href: "gerenciar/analitico/levantamento/reserva",
+            src: "/image/menu/copiadora.png",
+            option: "Reserva"
+        }
+    ];
+
     return (
-        <div className="z-10">
-            <div className="max-w-[768px] mx-auto flex justify-center px-5">
+        <div>
+            <Breadcrumb>
+                <BreadcrumbList>
+                    <BreadcrumbItem>
+                        <BreadcrumbLink href="/gerenciar">Inicial</BreadcrumbLink>
+                    </BreadcrumbItem>
+                    <BreadcrumbSeparator />
+                    <BreadcrumbItem>
+                        <BreadcrumbPage>Levantamento</BreadcrumbPage>
+                    </BreadcrumbItem>
+                </BreadcrumbList>
+            </Breadcrumb>
 
-                <Breadcrumb>
-                    <BreadcrumbList>
-                        <BreadcrumbItem>
-                            <BreadcrumbLink href="/gerenciar">Inicial</BreadcrumbLink>
-                        </BreadcrumbItem>
-                        <BreadcrumbSeparator />
-                        <BreadcrumbItem>
-                            <BreadcrumbPage>Levantamento</BreadcrumbPage>
-                        </BreadcrumbItem>
-                    </BreadcrumbList>
-                </Breadcrumb>
-
-                <Label>Levantamento
-                    <a href="/gerenciar/analitico/levantamento/faturamento">
-                        <Button>Faturamento</Button>
-                    </a>
-                    <a href="/gerenciar/analitico/levantamento/mensal">
-                        <Button>Mensal</Button>
-                    </a>
-                    <a href="/gerenciar/analitico/levantamento/receber">
-                        <Button>À Receber</Button>
-                    </a>
-                    <a href="/gerenciar/analitico/levantamento/reserva">
-                        <Button>Reserva</Button>
-                    </a>
-                </Label>
-
-            </div>
+            <NavOption components={levantamento} title="LEVANTAMENTO" />
         </div>
     );
 }

@@ -21,6 +21,7 @@ export default function Gerenciar() {
                         <BreadcrumbItem>
                             <BreadcrumbLink href="/gerenciar">Inicial</BreadcrumbLink>
                         </BreadcrumbItem>
+                        <BreadcrumbSeparator />
                         <BreadcrumbItem>
                             <BreadcrumbPage>Gerenciar</BreadcrumbPage>
                         </BreadcrumbItem>
