@@ -2,34 +2,18 @@
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import Redirecionar from "@/components/Resources/Redirection/redirection";
 
-import {
-    Breadcrumb,
-    BreadcrumbItem,
-    BreadcrumbLink,
-    BreadcrumbList,
-    BreadcrumbPage,
-    BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb"
-
+const components = [
+    {
+        href: "/gerenciar/analitico/levantamento/",
+        menu: 'Levantamento'
+    }
+]
 export default function Faturamento() {
     return (
-        <>
-            <Breadcrumb>
-                <BreadcrumbList>
-                    <BreadcrumbItem>
-                        <BreadcrumbLink href="/gerenciar">Inicial</BreadcrumbLink>
-                    </BreadcrumbItem>
-                    <BreadcrumbSeparator />
-                    <BreadcrumbItem>
-                        <BreadcrumbLink href="/gerenciar/analitico/levantamento">Levantamento</BreadcrumbLink>
-                    </BreadcrumbItem>
-                    <BreadcrumbSeparator />
-                    <BreadcrumbItem>
-                        <BreadcrumbPage>Reserva</BreadcrumbPage>
-                    </BreadcrumbItem>
-                </BreadcrumbList>
-            </Breadcrumb>
+        <div className="max-w-lg m-auto">
+            <Redirecionar components={components} now="Faturamento" />
 
             <Card>
                 <CardHeader>
@@ -49,6 +33,6 @@ export default function Faturamento() {
                     </div>
                 </CardContent>
             </Card>
-        </>
+        </div>
     )
 }

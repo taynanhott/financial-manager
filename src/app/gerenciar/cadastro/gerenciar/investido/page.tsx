@@ -5,33 +5,19 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter }
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-import {
-    Breadcrumb,
-    BreadcrumbItem,
-    BreadcrumbLink,
-    BreadcrumbList,
-    BreadcrumbPage,
-    BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb"
+import Redirecionar from "@/components/Resources/Redirection/redirection";
+
+const components = [
+    {
+        href: "/gerenciar/cadastro/gerenciar",
+        menu: 'Gerenciar'
+    }
+]
 
 export default function Investido() {
     return (
-        <>
-            <Breadcrumb>
-                <BreadcrumbList>
-                    <BreadcrumbItem>
-                        <BreadcrumbLink href="/gerenciar">Inicial</BreadcrumbLink>
-                    </BreadcrumbItem>
-                    <BreadcrumbSeparator />
-                    <BreadcrumbItem>
-                        <BreadcrumbLink href="/gerenciar/cadastro/gerenciar">Gerenciar</BreadcrumbLink>
-                    </BreadcrumbItem>
-                    <BreadcrumbSeparator />
-                    <BreadcrumbItem>
-                        <BreadcrumbPage>Investidos</BreadcrumbPage>
-                    </BreadcrumbItem>
-                </BreadcrumbList>
-            </Breadcrumb>
+        <div className="max-w-lg m-auto">
+            <Redirecionar components={components} now="Investidos" />
 
             <Card>
                 <CardHeader>
@@ -55,6 +41,6 @@ export default function Investido() {
                     <Button>Cadastrar</Button>
                 </CardFooter>
             </Card>
-        </>
+        </div>
     )
 }

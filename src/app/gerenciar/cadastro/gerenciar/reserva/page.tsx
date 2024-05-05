@@ -1,37 +1,22 @@
 
 import { DatePicker } from "@/components/Resources/DatePicker/datepicker";
+import Redirecionar from "@/components/Resources/Redirection/redirection";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-import {
-    Breadcrumb,
-    BreadcrumbItem,
-    BreadcrumbLink,
-    BreadcrumbList,
-    BreadcrumbPage,
-    BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb"
+const components = [
+    {
+        href: "/gerenciar/cadastro/gerenciar",
+        menu: 'Gerenciar'
+    }
+]
 
 export default function Reserva() {
     return (
-        <>
-            <Breadcrumb>
-                <BreadcrumbList>
-                    <BreadcrumbItem>
-                        <BreadcrumbLink href="/gerenciar">Inicial</BreadcrumbLink>
-                    </BreadcrumbItem>
-                    <BreadcrumbSeparator />
-                    <BreadcrumbItem>
-                        <BreadcrumbLink href="/gerenciar/cadastro/gerenciar">Gerenciar</BreadcrumbLink>
-                    </BreadcrumbItem>
-                    <BreadcrumbSeparator />
-                    <BreadcrumbItem>
-                        <BreadcrumbPage>Reserva</BreadcrumbPage>
-                    </BreadcrumbItem>
-                </BreadcrumbList>
-            </Breadcrumb>
+        <div className="max-w-lg m-auto">
+            <Redirecionar components={components} now="Reserva" />
 
             <Card>
                 <CardHeader>
@@ -54,6 +39,6 @@ export default function Reserva() {
                     <Button>Cadastrar</Button>
                 </CardFooter>
             </Card>
-        </>
+        </div>
     )
 }

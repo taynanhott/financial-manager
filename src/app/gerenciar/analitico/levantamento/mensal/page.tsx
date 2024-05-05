@@ -1,34 +1,19 @@
 
 import { DataTable } from "@/components/Resources/DataTable/datatable";
+import Redirecionar from "@/components/Resources/Redirection/redirection";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 
-import {
-    Breadcrumb,
-    BreadcrumbItem,
-    BreadcrumbLink,
-    BreadcrumbList,
-    BreadcrumbPage,
-    BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb"
+const components = [
+    {
+        href: "/gerenciar/analitico/levantamento/",
+        menu: 'Levantamento'
+    }
+]
 
 export default function Mensal() {
     return (
-        <>
-            <Breadcrumb>
-                <BreadcrumbList>
-                    <BreadcrumbItem>
-                        <BreadcrumbLink href="/gerenciar">Inicial</BreadcrumbLink>
-                    </BreadcrumbItem>
-                    <BreadcrumbSeparator />
-                    <BreadcrumbItem>
-                        <BreadcrumbLink href="/gerenciar/analitico/levantamento">Levantamento</BreadcrumbLink>
-                    </BreadcrumbItem>
-                    <BreadcrumbSeparator />
-                    <BreadcrumbItem>
-                        <BreadcrumbPage>Reserva</BreadcrumbPage>
-                    </BreadcrumbItem>
-                </BreadcrumbList>
-            </Breadcrumb>
+        <div className="max-w-lg m-auto">
+            <Redirecionar components={components} now="Mensal" />
 
             <Card>
                 <CardHeader>
@@ -41,6 +26,6 @@ export default function Mensal() {
                     <DataTable />
                 </CardContent>
             </Card>
-        </>
+        </div>
     )
 }

@@ -1,35 +1,20 @@
 
+import Redirecionar from "@/components/Resources/Redirection/redirection";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-import {
-    Breadcrumb,
-    BreadcrumbItem,
-    BreadcrumbLink,
-    BreadcrumbList,
-    BreadcrumbPage,
-    BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb"
+const components = [
+    {
+        href: "/gerenciar/analitico/levantamento/",
+        menu: 'Levantamento'
+    }
+]
 
 export default function Reserva() {
     return (
-        <>
-            <Breadcrumb>
-                <BreadcrumbList>
-                    <BreadcrumbItem>
-                        <BreadcrumbLink href="/gerenciar">Inicial</BreadcrumbLink>
-                    </BreadcrumbItem>
-                    <BreadcrumbSeparator />
-                    <BreadcrumbItem>
-                        <BreadcrumbLink href="/gerenciar/analitico/levantamento">Levantamento</BreadcrumbLink>
-                    </BreadcrumbItem>
-                    <BreadcrumbSeparator />
-                    <BreadcrumbItem>
-                        <BreadcrumbPage>Reserva</BreadcrumbPage>
-                    </BreadcrumbItem>
-                </BreadcrumbList>
-            </Breadcrumb>
+        <div className="">
+            <Redirecionar components={components} now="Reserva" />
 
             <Card>
                 <CardHeader>
@@ -57,6 +42,6 @@ export default function Reserva() {
                     </div>
                 </CardContent>
             </Card>
-        </>
+        </div>
     )
 }

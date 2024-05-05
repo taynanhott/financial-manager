@@ -1,33 +1,18 @@
 import { DataTable } from "@/components/Resources/DataTable/datatable";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
+import Redirecionar from "@/components/Resources/Redirection/redirection";
 
-import {
-    Breadcrumb,
-    BreadcrumbItem,
-    BreadcrumbLink,
-    BreadcrumbList,
-    BreadcrumbPage,
-    BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb"
+const components = [
+    {
+        href: "/gerenciar/analitico/levantamento/",
+        menu: 'Levantamento'
+    }
+]
 
 export default function Receber() {
     return (
-        <>
-            <Breadcrumb>
-                <BreadcrumbList>
-                    <BreadcrumbItem>
-                        <BreadcrumbLink href="/gerenciar">Inicial</BreadcrumbLink>
-                    </BreadcrumbItem>
-                    <BreadcrumbSeparator />
-                    <BreadcrumbItem>
-                        <BreadcrumbLink href="/gerenciar/analitico/levantamento">Levantamento</BreadcrumbLink>
-                    </BreadcrumbItem>
-                    <BreadcrumbSeparator />
-                    <BreadcrumbItem>
-                        <BreadcrumbPage>Reserva</BreadcrumbPage>
-                    </BreadcrumbItem>
-                </BreadcrumbList>
-            </Breadcrumb>
+        <div className="max-w-lg m-auto">
+            <Redirecionar components={components} now="À Receber" />
 
             <Card>
                 <CardHeader>
@@ -36,10 +21,10 @@ export default function Receber() {
                         Visualize os valores pendentes de recebimento.
                     </CardDescription>
                 </CardHeader>
-                <CardContent className="space-y-2">
+                <CardContent className="">
                     <DataTable />
                 </CardContent>
             </Card>
-        </>
+        </div>
     )
 }

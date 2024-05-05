@@ -4,12 +4,12 @@ import NavOption from "@/components/Resources/NavOption/navoption";
 
 const cadastrar = [
     {
-        href: "gerenciar/cadastro/cadastrar/pagamento",
+        href: "cadastrar/pagamento",
         src: "/image/menu/escrevendo.png",
         option: "Pagamento"
     },
     {
-        href: "gerenciar/cadastro/cadastrar/categoria",
+        href: "cadastrar/categoria",
         src: "/image/menu/copiadora.png",
         option: "Categoria"
     }
@@ -18,7 +18,7 @@ const cadastrar = [
 export default function Gerenciar() {
 
     return (
-        <div className="">
+        <div className="w-fit m-auto">
             <Redirecionar now="Cadastrar" />
             <NavOption components={cadastrar} title="CADASTRAR" />
         </div>

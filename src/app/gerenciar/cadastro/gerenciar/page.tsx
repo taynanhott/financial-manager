@@ -22,7 +22,7 @@ const gerenciar = [
 
 export default function Gerenciar() {
     return (
-        <div className="">
+        <div className="w-fit m-auto">
             <Redirecionar now="Gerênciar" />
             <NavOption components={gerenciar} title="GERÊNCIAR" />
         </div>

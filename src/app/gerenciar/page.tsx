@@ -30,7 +30,7 @@ export default function Gerenciar() {
     ];
 
     return (
-        <div className="">
+        <div className="w-fit m-auto">
             <Redirecionar />
             <NavOption components={cadastro} title="CADASTRO" />
             <NavOption components={analitico} title="ANALÍTICO" />
