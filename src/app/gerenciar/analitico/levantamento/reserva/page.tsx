@@ -13,7 +13,7 @@ const components = [
 
 export default function Reserva() {
     return (
-        <div className="">
+        <div className="max-w-lg m-auto">
             <Redirecionar components={components} now="Reserva" />
 
             <Card>
