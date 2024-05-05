@@ -14,8 +14,8 @@ interface Props {
 
 export default function NavOption({ components, title }: Props) {
     return (
-        <div className="max-w-3xl">
-            <Label className="flex justify-center rounded-bl-xl rounded-tr-xl p-2 bg-gradient-to-r from-gray-500 to-gray-900">{title}</Label>
+        <div className="max-w-lg">
+            <Label className="flex justify-center text-white text-base border rounded-bl-xl rounded-tr-xl p-px bg-gray-900">{title}</Label>
             {components.map((component, index) => (
                 <div key={index} className="max-w-[50%] inline-block">
                     <Card className="m-4">

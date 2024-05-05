@@ -1,13 +1,6 @@
-import {
-    Breadcrumb,
-    BreadcrumbItem,
-    BreadcrumbLink,
-    BreadcrumbList,
-    BreadcrumbPage,
-    BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb"
 
 import NavOption from "@/components/Resources/NavOption/navoption";
+import Redirecionar from "@/components/Resources/Redirection/redirection";
 
 export default function Gerenciar() {
 
@@ -36,18 +29,7 @@ export default function Gerenciar() {
 
     return (
         <div>
-            <Breadcrumb>
-                <BreadcrumbList>
-                    <BreadcrumbItem>
-                        <BreadcrumbLink href="/gerenciar">Inicial</BreadcrumbLink>
-                    </BreadcrumbItem>
-                    <BreadcrumbSeparator />
-                    <BreadcrumbItem>
-                        <BreadcrumbPage>Levantamento</BreadcrumbPage>
-                    </BreadcrumbItem>
-                </BreadcrumbList>
-            </Breadcrumb>
-
+            <Redirecionar now="Levantamento" />
             <NavOption components={levantamento} title="LEVANTAMENTO" />
         </div>
     );

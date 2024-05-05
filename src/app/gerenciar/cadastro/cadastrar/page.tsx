@@ -1,43 +1,26 @@
-import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
 
-import {
-    Breadcrumb,
-    BreadcrumbItem,
-    BreadcrumbLink,
-    BreadcrumbList,
-    BreadcrumbPage,
-    BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb"
+import Redirecionar from "@/components/Resources/Redirection/redirection";
+import NavOption from "@/components/Resources/NavOption/navoption";
+
+const cadastrar = [
+    {
+        href: "gerenciar/cadastro/cadastrar/pagamento",
+        src: "/image/menu/escrevendo.png",
+        option: "Pagamento"
+    },
+    {
+        href: "gerenciar/cadastro/cadastrar/categoria",
+        src: "/image/menu/copiadora.png",
+        option: "Categoria"
+    }
+];
 
 export default function Gerenciar() {
 
     return (
-        <div className="z-10">
-            <div className="max-w-[768px] mx-auto flex justify-center px-5">
-
-                <Breadcrumb>
-                    <BreadcrumbList>
-                        <BreadcrumbItem>
-                            <BreadcrumbLink href="/gerenciar">Inicial</BreadcrumbLink>
-                        </BreadcrumbItem>
-                        <BreadcrumbSeparator />
-                        <BreadcrumbItem>
-                            <BreadcrumbPage>Cadastrar</BreadcrumbPage>
-                        </BreadcrumbItem>
-                    </BreadcrumbList>
-                </Breadcrumb>
-
-                <Label>Cadastrar
-                    <a href="/gerenciar/cadastro/cadastrar/pagamento">
-                        <Button>Pagamento</Button>
-                    </a>
-                    <a href="/gerenciar/cadastro/cadastrar/categoria">
-                        <Button>Categoria</Button>
-                    </a>
-                </Label>
-
-            </div>
+        <div className="">
+            <Redirecionar now="Cadastrar" />
+            <NavOption components={cadastrar} title="CADASTRAR" />
         </div>
     );
 }
