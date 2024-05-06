@@ -5,12 +5,12 @@ import NavOption from "@/components/Resources/NavOption/navoption";
 const cadastrar = [
     {
         href: "cadastrar/pagamento",
-        src: "/image/menu/escrevendo.png",
+        src: "/image/menu/pagamento.png",
         option: "Pagamento"
     },
     {
         href: "cadastrar/categoria",
-        src: "/image/menu/copiadora.png",
+        src: "/image/menu/categoria.png",
         option: "Categoria"
     }
 ];

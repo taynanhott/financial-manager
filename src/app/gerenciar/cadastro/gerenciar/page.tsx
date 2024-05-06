@@ -5,17 +5,17 @@ import NavOption from "@/components/Resources/NavOption/navoption";
 const gerenciar = [
     {
         href: "gerenciar/investido",
-        src: "/image/menu/escrevendo.png",
+        src: "/image/menu/investidos.png",
         option: "Investidos"
     },
     {
         href: "gerenciar/receber",
-        src: "/image/menu/copiadora.png",
+        src: "/image/menu/receber.png",
         option: "À Receber"
     },
     {
         href: "gerenciar/reserva",
-        src: "/image/menu/copiadora.png",
+        src: "/image/menu/reserva.png",
         option: "Reserva"
     }
 ];

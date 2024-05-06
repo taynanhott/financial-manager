@@ -7,22 +7,22 @@ export default function Gerenciar() {
     const levantamento = [
         {
             href: "levantamento/faturamento",
-            src: "/image/menu/escrevendo.png",
+            src: "/image/menu/faturamento.png",
             option: "Faturamento"
         },
         {
             href: "levantamento/mensal",
-            src: "/image/menu/copiadora.png",
+            src: "/image/menu/mensal.png",
             option: "Mensal"
         },
         {
             href: "levantamento/receber",
-            src: "/image/menu/escrevendo.png",
+            src: "/image/menu/receber.png",
             option: "À Receber"
         },
         {
             href: "levantamento/reserva",
-            src: "/image/menu/copiadora.png",
+            src: "/image/menu/reserva.png",
             option: "Reserva"
         }
     ];
