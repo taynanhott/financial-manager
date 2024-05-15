@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from "react";
 import dynamic from 'next/dynamic';
-
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
 export default function Graph() {
@@ -13,13 +12,17 @@ export default function Graph() {
                 id: "basic-bar"
             },
             xaxis: {
-                categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998]
+                categories: [1, 5, 10, 15, 20, 25, 30]
             }
         },
         series: [
             {
-                name: "series-1",
+                name: "Mês atual",
                 data: [30, 40, 45, 50, 49, 60, 70, 91]
+            },
+            {
+                name: "Mês anterior",
+                data: [15, 67, 40, 20, 39, 60, 83, 88]
             }
         ]
     })
@@ -32,7 +35,7 @@ export default function Graph() {
     if (!isClient) {
         return null;
     }
-    
+
     return (
         <Chart
             className="mx-auto items-center w-full max-w-xl"

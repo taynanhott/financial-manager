@@ -43,7 +43,7 @@ export default function Gerenciar() {
                         <div className="px-2 items-center flex"><Graph /></div>
                     </div>
                     <div className="h-[417.5px] col-span-1 rounded-sm border bg-white">
-                        <div className="px-2 h-2/3 items-center flex bg-gradient-to-r from-green-500 to-green-300"></div>
+                        <div className="px-2 h-2/3 items-center flex bg-gradient-to-r from-green-500 to-green-300"> <Graph /></div>
                         <div className="px-2 h-1/3 items-center flex"></div>
                     </div>
                 </div>
