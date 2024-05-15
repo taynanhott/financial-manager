@@ -1,3 +1,4 @@
+import Graph from "@/components/Resources/GraphApex";
 import Image from "next/image";
 
 function CardDashBoard() {
@@ -39,7 +40,7 @@ export default function Gerenciar() {
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 px-[38px] pt-[38px]">
                     <div className="h-[417.5px] col-span-1 lg:col-span-2 rounded-sm border bg-white">
                         <div className="px-2 items-center flex">Title</div>
-                        <div className="px-2 items-center flex">Grafico</div>
+                        <div className="px-2 items-center flex"><Graph /></div>
                     </div>
                     <div className="h-[417.5px] col-span-1 rounded-sm border bg-white">
                         <div className="px-2 h-2/3 items-center flex bg-gradient-to-r from-green-500 to-green-300"></div>

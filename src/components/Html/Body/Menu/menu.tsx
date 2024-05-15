@@ -75,7 +75,7 @@ export const MenuItem = ({ components }: Props) => {
 
 export default function Menu() {
     return (
-        <div className="fixed flex-none top-0 left-0 bg-slate-800 h-14 lg:h-screen">
+        <div className="fixed flex-none top-0 left-0 bg-slate-800 h-14 lg:h-screen z-10">
             <div className="w-screen lg:w-[240px] p-3">
                 <Label className="text-white text-lg font-poppins-bold text-center items-center flex justify-center col-span-9">
                     Gerenciador Financeiro
