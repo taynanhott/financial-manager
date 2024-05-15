@@ -1,7 +1,9 @@
 "use client"
 
-import React, { useState } from "react";
-import Chart from "react-apexcharts";
+import React, { useEffect, useState } from "react";
+import dynamic from 'next/dynamic';
+
+const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
 export default function Graph() {
 
@@ -22,6 +24,15 @@ export default function Graph() {
         ]
     })
 
+    const [isClient, setIsClient] = useState(false);
+    useEffect(() => {
+        setIsClient(true);
+    }, []);
+
+    if (!isClient) {
+        return null;
+    }
+    
     return (
         <Chart
             className="mx-auto items-center w-full max-w-xl"
