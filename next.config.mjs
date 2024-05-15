@@ -5,7 +5,7 @@ export default {
         return [
             {
                 source: '/',
-                destination: '/gerenciar',
+                destination: '/gerenciar/dashboard/',
                 permanent: false, // Define se o redirecionamento é permanente ou temporário
             },
         ];
