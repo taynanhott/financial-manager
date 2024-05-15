@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-export function CardDashBoard() {
+function CardDashBoard() {
     return (
         <div className="h-32 grid grid-cols-2 rounded-sm border bg-white">
             <div className="col-span-1 px-2  items-center flex">+$ 10000</div>
