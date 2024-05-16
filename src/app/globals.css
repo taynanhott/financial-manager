@@ -138,3 +138,16 @@ input {
   font-style: 'normal';
   font-display: 'swap';
 }
+
+/* styles.css */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+  /* Esconde a barra de rolagem no Chrome, Safari e Opera */
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  /* Esconde a barra de rolagem no IE e Edge */
+  scrollbar-width: none;
+  /* Esconde a barra de rolagem no Firefox */
+}

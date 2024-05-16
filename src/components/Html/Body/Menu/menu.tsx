@@ -110,7 +110,7 @@ export default function Menu() {
                     Gerenciador Financeiro
                 </Label>
             </div>
-            <div className="text-gray-500 pl-4 pb-4 font-poppins pointer-events-none text-sm">
+            <div className="text-gray-500 pl-4 hidden lg:flex pb-4 font-poppins pointer-events-none text-sm">
                 Navegação
             </div>
 
@@ -141,7 +141,7 @@ export default function Menu() {
                 </motion.li>
             </motion.ul >
 
-            <div className="text-gray-500 pl-4 pb-4 font-poppins pointer-events-none text-sm">
+            <div className="text-gray-500 hidden lg:flex pl-4 pb-4 font-poppins pointer-events-none text-sm">
                 Funcionalidades
             </div>
 

@@ -3,6 +3,10 @@
 import Graph from "@/components/Resources/GraphApex";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { AccountOptions } from "@/components/Resources/MenuBar";
+import { TableList } from "@/components/Resources/Table";
+
 
 const graficoDetalhado = [
     {
@@ -122,8 +126,12 @@ export default function Gerenciar() {
         <section className="grow lg:ml-[240px] mt-14 lg:mt-auto bg-gray-100 min-h-full pb-12">
 
             <div id="header-dashboard">
-                <div className="bg-white hidden shadow-md lg:flex w-full items-center h-14 px-2">
-                    Teste
+                <div className="bg-white hidden shadow-md lg:flex w-full items-center justify-end h-14 px-2">
+                    <AccountOptions />
+                    <Avatar>
+                        <AvatarImage src="https://github.com/shadcn.png" />
+                        <AvatarFallback>CN</AvatarFallback>
+                    </Avatar>
                 </div>
             </div>
 
@@ -155,8 +163,8 @@ export default function Gerenciar() {
             <div id="features-dashboard">
                 <div className="grid grid-cols-2 lg:grid-cols-12 gap-8 px-[38px] pt-[38px]">
                     <div className="h-[341px] col-span-8 lg:col-span-5 rounded-sm border bg-white">
-                        <div className="px-2 items-center flex">Title</div>
-                        <div className="px-2 items-center flex">Table</div>
+                        <div className="p-4 items-center text-lg flex font-poppins-bold pt-4">Lista de Devedores</div>
+                        <TableList />
                     </div>
                     <div className="h-[341px] col-span-8 lg:col-span-4 rounded-sm border bg-white">
                         <div className="px-2 items-center flex">Title</div>
