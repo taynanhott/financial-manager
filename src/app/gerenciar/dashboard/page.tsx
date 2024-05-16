@@ -86,6 +86,7 @@ function CardDashBoard({ cards }: Props) {
     return (
         <>{cards.map((card: any, index: number) => (
             <motion.div
+                key={`card-${index}`}
                 className="backdrop-blur-sm"
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
