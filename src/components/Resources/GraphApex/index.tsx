@@ -1,47 +1,43 @@
 "use client"
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import dynamic from 'next/dynamic';
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
-export default function Graph() {
-
-    const [state, setState] = useState({
+interface Props {
+    components: {
         options: {
             chart: {
-                id: "basic-bar"
+                id: string
             },
             xaxis: {
-                categories: [1, 5, 10, 15, 20, 25, 30]
-            }
-        },
-        series: [
-            {
-                name: "Mês atual",
-                data: [30, 40, 45, 50, 49, 60, 70, 91]
+                categories: number[]
             },
-            {
-                name: "Mês anterior",
-                data: [15, 67, 40, 20, 39, 60, 83, 88]
-            }
-        ]
-    })
+            colors?: string[],
+        },
+        series: {
+            name: string,
+            data: number[]
+        }[],
+        height: number
+    }[],
+}
 
-    const [isClient, setIsClient] = useState(false);
-    useEffect(() => {
-        setIsClient(true);
-    }, []);
-
-    if (!isClient) {
-        return null;
-    }
-
+function Graph({ components }: Props) {
     return (
-        <Chart
-            className="mx-auto items-center w-full max-w-xl"
-            options={state.options}
-            series={state.series}
-            type="bar"
-        />
+        <>
+            {components.map(component => (
+                <Chart
+                    key={component.options.chart.id}
+                    className={`w-full pt-4 px-6`}
+                    options={component.options}
+                    series={component.series}
+                    type="bar"
+                    height={component.height}
+                />
+            ))}
+        </>
     )
 }
+
+export default Graph;
