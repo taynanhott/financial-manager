@@ -11,20 +11,20 @@ const graficoDetalhado = [
                 id: "basic-bar"
             },
             xaxis: {
-                categories: [1, 5, 10, 15, 20, 25, 30, 5]
+                categories: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro']
             },
         },
         series: [
             {
-                name: "Mês atual",
-                data: [30, 40, 45, 50, 49, 60, 70, 91]
+                name: "Ano Anterior",
+                data: [1500, 1800, 1400, 2000, 2150, 1900, 1400, 2000, 2250, 2300, 2600, 2450]
             },
             {
-                name: "Mês Anterior",
-                data: [40, 25, 60, 45, 30, 25, 80, 90]
+                name: "Ano atual",
+                data: [2600, 2500, 2250, 2300, 2600, 2450, 2250, 2300, 1400, 2000, 3000, 3200]
             }
         ],
-        height: 275
+        height: 250
     },
 ]
 
@@ -35,7 +35,7 @@ const graficoSimples = [
                 id: "basic-bar"
             },
             xaxis: {
-                categories: [1, 5, 10, 15]
+                categories: ['1ª semana', '2ª semana', '3ª semana', '4ª semana']
             },
             colors: ['#FFFFFF'],
         },
@@ -60,25 +60,25 @@ interface Props {
 
 const cards = [
     {
-        title: `Title`,
-        icon: '/image/card/analise-de-dados.png',
-        text: `Text`,
-        footer: `Footer`,
+        title: `R$ 1000`,
+        icon: '/image/menu/pagamento.png',
+        text: `de saldo atual`,
+        footer: `Conferir Movimentações`,
     }, {
-        title: `Title`,
-        icon: '/image/card/documento-de-texto.png',
-        text: `Text`,
-        footer: `Footer`,
+        title: `R$ 2000`,
+        icon: '/image/menu/receber.png',
+        text: `à receber`,
+        footer: `Conferir Devedores`,
     }, {
-        title: `Title`,
-        icon: '/image/card/agenda.png',
-        text: `Text`,
-        footer: `Footer`,
+        title: `R$ 1500`,
+        icon: '/image/menu/cadastrar.png',
+        text: `pendente pagamento`,
+        footer: `Conferir Dívidas`,
     }, {
-        title: `Title`,
-        icon: '/image/card/baixar.png',
-        text: `Text`,
-        footer: `Footer`,
+        title: `R$ 3000`,
+        icon: '/image/menu/levantamento.png',
+        text: `de previsão de faturamento`,
+        footer: `Conferir Lançamentos`,
     },
 ]
 
@@ -100,8 +100,8 @@ function CardDashBoard({ cards }: Props) {
                         <Image
                             className=""
                             src={card.icon ?? ``}
-                            width={30}
-                            height={30}
+                            width={45}
+                            height={45}
                             alt=""
                         />
                     </div>
@@ -135,16 +135,16 @@ export default function Gerenciar() {
             <div id="mid-dashboard">
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 px-[38px] pt-[38px]">
                     <div className="h-[341px] col-span-1 lg:col-span-2 rounded-sm border bg-white">
-                        <div className="px-2 items-center flex">Title</div>
+                        <div className="px-4 items-center text-lg flex font-poppins-bold pt-4">Faturamento Anual</div>
 
-                        <div className="px-2 tems-center flex">
+                        <div className="tems-center flex">
                             <Graph components={graficoDetalhado} />
                         </div>
 
                     </div>
                     <div className="h-[341px] col-span-1 rounded-sm border bg-white">
 
-                        <div className="px-2 h-2/3 bg-gradient-to-r from-green-500 to-green-300">
+                        <div className="h-2/3 bg-gradient-to-r from-green-500 to-green-300">
                             <Graph components={graficoSimples} />
                         </div>
 

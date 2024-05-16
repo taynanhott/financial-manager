@@ -11,7 +11,7 @@ interface Props {
                 id: string
             },
             xaxis: {
-                categories: number[]
+                categories: string[]
             },
             colors?: string[],
         },
