@@ -165,11 +165,9 @@ export default function Gerenciar() {
                             <Graph components={graficoSimples} />
                         </div>
 
-                        <div className="p-4 h-1/3 items-center grid grid-cols-2">
-                            <div className="px-2 col-span-2 font-poppins-bold text-lg">Distribuição semanal</div>
-                            <div className="px-2 col-span-2 font-poppins">Periodo xx/xx/xxxx à xx/xx/xxxx</div>
-                            <div className="px-2 col-span-1 font-poppins">Valor Gasto: R$ 175</div>
-                            <div className="px-2 col-span-1 font-poppins">Valor Restante: R$ 75</div>
+                        <div className="p-4 h-1/3 items-center">
+                            <div className="px-2 flex justify-start font-poppins-bold text-lg">Distribuição semanal</div>
+                            <div className="px-2 pt-2 flex justify-start text-nowrap font-poppins">xx/xx/xxxx à xx/xx/xxxx</div>
                         </div>
                     </div>
                 </div>
