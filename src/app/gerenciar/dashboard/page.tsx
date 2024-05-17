@@ -7,12 +7,11 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { AccountOptions } from "@/components/Resources/MenuBar";
 import { TableList } from "@/components/Resources/Table";
 
-
 const graficoDetalhado = [
     {
         options: {
             chart: {
-                id: "basic-bar"
+                id: "bar" as const
             },
             xaxis: {
                 categories: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro']
@@ -36,7 +35,7 @@ const graficoSimples = [
     {
         options: {
             chart: {
-                id: "basic-bar"
+                id: "bar" as const
             },
             xaxis: {
                 categories: ['1ª semana', '2ª semana', '3ª semana', '4ª semana']
@@ -54,6 +53,19 @@ const graficoSimples = [
             }
         ],
         height: 200
+    },
+]
+
+const graficoDonut = [
+    {
+        options: {
+            chart: {
+                id: "donut" as const
+            },
+            labels: ['Débito', 'Crédito']
+        },
+        series: [1570, 1250],
+        height: 270
     },
 ]
 
@@ -95,7 +107,7 @@ function CardDashBoard({ cards }: Props) {
         <>{cards.map((card: any, index: number) => (
             <motion.div
                 key={`card-${index}`}
-                className="backdrop-blur-sm"
+                className="backdrop-blur-sm shadow-md"
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 1, y: 0 }}
@@ -144,22 +156,22 @@ export default function Gerenciar() {
                 </div>
             </div>
 
-            <div id="top-dashboard">
+            <div id="top-dashboard shadow-md">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 px-[38px] pt-[38px]">
                     <CardDashBoard cards={cards} />
                 </div>
             </div>
             <div id="mid-dashboard">
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 px-[38px] pt-[38px]">
-                    <div className="h-[341px] col-span-1 lg:col-span-2 rounded-sm border bg-white">
+                    <div className="h-[341px] col-span-1 lg:col-span-2 rounded-sm border bg-white shadow-md">
                         <div className="px-4 items-center text-lg flex font-poppins-bold pt-4">Faturamento Anual</div>
 
-                        <div className="tems-center flex">
+                        <div className="tems-center flex ">
                             <Graph components={graficoDetalhado} />
                         </div>
 
                     </div>
-                    <div className="h-[341px] col-span-1 rounded-sm border bg-white">
+                    <div className="h-[341px] col-span-1 rounded-sm border bg-white shadow-md">
 
                         <div className="h-2/3 bg-gradient-to-r from-slate-400 to-slate-300">
                             <Graph components={graficoSimples} />
@@ -174,23 +186,24 @@ export default function Gerenciar() {
             </div>
             <div id="features-dashboard">
                 <div className="grid grid-cols-2 lg:grid-cols-12 gap-8 px-[38px] pt-[38px]">
-                    <div className="h-[341px] col-span-8 lg:col-span-5 rounded-sm border bg-white">
+                    <div className="h-[341px] col-span-8 lg:col-span-5 rounded-sm border bg-white shadow-md">
                         <div className="col-span-1 items-center text-lg font-poppins-bold px-4 pt-4">Lista de Devedores</div>
                         <TableList />
                     </div>
-                    <div className="h-[341px] col-span-8 lg:col-span-4 rounded-sm border bg-white">
-                        <div className="px-2 items-center flex">Title</div>
-                        <div className="px-2 items-center flex">Graph Pizza</div>
+                    <div className="h-[341px] col-span-8 lg:col-span-4 rounded-sm border bg-white shadow-md">
+                        <div className="col-span-1 items-center text-lg font-poppins-bold px-4 pt-4">% Por Categoria</div>
+                        <div className="bg-gradient-to-r">
+                            <Graph components={graficoDonut} />
+                        </div>
                     </div>
                     <div className="h-52 lg:h-[341px] grid grid-cols-8 lg:grid-cols-1 gap-8 col-span-8 lg:col-span-3 rounded-sm">
-                        <div className="col-span-4 lg:col-span-1 rounded-sm border bg-white">
-                            <div className="px-2 items-center flex">Title</div>
-                            <div className="px-2 items-center flex">Count</div>
+                        <div className="col-span-4 lg:col-span-1 rounded-sm border bg-white shadow-md">
+                            <div className="col-span-1 items-center text-lg font-poppins-bold px-4 pt-4">Title</div>
+                            <div className="p-4 h-1/3 items-center">Count</div>
                         </div>
-                        <div className="col-span-4 lg:col-span-1 rounded-sm border bg-white">
-                            <div className="px-2 col-span-2 items-center flex">Title</div>
-                            <div className="px-2 col-span-1 items-center flex">Title</div>
-                            <div className="px-2 col-span-1 items-center flex">Count</div>
+                        <div className="col-span-4 lg:col-span-1 rounded-sm border bg-white shadow-md">
+                            <div className="col-span-1 items-center text-lg font-poppins-bold px-4 pt-4">Title</div>
+                            <div className="p-4 h-1/3 items-center">Count</div>
                         </div>
                     </div>
                 </div>

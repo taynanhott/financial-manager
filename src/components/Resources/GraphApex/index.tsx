@@ -8,14 +8,15 @@ interface Props {
     components: {
         options: {
             chart: {
-                id: string
+                id: "area" | "line" | "donut" | "bar" | "pie" | "radialBar" | "scatter" | "bubble" | "heatmap" | "candlestick" | "boxPlot" | "radar" | "polarArea" | "rangeBar" | "rangeArea" | "treemap" | undefined
             },
-            xaxis: {
+            xaxis?: {
                 categories: string[]
             },
+            labels?: string[],
             colors?: string[],
         },
-        series: {
+        series: number[] | {
             name: string,
             data: number[]
         }[],
@@ -32,7 +33,7 @@ function Graph({ components }: Props) {
                     className={`w-full pt-4 px-4`}
                     options={component.options}
                     series={component.series}
-                    type="bar"
+                    type={component.options.chart.id}
                     height={component.height}
                 />
             ))}

@@ -1,4 +1,4 @@
-'use client'
+"use client"
 
 import { Label } from "@/components/ui/label";
 import { motion } from "framer-motion";
@@ -92,8 +92,7 @@ export const MenuItem = ({ components }: Props) => {
     return (
         <motion.li
             variants={variants}
-            whileHover={{ scale: 1.03 }}
-            className="block items-center ml-4 cursor-pointer"
+            className="block items-center ml-4 max-h-6 cursor-pointer"
         >
             <a href={components.href} target="_self" className="hover:border-b mt-4 hover:border-white flex items-center">
                 {`> ${components.name}`}
@@ -130,7 +129,7 @@ export default function Menu() {
                         <motion.div
                             className="font-poppins text-gray-400"
                             key={`li-${index}`}
-                            initial={{ opacity: 0, y: 50 }}
+                            initial={{ opacity: 0, y: 50}}
                             whileInView={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5, delay: index * 0.1 }}

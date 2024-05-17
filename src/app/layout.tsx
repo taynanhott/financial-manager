@@ -19,10 +19,8 @@ export default function RootLayout({ children }: Props) {
         <head>
         </head>
         <body>
-          <div className="flex">
-            <Menu />
-            {children}
-          </div>
+          <Menu />
+          {children}
         </body>
       </html>
     </>
