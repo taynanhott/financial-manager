@@ -29,7 +29,7 @@ function Graph({ components }: Props) {
             {components.map(component => (
                 <Chart
                     key={component.options.chart.id}
-                    className={`w-full pt-4 px-6`}
+                    className={`w-full pt-4 px-4`}
                     options={component.options}
                     series={component.series}
                     type="bar"

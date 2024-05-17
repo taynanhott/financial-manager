@@ -41,12 +41,16 @@ const graficoSimples = [
             xaxis: {
                 categories: ['1ª semana', '2ª semana', '3ª semana', '4ª semana']
             },
-            colors: ['#FFFFFF'],
         },
         series: [
             {
-                name: "Mês atual",
-                data: [30, 40, 50, 45]
+                name: "Valor semanal",
+                data: [250, 250, 250, 250]
+            },
+
+            {
+                name: "Valor Gasto",
+                data: [650, 450, 175, 0]
             }
         ],
         height: 200
@@ -67,22 +71,22 @@ const cards = [
         title: `R$ 1000`,
         icon: '/image/menu/pagamento.png',
         text: `de saldo atual`,
-        footer: `Conferir Movimentações`,
+        footer: `Conferir as Movimentações`,
     }, {
         title: `R$ 2000`,
         icon: '/image/menu/receber.png',
         text: `à receber`,
-        footer: `Conferir Devedores`,
+        footer: `Conferir os Devedores`,
     }, {
         title: `R$ 1500`,
         icon: '/image/menu/cadastrar.png',
         text: `pendente pagamento`,
-        footer: `Conferir Dívidas`,
+        footer: `Conferir as Dívidas`,
     }, {
         title: `R$ 3000`,
         icon: '/image/menu/levantamento.png',
         text: `de previsão de faturamento`,
-        footer: `Conferir Lançamentos`,
+        footer: `Conferir os Lançamentos`,
     },
 ]
 
@@ -98,7 +102,7 @@ function CardDashBoard({ cards }: Props) {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
             >
-                <div className="h-32 grid grid-cols-2 lg:hover:scale-105 rounded-sm border bg-white transition ease-in-out hover:-translate-y-1 duration-700">
+                <div className="h-48 min-h-48 grid grid-cols-2 lg:hover:scale-105 rounded-sm border bg-white transition ease-in-out hover:-translate-y-1 duration-700">
                     <div className="col-span-2 px-4 pt-2 flex justify-between items-center">
                         <div className="text-lg font-poppins-bold">{card.title}</div>
                         <Image
@@ -109,7 +113,7 @@ function CardDashBoard({ cards }: Props) {
                             alt=""
                         />
                     </div>
-                    <div className="col-span-2 px-4 pb-2 items-center flex">{card.text}</div>
+                    <div className="col-span-2 px-4 font-poppins">{card.text}</div>
                     <div className="col-span-2 rounded-b-sm px-2 items-center flex font-poppins-bold text-white bg-gradient-to-r from-slate-700 to-slate-500">
                         {card.footer}
                     </div>
@@ -126,12 +130,17 @@ export default function Gerenciar() {
         <section className="grow lg:ml-[240px] mt-14 lg:mt-auto bg-gray-100 min-h-full pb-12">
 
             <div id="header-dashboard">
-                <div className="bg-white hidden shadow-md lg:flex w-full items-center justify-end h-14 px-2">
-                    <AccountOptions />
-                    <Avatar>
-                        <AvatarImage src="https://github.com/shadcn.png" />
-                        <AvatarFallback>CN</AvatarFallback>
-                    </Avatar>
+                <div className="bg-white hidden shadow-md lg:flex w-full items-center justify-between h-14 px-2">
+                    <div className="flex ml-8">
+                        {`[ SELETOR DE DATA ]`}
+                    </div>
+                    <div className="flex mr-8">
+                        <AccountOptions />
+                        <Avatar>
+                            <AvatarImage src="https://github.com/shadcn.png" />
+                            <AvatarFallback>CN</AvatarFallback>
+                        </Avatar>
+                    </div>
                 </div>
             </div>
 
@@ -152,18 +161,23 @@ export default function Gerenciar() {
                     </div>
                     <div className="h-[341px] col-span-1 rounded-sm border bg-white">
 
-                        <div className="h-2/3 bg-gradient-to-r from-green-500 to-green-300">
+                        <div className="h-2/3 bg-gradient-to-r from-slate-400 to-slate-300">
                             <Graph components={graficoSimples} />
                         </div>
 
-                        <div className="px-2 h-1/3 items-center flex"></div>
+                        <div className="p-4 h-1/3 items-center grid grid-cols-2">
+                            <div className="px-2 col-span-2 font-poppins-bold text-lg">Distribuição semanal</div>
+                            <div className="px-2 col-span-2 font-poppins">Periodo xx/xx/xxxx à xx/xx/xxxx</div>
+                            <div className="px-2 col-span-1 font-poppins">Valor Gasto: R$ 175</div>
+                            <div className="px-2 col-span-1 font-poppins">Valor Restante: R$ 75</div>
+                        </div>
                     </div>
                 </div>
             </div>
             <div id="features-dashboard">
                 <div className="grid grid-cols-2 lg:grid-cols-12 gap-8 px-[38px] pt-[38px]">
                     <div className="h-[341px] col-span-8 lg:col-span-5 rounded-sm border bg-white">
-                        <div className="p-4 items-center text-lg flex font-poppins-bold pt-4">Lista de Devedores</div>
+                        <div className="p-4 col-span-1 items-center text-lg font-poppins-bold pt-4">Lista de Devedores</div>
                         <TableList />
                     </div>
                     <div className="h-[341px] col-span-8 lg:col-span-4 rounded-sm border bg-white">
@@ -176,8 +190,9 @@ export default function Gerenciar() {
                             <div className="px-2 items-center flex">Count</div>
                         </div>
                         <div className="col-span-4 lg:col-span-1 rounded-sm border bg-white">
-                            <div className="px-2 items-center flex">Title</div>
-                            <div className="px-2 items-center flex">Count</div>
+                            <div className="px-2 col-span-2 items-center flex">Title</div>
+                            <div className="px-2 col-span-1 items-center flex">Title</div>
+                            <div className="px-2 col-span-1 items-center flex">Count</div>
                         </div>
                     </div>
                 </div>
