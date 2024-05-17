@@ -139,8 +139,7 @@ function CardDashBoard({ cards }: Props) {
 
 export default function Gerenciar() {
     return (
-        <section className="grow lg:ml-[240px] mt-14 lg:mt-auto bg-gray-100 min-h-full pb-12">
-
+        <section className="grow lg:ml-[240px] mt-14 lg:mt-auto pb-12">
             <div id="header-dashboard">
                 <div className="bg-white hidden shadow-md lg:flex w-full items-center justify-between h-14 px-2">
                     <div className="flex ml-8">
@@ -197,13 +196,15 @@ export default function Gerenciar() {
                         </div>
                     </div>
                     <div className="h-52 lg:h-[341px] grid grid-cols-8 lg:grid-cols-1 gap-8 col-span-8 lg:col-span-3 rounded-sm">
-                        <div className="col-span-4 lg:col-span-1 rounded-sm border bg-white shadow-md">
-                            <div className="col-span-1 items-center text-lg font-poppins-bold px-4 pt-4">Title</div>
-                            <div className="p-4 h-1/3 items-center">Count</div>
+                        <div className="col-span-8 md:col-span-4 lg:col-span-1 rounded-sm border bg-white shadow-md">
+                            <div className="col-span-1 h-2/3 flex justify-center text-[160%] text-nowrap items-center font-poppins-bold p-4 text-rose-500 bg-gradient-to-r from-rose-300 to-rose-200">R$ 1.250,75</div>
+                            <div className="px-4 h-1/3 flex justify-center lg:justify-start font-poppins-bold items-center">Movimentações Debitadas</div>
                         </div>
-                        <div className="col-span-4 lg:col-span-1 rounded-sm border bg-white shadow-md">
-                            <div className="col-span-1 items-center text-lg font-poppins-bold px-4 pt-4">Title</div>
-                            <div className="p-4 h-1/3 items-center">Count</div>
+                        <div className="col-span-8 md:col-span-4 lg:col-span-1 rounded-sm border bg-white shadow-md">
+                            <div className="h-2/3 flex justify-center items-center p-4 text-green-500  bg-gradient-to-r from-green-300 to-green-200">
+                                <p className="font-poppins-bold flex text-[160%] text-nowrap justify-center">R$ 1.750,20</p>
+                            </div>
+                            <div className="px-4 h-1/3 flex  justify-center lg:justify-start  font-poppins-bold items-center">Movimentações Creditadas</div>
                         </div>
                     </div>
                 </div>

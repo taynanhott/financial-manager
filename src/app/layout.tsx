@@ -18,7 +18,7 @@ export default function RootLayout({ children }: Props) {
       <html lang="en" suppressHydrationWarning>
         <head>
         </head>
-        <body>
+        <body className="bg-gray-100">
           <Menu />
           {children}
         </body>
