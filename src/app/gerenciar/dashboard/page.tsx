@@ -141,11 +141,10 @@ export default function Gerenciar() {
     return (
         <section className="grow lg:ml-[240px] mt-14 lg:mt-auto pb-12">
             <div id="header-dashboard">
-                <div className="bg-white hidden shadow-md lg:flex w-full items-center justify-between h-14 px-2">
+                <div className="bg-white hidden lg:flex justify-between items-center shadow-md w-full h-14 px-2 z-20">
                     <div className="flex ml-8">
-                        {`[ SELETOR DE DATA ]`}
                     </div>
-                    <div className="flex mr-8">
+                    <div className="flex items-center space-x-4 mr-8">
                         <AccountOptions />
                         <Avatar>
                             <AvatarImage src="https://github.com/shadcn.png" />
