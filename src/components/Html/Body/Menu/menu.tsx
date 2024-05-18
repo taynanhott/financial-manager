@@ -121,7 +121,7 @@ export default function Menu() {
                         Gerenciador Financeiro
                     </Label>
                 </div>
-                <div className={`h-screen w-[240px] ${isOpen ? '' : 'hidden lg:block'} bg-slate-700 lg:bg-slate-800`}>
+                <div className={`mt-1 h-screen w-[240px] ${isOpen ? '' : 'hidden lg:block'} bg-slate-700 lg:bg-slate-800 z-10`}>
                     <div className="text-gray-500 pl-4 pt-4 lg:flex pb-4 font-poppins pointer-events-none text-sm">
                         Navegação
                     </div>
