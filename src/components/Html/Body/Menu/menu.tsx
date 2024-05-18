@@ -102,7 +102,7 @@ export const MenuItem = ({ components }: Props) => {
 };
 
 export default function Menu() {
-    const [isOpen, setIsOpen] = useState(true);
+    const [isOpen, setIsOpen] = useState(false);
 
     return (
         <>
