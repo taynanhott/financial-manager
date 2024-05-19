@@ -3,11 +3,9 @@
 import Graph from "@/components/Resources/GraphApex";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { AccountOptions } from "@/components/Resources/MenuBar";
 import { TableList } from "@/components/Resources/Table";
 import React from "react";
-import { DatePickerRange } from "@/components/Resources/DatePicker";
+import Submenu from "@/components/Html/Body/Submenu/submenu";
 
 const graficoDetalhado = [
     {
@@ -167,18 +165,7 @@ export default function Gerenciar() {
     return (
         <section className="grow lg:ml-[240px] mt-14 lg:mt-auto pb-12">
             <div id="header-dashboard">
-                <div className="bg-white hidden lg:flex justify-between items-center shadow-md w-full h-14 px-2 z-20">
-                    <div className="flex ml-8">
-                        <DatePickerRange />
-                    </div>
-                    <div className="flex items-center space-x-4 mr-8">
-                        <AccountOptions />
-                        <Avatar>
-                            <AvatarImage src="https://github.com/shadcn.png" />
-                            <AvatarFallback>CN</AvatarFallback>
-                        </Avatar>
-                    </div>
-                </div>
+                <Submenu />
             </div>
 
             <div id="top-dashboard shadow-md">
