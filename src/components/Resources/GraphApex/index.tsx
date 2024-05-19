@@ -8,16 +8,11 @@ interface Props {
     components: {
         options: {
             chart: {
-                id: "area" | "line" | "donut" | "bar" | "pie" | "radialBar" | "scatter" | "bubble" | "heatmap" | "candlestick" | "boxPlot" | "radar" | "polarArea" | "rangeBar" | "rangeArea" | "treemap" | undefined
+                id: "area" | "line" | "donut" | "bar" | "pie" | "radialBar" | "scatter" | "bubble" | "heatmap" | "candlestick" | "boxPlot" | "radar" | "polarArea" | "rangeBar" | "rangeArea" | "treemap" | undefined,
                 foreColor?: string
             },
             xaxis?: {
                 categories: string[]
-            },
-            yaxis?: {
-                lines: {
-                    show: boolean,
-                }
             },
             labels?: string[],
             colors?: string[],

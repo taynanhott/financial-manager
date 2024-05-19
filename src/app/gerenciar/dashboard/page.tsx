@@ -50,11 +50,6 @@ const graficoSimples = [
             xaxis: {
                 categories: ['1ª semana', '2ª semana', '3ª semana', '4ª semana']
             },
-            yaxis: {
-                lines: {
-                    show: true,
-                }
-            },
             grid: {
                 position: 'front'
             },
