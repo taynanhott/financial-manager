@@ -6,6 +6,8 @@ import { motion } from "framer-motion";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { AccountOptions } from "@/components/Resources/MenuBar";
 import { TableList } from "@/components/Resources/Table";
+import React from "react";
+import { DatePickerRange } from "@/components/Resources/DatePicker";
 
 const graficoDetalhado = [
     {
@@ -16,15 +18,22 @@ const graficoDetalhado = [
             xaxis: {
                 categories: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro']
             },
+            dataLabels: {
+                enabled: false,
+            },
+            fill: {
+                colors: ['#334155', '#0f172a']
+            },
+            colors: ['#64748b', '#0f172a']
         },
         series: [
             {
                 name: "Ano Anterior",
-                data: [1500, 1800, 1400, 2000, 2150, 1900, 1400, 2000, 2250, 2300, 2600, 2450]
+                data: [1500, 1800, 1400, 2000, 2150, 1900, 1400, 2000, 2250, 2300, 2650, 2450]
             },
             {
                 name: "Ano atual",
-                data: [2600, 2500, 2250, 2300, 2600, 2450, 2250, 2300, 1400, 2000, 3000, 3200]
+                data: [2600, 2500, 2350, 2300, 2600, 2450, 2250, 2300, 1400, 2000, 3000, 3200]
             }
         ],
         height: 250
@@ -35,10 +44,28 @@ const graficoSimples = [
     {
         options: {
             chart: {
-                id: "bar" as const
+                id: "bar" as const,
+                foreColor: '#F5F5F5'
             },
             xaxis: {
                 categories: ['1ª semana', '2ª semana', '3ª semana', '4ª semana']
+            },
+            yaxis: {
+                lines: {
+                    show: true,
+                }
+            },
+            grid: {
+                position: 'front'
+            },
+            fill: {
+                colors: ['#F5F5F5', '#b1b7b4']
+            },
+            colors: ['#F5F5F5', '#b1b7b4'],
+            dataLabels: {
+                style: {
+                    colors: ['#0f172a']
+                }
             },
         },
         series: [
@@ -49,7 +76,7 @@ const graficoSimples = [
 
             {
                 name: "Valor Gasto",
-                data: [650, 450, 175, 0]
+                data: [650, 450, 175, 50]
             }
         ],
         height: 200
@@ -62,10 +89,13 @@ const graficoDonut = [
             chart: {
                 id: "donut" as const
             },
-            labels: ['Débito', 'Crédito']
+            labels: ['Débito', 'Crédito'],
+            legend: {
+                position: 'bottom' as const
+            }
         },
         series: [1570, 1250],
-        height: 270
+        height: 290
     },
 ]
 
@@ -138,11 +168,13 @@ function CardDashBoard({ cards }: Props) {
 }
 
 export default function Gerenciar() {
+
     return (
         <section className="grow lg:ml-[240px] mt-14 lg:mt-auto pb-12">
             <div id="header-dashboard">
                 <div className="bg-white hidden lg:flex justify-between items-center shadow-md w-full h-14 px-2 z-20">
                     <div className="flex ml-8">
+                        <DatePickerRange />
                     </div>
                     <div className="flex items-center space-x-4 mr-8">
                         <AccountOptions />
@@ -164,20 +196,20 @@ export default function Gerenciar() {
                     <div className="h-[341px] col-span-1 lg:col-span-2 rounded-sm border bg-white shadow-md">
                         <div className="px-4 items-center text-lg flex font-poppins-bold pt-4">Faturamento Anual</div>
 
-                        <div className="tems-center flex ">
+                        <div className="tems-center flex">
                             <Graph components={graficoDetalhado} />
                         </div>
 
                     </div>
                     <div className="h-[341px] col-span-1 rounded-sm border bg-white shadow-md">
 
-                        <div className="h-2/3 bg-gradient-to-r from-slate-400 to-slate-300">
+                        <div className="h-2/3 bg-gradient-to-r from-slate-800 to-slate-600">
                             <Graph components={graficoSimples} />
                         </div>
 
                         <div className="p-4 h-1/3 items-center">
                             <div className="px-2 flex justify-start font-poppins-bold text-lg">Distribuição semanal</div>
-                            <div className="px-2 pt-2 flex justify-start text-nowrap font-poppins">xx/xx/xxxx à xx/xx/xxxx</div>
+                            <div className="px-2 pt-2 flex justify-start text-nowrap font-poppins">01/05/2024 à 31/05/2024</div>
                         </div>
                     </div>
                 </div>

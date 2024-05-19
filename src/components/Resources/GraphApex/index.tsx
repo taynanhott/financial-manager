@@ -9,18 +9,36 @@ interface Props {
         options: {
             chart: {
                 id: "area" | "line" | "donut" | "bar" | "pie" | "radialBar" | "scatter" | "bubble" | "heatmap" | "candlestick" | "boxPlot" | "radar" | "polarArea" | "rangeBar" | "rangeArea" | "treemap" | undefined
+                foreColor?: string
             },
             xaxis?: {
                 categories: string[]
             },
+            yaxis?: {
+                lines: {
+                    show: boolean,
+                }
+            },
             labels?: string[],
             colors?: string[],
+            legend?: {
+                position: "bottom" | "left" | "right" | "top" | undefined
+            },
+            dataLabels?: {
+                enabled?: boolean,
+                style?: {
+                    colors: string[]
+                }
+            },
+            fill?: {
+                colors: string[]
+            }
         },
         series: number[] | {
             name: string,
             data: number[]
         }[],
-        height: number
+        height?: number
     }[],
 }
 
