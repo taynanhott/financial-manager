@@ -43,7 +43,7 @@ const navegation = [
     {
         index: 0,
         name: 'Dashboard',
-        href: 'https://financial.taynan.dev/home',
+        href: 'https://financial.taynan.dev/gerenciar/dashboard',
     },
     {
         index: 1,
