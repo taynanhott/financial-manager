@@ -43,12 +43,12 @@ const navegation = [
     {
         index: 0,
         name: 'Dashboard',
-        href: 'https://financial.taynan.dev',
+        href: 'https://financial.taynan.dev/home',
     },
     {
         index: 1,
         name: 'Portfólio',
-        href: 'https://taynan.dev',
+        href: 'https://taynan.dev/home',
     },
 ];
 
@@ -56,12 +56,12 @@ const cadastro = [
     {
         index: 0,
         name: 'Pagamento',
-        href: 'https://financial.taynan.dev',
+        href: '/gerenciar/cadastrar/pagamento',
     },
     {
         index: 1,
         name: 'Categoria',
-        href: 'https://financial.taynan.dev',
+        href: '/gerenciar/cadastrar/categoria',
     },
 ];
 
@@ -69,22 +69,22 @@ const levantamento = [
     {
         index: 0,
         name: 'Faturamento',
-        href: 'https://financial.taynan.dev',
+        href: '/gerenciar/levantamento/faturamento',
     },
     {
         index: 1,
         name: 'Contas à receber',
-        href: 'https://financial.taynan.dev',
+        href: '/gerenciar/levantamento/receber',
     },
     {
         index: 2,
         name: 'Contas à pagar',
-        href: 'https://financial.taynan.dev',
+        href: '/gerenciar/levantamento/pagar',
     },
     {
         index: 3,
         name: 'Reserva',
-        href: 'https://financial.taynan.dev',
+        href: '/gerenciar/levantamento/reserva',
     },
 ];
 
