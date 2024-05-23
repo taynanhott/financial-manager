@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import "../globals.css";
 import { ReactNode } from "react";
 import Menu from "@/components/Html/Body/Menu/menu";
+import { EntriesProvider } from "../../context/EntriesContext"; // Importa o provider
+import { DeptorProvider } from "@/context/DebtorContext";
 
 interface Props {
   children: ReactNode
@@ -19,8 +21,12 @@ export default function RootLayout({ children }: Props) {
         <head>
         </head>
         <body className="bg-gray-100">
-          <Menu />
-          {children}
+          <EntriesProvider>
+            <DeptorProvider>
+              <Menu />
+              {children}
+            </DeptorProvider>
+          </EntriesProvider>
         </body>
       </html>
     </>

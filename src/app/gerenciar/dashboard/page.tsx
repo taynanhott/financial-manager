@@ -7,6 +7,7 @@ import { TableList } from "@/components/Resources/Table";
 import React from "react";
 import Submenu from "@/components/Html/Body/Submenu/submenu";
 import Link from "next/link";
+import { useEntries } from "@/context/EntriesContext";
 
 const graficoDetalhado = [
     {
@@ -132,38 +133,41 @@ const cards = [
 ]
 
 function CardDashBoard({ cards }: Props) {
+    const { entries } = useEntries();
+
     return (
-        <>{cards.map((card: any, index: number) => (
-            <motion.div
-                key={`card-${index}`}
-                className="backdrop-blur-sm shadow-md"
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                viewport={{ once: true }}
-            >
-                <Link href={card.href} target="_self">
-                    <div className="h-48 min-h-48 grid grid-cols-2 lg:hover:scale-105 rounded-sm border bg-white transition ease-in-out hover:-translate-y-1 duration-700">
-                        <div className="col-span-2 px-4 pt-2 flex justify-between items-center">
-                            <div className="text-lg font-poppins-bold">{card.title}</div>
-                            <Image
-                                className=""
-                                src={card.icon ?? ``}
-                                width={45}
-                                height={45}
-                                alt=""
-                            />
+        <>
+            {cards.map((card: any, index: number) => (
+                <motion.div
+                    key={`card-${index}`}
+                    className="backdrop-blur-sm shadow-md"
+                    initial={{ opacity: 0, y: 50 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    viewport={{ once: true }}
+                >
+                    <Link href={card.href} target="_self">
+                        <div className="h-48 min-h-48 grid grid-cols-2 lg:hover:scale-105 rounded-sm border bg-white transition ease-in-out hover:-translate-y-1 duration-700">
+                            <div className="col-span-2 px-4 pt-2 flex justify-between items-center">
+                                <div className="text-lg font-poppins-bold">{card.title}</div>
+                                <Image
+                                    className=""
+                                    src={card.icon ?? ``}
+                                    width={45}
+                                    height={45}
+                                    alt=""
+                                />
+                            </div>
+                            <div className="col-span-2 px-4 font-poppins">{card.text}</div>
+                            <div className="col-span-2 rounded-b-sm px-2 items-center flex font-poppins-bold text-white bg-gradient-to-r from-slate-700 to-slate-500">
+                                {card.footer}
+                            </div>
                         </div>
-                        <div className="col-span-2 px-4 font-poppins">{card.text}</div>
-                        <div className="col-span-2 rounded-b-sm px-2 items-center flex font-poppins-bold text-white bg-gradient-to-r from-slate-700 to-slate-500">
-                            {card.footer}
-                        </div>
-                    </div>
-                </Link>
-            </motion.div >
-        ))
-        }
+                    </Link>
+                </motion.div >
+            ))
+            }
         </>
     )
 }

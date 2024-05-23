@@ -1,4 +1,5 @@
 import { ScrollArea } from "@/components/ui/scroll-area"
+import { useDeptor } from "@/context/DebtorContext";
 
 const invoices = [
     {
@@ -49,6 +50,8 @@ const invoices = [
 ]
 
 export function TableList() {
+    const { deptor } = useDeptor();
+
     return (
         <ScrollArea className="h-72 p-4 w-full rounded-md">
             <div className="relative">
@@ -61,7 +64,7 @@ export function TableList() {
                         </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">
-                        {invoices.map((invoice, index) => (
+                        {deptor.map((invoice: any, index: number) => (
                             <tr key={index}>
                                 <td className="p-2 text-sm font-medium text-gray-900">{invoice.invoice}</td>
                                 <td className="p-2 text-sm text-gray-500">{invoice.paymentStatus}</td>
