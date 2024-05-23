@@ -1,5 +1,6 @@
 import Submenu from "@/components/Html/Body/Submenu/submenu";
 import Graph from "@/components/Resources/GraphApex";
+import { Label } from "@/components/ui/label";
 
 const graficoSimples = [
     {
@@ -59,8 +60,11 @@ export default function Categoria() {
                         <div className="px-4 items-center text-lg flex font-poppins-bold pt-4"></div>
 
                         <div className="tems-center flex">
-                        </div>
+                            <Label className="ml-2">Descrição Categoria</Label>
+                            <input className="bg-slate-100 border border-black" id="descricao" name="descricao" type="text"></input>
 
+                            <button className="ml-2 border border-black" type="submit">Salvar</button>
+                        </div>
                     </div>
                 </div>
             </div>

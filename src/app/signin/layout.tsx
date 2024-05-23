@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
-import "./globals.css";
 import { ReactNode } from "react";
-import Menu from "@/components/Html/Body/Menu/menu";
+import "../globals.css";
 
 interface Props {
   children: ReactNode
@@ -18,8 +17,7 @@ export default function RootLayout({ children }: Props) {
       <html lang="en" suppressHydrationWarning>
         <head>
         </head>
-        <body className="bg-gray-100">
-          <Menu />
+        <body>
           {children}
         </body>
       </html>

@@ -3,6 +3,7 @@
 import { Label } from "@/components/ui/label";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 
 const variants = {
@@ -59,6 +60,11 @@ const cadastro = [
         href: '/gerenciar/cadastrar/pagamento',
     },
     {
+        index: 0,
+        name: 'Arrecadação',
+        href: '/gerenciar/cadastrar/arrecadar',
+    },
+    {
         index: 1,
         name: 'Categoria',
         href: '/gerenciar/cadastrar/categoria',
@@ -94,9 +100,9 @@ export const MenuItem = ({ components }: Props) => {
             variants={variants}
             className="block items-center ml-4 max-h-6 cursor-pointer"
         >
-            <a href={components.href} target="_self" className="hover:border-b mt-4 hover:border-white flex items-center">
+            <Link href={components.href} target="_self" className="hover:border-b mt-4 hover:border-white flex items-center">
                 {`> ${components.name}`}
-            </a>
+            </Link>
         </motion.li>
     );
 };

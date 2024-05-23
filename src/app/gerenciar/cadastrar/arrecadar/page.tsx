@@ -1,6 +1,5 @@
 import Submenu from "@/components/Html/Body/Submenu/submenu";
 import Graph from "@/components/Resources/GraphApex";
-import { Label } from "@/components/ui/label";
 
 const graficoSimples = [
     {
@@ -46,7 +45,7 @@ const graficoSimples = [
         height: 300
     },
 ]
-export default function Pagamento() {
+export default function Arrecadar() {
 
     return (
         <section className="grow lg:ml-[240px] mt-14 lg:mt-auto pb-12">
@@ -58,19 +57,8 @@ export default function Pagamento() {
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 px-[38px] pt-[38px]">
                     <div className="h-[341px] col-span-1 lg:col-span-2 rounded-sm border bg-white shadow-md">
                         <div className="px-4 items-center text-lg flex font-poppins-bold pt-4"></div>
-                        <div className="items-center flex">
-                            <Label className="ml-2">Descrição</Label>
-                            <input className="bg-slate-100 border border-black" id="descricao" name="descricao" type="text"></input>
 
-                            <Label className="ml-2">Categoria</Label>
-                            <select className="bg-slate-100 border border-black" id="categoria" name="categoria">
-                                <option>Selecione uma opção</option>
-                            </select>
-
-                            <Label className="ml-2">Valor</Label>
-                            <input className="bg-slate-100 border border-black" id="valor" name="valor" type="text"></input>
-
-                            <button className="ml-2 border border-black" type="submit">Salvar</button>
+                        <div className="tems-center flex">
                         </div>
 
                     </div>
