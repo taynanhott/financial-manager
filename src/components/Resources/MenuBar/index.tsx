@@ -16,10 +16,10 @@ export function AccountOptions() {
                 <MenubarTrigger>Opções</MenubarTrigger>
                 <MenubarContent>
                     <MenubarItem>
-                        Conta <MenubarShortcut>⌘C</MenubarShortcut>
+                        Conta <MenubarShortcut></MenubarShortcut>
                     </MenubarItem>
                     <MenubarItem>
-                        Sair <MenubarShortcut>⌘S</MenubarShortcut>
+                        Sair <MenubarShortcut></MenubarShortcut>
                     </MenubarItem>
                 </MenubarContent>
             </MenubarMenu>

@@ -3,11 +3,10 @@
 import Graph from "@/components/Resources/GraphApex";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { TableList } from "@/components/Resources/Table";
+import { TableListDashboard } from "@/components/Resources/Table";
 import React from "react";
 import Submenu from "@/components/Html/Body/Submenu/submenu";
 import Link from "next/link";
-import { useEntries } from "@/context/EntriesContext";
 
 const graficoDetalhado = [
     {
@@ -133,7 +132,6 @@ const cards = [
 ]
 
 function CardDashBoard({ cards }: Props) {
-    const { entries } = useEntries();
 
     return (
         <>
@@ -185,6 +183,7 @@ export default function Gerenciar() {
                     <CardDashBoard cards={cards} />
                 </div>
             </div>
+
             <div id="mid-dashboard">
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 px-[38px] pt-[38px]">
                     <div className="h-[341px] col-span-1 lg:col-span-2 rounded-sm border bg-white shadow-md">
@@ -208,11 +207,12 @@ export default function Gerenciar() {
                     </div>
                 </div>
             </div>
+
             <div id="features-dashboard">
                 <div className="grid grid-cols-2 lg:grid-cols-12 gap-8 px-[38px] pt-[38px]">
                     <div className="h-[341px] col-span-8 lg:col-span-5 rounded-sm border bg-white shadow-md">
                         <div className="col-span-1 items-center text-lg font-poppins-bold px-4 pt-4">Lista de Devedores</div>
-                        <TableList />
+                        <TableListDashboard />
                     </div>
                     <div className="h-[341px] col-span-8 lg:col-span-4 rounded-sm border bg-white shadow-md">
                         <div className="col-span-1 items-center text-lg font-poppins-bold px-4 pt-4">% Por Categoria</div>
