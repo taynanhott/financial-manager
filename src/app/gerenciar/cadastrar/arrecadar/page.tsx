@@ -2,9 +2,25 @@
 
 import Submenu from "@/components/Html/Body/Submenu/submenu";
 import Graph from "@/components/Resources/GraphApex";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useDeptor } from "@/context/DebtorContext";
 import { useState } from "react";
+
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select"
+import { ptBR } from "date-fns/locale";
+import { format } from "date-fns"
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { CalendarIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const graficoSimples = [
     {
@@ -14,7 +30,7 @@ const graficoSimples = [
                 foreColor: '#F5F5F5'
             },
             xaxis: {
-                categories: ['Categoria Pagamento']
+                categories: ['Estado da Dívida']
             },
             grid: {
                 position: 'front'
@@ -31,35 +47,31 @@ const graficoSimples = [
         },
         series: [
             {
-                name: "Crébito",
+                name: "Pago",
+                data: [350]
+            },
+            {
+                name: "Atrasado",
                 data: [250]
             },
             {
-                name: "Débito",
-                data: [650]
-            },
-            {
-                name: "Parcelado",
+                name: "Pendente",
                 data: [450]
             },
-            {
-                name: "Emprestado",
-                data: [150]
-            }
         ],
-        height: 300
+        height: 480
     },
 ]
 
 export default function Arrecadar() {
 
     const [invoice, setInvoice] = useState<string>("");
-    const [paymentStatus, setPayment] = useState<string>("");
     const [totalAmount, setTotal] = useState<string>("");
+    const [date, setDate] = useState<Date>()
     const { addDeptor } = useDeptor();
 
-    function cadastrar(invoice: string, paymentStatus: string, totalAmount: string) {
-        const newDeptor = { invoice, paymentStatus, totalAmount };
+    function cadastrar(invoice: string, date: Date | undefined, totalAmount: string) {
+        const newDeptor = { invoice, date, totalAmount };
         addDeptor(newDeptor);
     }
 
@@ -71,12 +83,19 @@ export default function Arrecadar() {
 
             <div id="mid-page">
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 px-[38px] pt-[38px]">
-                    <div className="h-[341px] col-span-1 lg:col-span-2 rounded-sm border bg-white shadow-md">
-                        <div className="px-4 items-center text-lg flex font-poppins-bold pt-4"></div>
-                        <div className="items-center flex">
-                            <Label className="ml-2">Fonte</Label>
-                            <input
-                                className="bg-slate-100 border border-black"
+                    <div className="h-[530px] col-span-1 lg:col-span-2 rounded-sm border bg-white shadow-md">
+                        <div className="items-center text-lg flex font-poppins-bold text-white bg-slate-900 rounded-t-sm">
+                            <p className="px-6 py-4">Cadastro de Arrecadação</p>
+                        </div>
+
+                        <div className="px-6 my-4">
+                            <p>Cadastre todos os valores pendentes recebimento.</p>
+                        </div>
+
+                        <div className="flex flex-col items-start px-6">
+                            <Label>Descrição da arrecadação</Label>
+                            <Input
+                                className="bg-slate-100 w-full md:w-1/2 lg:w-1/2 border border-slate-300 my-4"
                                 id="descricao"
                                 name="descricao"
                                 type="text"
@@ -84,24 +103,36 @@ export default function Arrecadar() {
                                 onChange={(e) => setInvoice(e.target.value)}
                             />
 
-                            <Label className="ml-2">Situação</Label>
-                            <select
-                                className="bg-slate-100 border border-black"
-                                id="categoria"
-                                name="categoria"
-                                value={paymentStatus}
-                                onChange={(e) => setPayment(e.target.value)}
-                            >
-                                <option>Selecione uma opção</option>
-                                <option value="Crédito">Crédito</option>
-                                <option value="Débito">Débito</option>
-                                <option value="Parcelado">Parcelado</option>
-                                <option value="Emprestado">Emprestado</option>
-                            </select>
+                            <Label>Prazo de recebimento</Label>
+                            <div className="bg-slate-100 w-full md:w-1/2 lg:w-1/2 border border-slate-300 my-4">
+                                <Popover>
+                                    <PopoverTrigger asChild>
+                                        <Button
+                                            variant={"outline"}
+                                            className={cn(
+                                                "w-full justify-start text-left font-normal",
+                                                !date && "text-muted-foreground"
+                                            )}
+                                        >
+                                            <CalendarIcon className="mr-2 h-4 w-4" />
+                                            {date ? format(date, "PPP") : <span>Selecione um período</span>}
+                                        </Button>
+                                    </PopoverTrigger>
+                                    <PopoverContent className="w-auto p-0">
+                                        <Calendar
+                                            mode="single"
+                                            selected={date}
+                                            onSelect={setDate}
+                                            initialFocus
+                                            locale={ptBR}
+                                        />
+                                    </PopoverContent>
+                                </Popover>
+                            </div>
 
-                            <Label className="ml-2">Valor</Label>
-                            <input
-                                className="bg-slate-100 border border-black"
+                            <Label>Valor</Label>
+                            <Input
+                                className="bg-slate-100 w-full md:w-1/2 lg:w-1/2 border border-slate-300 my-4"
                                 id="valor"
                                 name="valor"
                                 type="text"
@@ -109,19 +140,13 @@ export default function Arrecadar() {
                                 onChange={(e) => setTotal(e.target.value)}
                             />
 
-                            <button
-                                onClick={() => cadastrar(invoice, paymentStatus, totalAmount)}
-                                className="ml-2 border border-black"
-                                type="submit"
-                            >
+                            <Button onClick={() => cadastrar(invoice, date, totalAmount)}>
                                 Salvar
-                            </button>
+                            </Button>
                         </div>
-                        <div className="tems-center flex">
-                        </div>
-
                     </div>
-                    <div className="h-[341px] col-span-1 rounded-sm border bg-white shadow-md">
+
+                    <div className="h-[530px] col-span-1 rounded-sm border bg-white shadow-md">
 
                         <div className="h-full bg-gradient-to-r from-slate-800 to-slate-600">
                             <Graph components={graficoSimples} />

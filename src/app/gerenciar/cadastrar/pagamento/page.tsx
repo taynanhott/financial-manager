@@ -6,6 +6,22 @@ import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import { useEntries } from "@/context/EntriesContext";
 
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select"
+import { ptBR } from "date-fns/locale";
+import { format } from "date-fns"
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { CalendarIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+
 const graficoSimples = [
     {
         options: {
@@ -14,7 +30,7 @@ const graficoSimples = [
                 foreColor: '#F5F5F5'
             },
             xaxis: {
-                categories: ['Categoria Pagamento']
+                categories: ['Categoria da Movimentação']
             },
             grid: {
                 position: 'front'
@@ -47,18 +63,19 @@ const graficoSimples = [
                 data: [150]
             }
         ],
-        height: 300
+        height:480
     },
 ]
 
 export default function Pagamento() {
     const [descricao, setDescricao] = useState<string>("");
     const [categoria, setCategoria] = useState<string>("");
+    const [date, setDate] = useState<Date>()
     const [valor, setValor] = useState<string>("");
     const { addEntry } = useEntries();
 
-    function cadastrar(descricao: string, categoria: string, valor: string) {
-        const newEntry = { descricao, categoria, valor };
+    function cadastrar(descricao: string, categoria: string, date: Date | undefined, valor: string) {
+        const newEntry = { descricao, categoria, date, valor };
         addEntry(newEntry);
     }
 
@@ -70,12 +87,19 @@ export default function Pagamento() {
 
             <div id="mid-page">
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 px-[38px] pt-[38px]">
-                    <div className="h-[341px] col-span-1 lg:col-span-2 rounded-sm border bg-white shadow-md">
-                        <div className="px-4 items-center text-lg flex font-poppins-bold pt-4"></div>
-                        <div className="items-center flex">
-                            <Label className="ml-2">Descrição</Label>
-                            <input
-                                className="bg-slate-100 border border-black"
+                    <div className="h-[530px] col-span-1 lg:col-span-2 rounded-sm border bg-white shadow-md">
+                        <div className="items-center text-lg flex font-poppins-bold text-white bg-slate-900 rounded-t-sm">
+                            <p className="px-6 py-4">Cadastro de Pagamento</p>
+                        </div>
+
+                        <div className="px-6 my-4">
+                            <p>Cadastre todas as movimentações financeiras que debitaram de sua conta.</p>
+                        </div>
+
+                        <div className="flex flex-col items-start px-6">
+                            <Label>Descrição da movimentação</Label>
+                            <Input
+                                className="bg-slate-100 w-full md:w-1/2 lg:w-1/2 border border-slate-300 my-4"
                                 id="descricao"
                                 name="descricao"
                                 type="text"
@@ -83,24 +107,52 @@ export default function Pagamento() {
                                 onChange={(e) => setDescricao(e.target.value)}
                             />
 
-                            <Label className="ml-2">Categoria</Label>
-                            <select
-                                className="bg-slate-100 border border-black"
-                                id="categoria"
-                                name="categoria"
+                            <Label>Categoria</Label>
+                            <Select
                                 value={categoria}
-                                onChange={(e) => setCategoria(e.target.value)}
+                                onValueChange={(value) => setCategoria(value)}
                             >
-                                <option>Selecione uma opção</option>
-                                <option value="Crédito">Crédito</option>
-                                <option value="Débito">Débito</option>
-                                <option value="Parcelado">Parcelado</option>
-                                <option value="Emprestado">Emprestado</option>
-                            </select>
+                                <SelectTrigger className="bg-slate-100 w-full md:w-1/2 lg:w-1/2 border border-slate-300 my-4">
+                                    <SelectValue placeholder="Selecione uma categoria" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="Crédito">Crédito</SelectItem>
+                                    <SelectItem value="Débito">Débito</SelectItem>
+                                    <SelectItem value="Parcelado">Parcelado</SelectItem>
+                                    <SelectItem value="Emprestado">Emprestado</SelectItem>
+                                </SelectContent>
+                            </Select>
 
-                            <Label className="ml-2">Valor</Label>
-                            <input
-                                className="bg-slate-100 border border-black"
+                            <Label>Data da movimentação</Label>
+                            <div className="bg-slate-100 w-full md:w-1/2 lg:w-1/2 border border-slate-300 my-4">
+                                <Popover>
+                                    <PopoverTrigger asChild>
+                                        <Button
+                                            variant={"outline"}
+                                            className={cn(
+                                                "w-full justify-start text-left font-normal",
+                                                !date && "text-muted-foreground"
+                                            )}
+                                        >
+                                            <CalendarIcon className="mr-2 h-4 w-4" />
+                                            {date ? format(date, "PPP") : <span>Selecione um período</span>}
+                                        </Button>
+                                    </PopoverTrigger>
+                                    <PopoverContent className="w-auto p-0">
+                                        <Calendar
+                                            mode="single"
+                                            selected={date}
+                                            onSelect={setDate}
+                                            initialFocus
+                                            locale={ptBR}
+                                        />
+                                    </PopoverContent>
+                                </Popover>
+                            </div>
+
+                            <Label>Valor</Label>
+                            <Input
+                                className="bg-slate-100 w-full md:w-1/2 lg:w-1/2 border border-slate-300 my-4"
                                 id="valor"
                                 name="valor"
                                 type="text"
@@ -108,22 +160,21 @@ export default function Pagamento() {
                                 onChange={(e) => setValor(e.target.value)}
                             />
 
-                            <button
-                                onClick={() => cadastrar(descricao, categoria, valor)}
-                                className="ml-2 border border-black"
-                                type="submit"
-                            >
+                            <Button onClick={() => cadastrar(descricao, categoria, date, valor)}>
                                 Salvar
-                            </button>
+                            </Button>
                         </div>
                     </div>
-                    <div className="h-[341px] col-span-1 rounded-sm border bg-white shadow-md">
+
+                    <div className="h-[530px] col-span-1 rounded-sm border bg-white shadow-md">
+
                         <div className="h-full bg-gradient-to-r from-slate-800 to-slate-600">
                             <Graph components={graficoSimples} />
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </section >
+
     );
 }

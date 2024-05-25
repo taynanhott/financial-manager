@@ -5,8 +5,8 @@ export default {
         return [
             {
                 source: '/',
-                destination: '/signin/',
-                permanent: false, // Define se o redirecionamento é permanente ou temporário
+                destination: '/gerenciar/dashboard',
+                permanent: false,
             },
         ];
     },

@@ -5,6 +5,7 @@ import React, { createContext, useState, useContext, ReactNode } from 'react';
 interface Entry {
     descricao: string;
     categoria: string;
+    date: Date | undefined;
     valor: string;
 }
 

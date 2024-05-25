@@ -1,5 +1,7 @@
 import Submenu from "@/components/Html/Body/Submenu/submenu";
 import Graph from "@/components/Resources/GraphApex";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 const graficoSimples = [
@@ -57,13 +59,25 @@ export default function Categoria() {
             <div id="mid-page">
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 px-[38px] pt-[38px]">
                     <div className="h-[341px] col-span-1 lg:col-span-2 rounded-sm border bg-white shadow-md">
-                        <div className="px-4 items-center text-lg flex font-poppins-bold pt-4"></div>
+                        <div className="items-center text-lg flex font-poppins-bold text-white bg-slate-900 rounded-t-sm">
+                            <p className="px-6 py-4">Cadastro de Categoria</p>
+                        </div>
 
-                        <div className="tems-center flex">
-                            <Label className="ml-2">Descrição Categoria</Label>
-                            <input className="bg-slate-100 border border-black" id="descricao" name="descricao" type="text"></input>
+                        <div className="px-6 my-4">
+                            <p>Cadastre categoria de acordo com o tipo de movimentação financeira realizada.</p>
+                        </div>
 
-                            <button className="ml-2 border border-black" type="submit">Salvar</button>
+                        <div className="flex flex-col items-start px-6">
+                            <Label>Descrição Categoria</Label>
+                            <Input
+                                className="bg-slate-100 w-full md:w-1/2 lg:w-1/2 border border-slate-300 my-4"
+                                id="descricao"
+                                name="descricao"
+                                type="text"
+                            />
+                            <Button type="submit">
+                                Salvar
+                            </Button>
                         </div>
                     </div>
                 </div>

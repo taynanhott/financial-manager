@@ -4,7 +4,7 @@ import React, { createContext, useState, useContext, ReactNode } from 'react';
 
 interface Entry {
     invoice: string;
-    paymentStatus: string;
+    date: Date | undefined;
     totalAmount: string;
 }
 

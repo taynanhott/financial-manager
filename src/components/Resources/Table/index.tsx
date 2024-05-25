@@ -52,6 +52,8 @@ const invoices = [
 export function TableList() {
     const { deptor } = useDeptor();
 
+    console.log(deptor)
+
     return (
         <ScrollArea className="h-72 p-4 w-full rounded-md">
             <div className="relative">
