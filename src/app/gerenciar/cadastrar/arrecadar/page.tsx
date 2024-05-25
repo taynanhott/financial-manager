@@ -8,19 +8,14 @@ import { Label } from "@/components/ui/label";
 import { useDeptor } from "@/context/DebtorContext";
 import { useState } from "react";
 
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select"
 import { ptBR } from "date-fns/locale";
 import { format } from "date-fns"
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
+
+import { TableListDeptor } from "@/components/Resources/Table";
 
 const graficoSimples = [
     {
@@ -59,7 +54,7 @@ const graficoSimples = [
                 data: [450]
             },
         ],
-        height: 480
+        height: 400
     },
 ]
 
@@ -82,8 +77,8 @@ export default function Arrecadar() {
             </div>
 
             <div id="mid-page">
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 px-[38px] pt-[38px]">
-                    <div className="h-[530px] col-span-1 lg:col-span-2 rounded-sm border bg-white shadow-md">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 px-[38px] pt-[38px]">
+                    <div className="h-[470px] lg:h-[450px] col-span-1 rounded-sm border bg-white shadow-md">
                         <div className="items-center text-lg flex font-poppins-bold text-white bg-slate-900 rounded-t-sm">
                             <p className="px-6 py-4">Cadastro de Arrecadação</p>
                         </div>
@@ -146,10 +141,16 @@ export default function Arrecadar() {
                         </div>
                     </div>
 
-                    <div className="h-[530px] col-span-1 rounded-sm border bg-white shadow-md">
-
-                        <div className="h-full bg-gradient-to-r from-slate-800 to-slate-600">
+                    <div className="h-[450px] col-span-1 border bg-white shadow-md">
+                        <div className="h-full bg-gradient-to-r rounded-sm from-slate-800 to-slate-600">
                             <Graph components={graficoSimples} />
+                        </div>
+                    </div>
+
+                    <div className="h-[530px] col-span-1 border bg-white shadow-md">
+
+                        <div className="h-full bg-gradient-to-r rounded-sm from-slate-800 to-slate-600">
+                            <TableListDeptor />
                         </div>
                     </div>
                 </div>

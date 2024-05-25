@@ -1,53 +1,10 @@
+"use client"
+
 import Submenu from "@/components/Html/Body/Submenu/submenu";
-import Graph from "@/components/Resources/GraphApex";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-const graficoSimples = [
-    {
-        options: {
-            chart: {
-                id: "bar" as const,
-                foreColor: '#F5F5F5'
-            },
-            xaxis: {
-                categories: ['Categoria Pagamento']
-            },
-            grid: {
-                position: 'front'
-            },
-            fill: {
-                colors: ['#F5F5F5', '#b1b7b4']
-            },
-            colors: ['#F5F5F5', '#b1b7b4'],
-            dataLabels: {
-                style: {
-                    colors: ['#0f172a']
-                }
-            },
-        },
-        series: [
-            {
-                name: "Crébito",
-                data: [250]
-            },
-            {
-                name: "Débito",
-                data: [650]
-            },
-            {
-                name: "Parcelado",
-                data: [450]
-            },
-            {
-                name: "Emprestado",
-                data: [150]
-            }
-        ],
-        height: 300
-    },
-]
 export default function Categoria() {
 
     return (
