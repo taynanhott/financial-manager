@@ -2,7 +2,7 @@
 
 import Submenu from "@/components/Html/Body/Submenu/submenu";
 import Graph from "@/components/Resources/GraphApex";
-import { TableListPaymount } from "@/components/Resources/Table";
+import { ListPaytDash } from "@/components/Resources/Table";
 
 const graficoSimples = [
     {
@@ -79,7 +79,7 @@ export default function Pagar() {
                             <p className="px-6 py-4">Contas à Pagar</p>
                         </div>
                         <div className="h-full">
-                            <TableListPaymount />
+                            <ListPaytDash />
                         </div>
                     </div>
                     <div className="h-[530px] col-span-1 border bg-white shadow-md">

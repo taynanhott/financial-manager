@@ -22,7 +22,8 @@ import { CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { TableListPaymount } from "@/components/Resources/Table";
+import { TableListPay } from "@/components/Resources/Table";
+import { useCategory } from "@/context/CategoryContext";
 
 const graficoSimples = [
     {
@@ -75,6 +76,7 @@ export default function Pagamento() {
     const [date, setDate] = useState<Date>()
     const [valor, setValor] = useState<string>("");
     const { addEntry } = useEntries();
+    const { category } = useCategory();
 
     function cadastrar(descricao: string, categoria: string, date: Date | undefined, valor: string) {
         const newEntry = { descricao, categoria, date, valor };
@@ -122,6 +124,9 @@ export default function Pagamento() {
                                     <SelectItem value="Débito">Débito</SelectItem>
                                     <SelectItem value="Parcelado">Parcelado</SelectItem>
                                     <SelectItem value="Emprestado">Emprestado</SelectItem>
+                                    {category.map((invoice: any) => (
+                                        <SelectItem value={invoice.description}>{invoice.description}</SelectItem>
+                                    ))}
                                 </SelectContent>
                             </Select>
 
@@ -178,7 +183,7 @@ export default function Pagamento() {
                     <div className="h-[530px] col-span-1 rounded-sm border bg-white shadow-md">
 
                         <div className="h-full bg-gradient-to-r from-slate-800 to-slate-600">
-                            <TableListPaymount />
+                            <TableListPay />
                         </div>
                     </div>
                 </div>

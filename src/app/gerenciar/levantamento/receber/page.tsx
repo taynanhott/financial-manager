@@ -2,7 +2,7 @@
 
 import Submenu from "@/components/Html/Body/Submenu/submenu";
 import Graph from "@/components/Resources/GraphApex";
-import { TableListDashboard } from "@/components/Resources/Table";
+import { ListDeptorDash } from "@/components/Resources/Table";
 
 const graficoSimples = [
     {
@@ -75,7 +75,7 @@ export default function Receber() {
                             <p className="px-6 py-4">Contas à Receber</p>
                         </div>
                         <div className="h-full">
-                            <TableListDashboard />
+                            <ListDeptorDash />
                         </div>
                     </div>
                     <div className="h-[530px] col-span-1 border bg-white shadow-md">

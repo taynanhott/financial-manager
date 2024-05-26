@@ -4,6 +4,7 @@ import { ReactNode } from "react";
 import Menu from "@/components/Html/Body/Menu/menu";
 import { DeptorProvider } from "@/context/DebtorContext";
 import { EntriesProvider } from "@/context/EntriesContext";
+import { CategoryProvider } from "@/context/CategoryContext";
 
 interface Props {
   children: ReactNode
@@ -21,12 +22,14 @@ export default function RootLayout({ children }: Props) {
         <head>
         </head>
         <body className="bg-gray-100">
-          <EntriesProvider>
-            <DeptorProvider>
-              <Menu />
-              {children}
-            </DeptorProvider>
-          </EntriesProvider>
+          <CategoryProvider>
+            <EntriesProvider>
+              <DeptorProvider>
+                <Menu />
+                {children}
+              </DeptorProvider>
+            </EntriesProvider>
+          </ CategoryProvider>
         </body>
       </html>
     </>

@@ -4,8 +4,17 @@ import Submenu from "@/components/Html/Body/Submenu/submenu";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useCategory } from "@/context/CategoryContext";
+import { useState } from "react";
 
 export default function Categoria() {
+    const [description, setDescription] = useState<string>("");
+    const { addCategory } = useCategory();
+
+    function cadastrar(description: string) {
+        const newCategory = { description };
+        addCategory(newCategory);
+    }
 
     return (
         <section className="grow lg:ml-[240px] mt-14 lg:mt-auto pb-12">
@@ -31,8 +40,10 @@ export default function Categoria() {
                                 id="descricao"
                                 name="descricao"
                                 type="text"
+                                value={description}
+                                onChange={(e) => setDescription(e.target.value)}
                             />
-                            <Button type="submit">
+                            <Button type="submit" onClick={() => cadastrar(description)}>
                                 Salvar
                             </Button>
                         </div>

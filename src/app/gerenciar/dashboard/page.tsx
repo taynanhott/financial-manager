@@ -3,7 +3,7 @@
 import Graph from "@/components/Resources/GraphApex";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { TableListDashboard } from "@/components/Resources/Table";
+import { ListDeptorDash } from "@/components/Resources/Table";
 import React from "react";
 import Submenu from "@/components/Html/Body/Submenu/submenu";
 import Link from "next/link";
@@ -212,7 +212,7 @@ export default function Gerenciar() {
                 <div className="grid grid-cols-2 lg:grid-cols-12 gap-8 px-[38px] pt-[38px]">
                     <div className="h-[341px] col-span-8 lg:col-span-5 rounded-sm border bg-white shadow-md">
                         <div className="col-span-1 items-center text-lg font-poppins-bold px-4 pt-4">Lista de Devedores</div>
-                        <TableListDashboard />
+                        <ListDeptorDash />
                     </div>
                     <div className="h-[341px] col-span-8 lg:col-span-4 rounded-sm border bg-white shadow-md">
                         <div className="col-span-1 items-center text-lg font-poppins-bold px-4 pt-4">% Por Categoria</div>
