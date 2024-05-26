@@ -12,30 +12,30 @@ export default function Reserva() {
 
             <div id="mid-page">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 px-[38px] pt-[38px]">
-                    <div className="h-[530px] col-span-1 border bg-white shadow-md">
+                    <div className="h-[400px] col-span-1 border bg-white shadow-md">
                         <div className="items-center text-lg flex font-poppins-bold text-white bg-slate-900 rounded-t-sm mb-4">
                             <p className="px-6 py-4">Reserva Financeira</p>
                         </div>
 
                         <div className="flex flex-col items-start px-6">
                             <Label>Porcentagem de Reserva</Label>
-                            <Slider className="bg-slate-100 w-full md:w-1/2 lg:w-1/2 border border-slate-300 my-4" defaultValue={[5]} max={100} step={1} />
+                            <Slider className="bg-slate-100 w-full md:w-1/2 lg:w-2/3 border border-slate-300 my-4" defaultValue={[5]} max={100} step={1} />
 
                             <Label>Total após 5º dia util</Label>
                             <Input
-                                className="bg-slate-100 w-full md:w-1/2 lg:w-1/2 border border-slate-300 my-4"
+                                className="bg-slate-100 w-full md:w-1/2 lg:w-2/3 border border-slate-300 my-4"
                                 type="text"
                             />
 
                             <Label>Valor de Reserva</Label>
                             <Input
-                                className="bg-slate-100 w-full md:w-1/2 lg:w-1/2 border border-slate-300 my-4"
+                                className="bg-slate-100 w-full md:w-1/2 lg:w-2/3 border border-slate-300 my-4"
                                 type="text"
                             />
 
                             <Label>Valor Restante sem Reserva</Label>
                             <Input
-                                className="bg-slate-100 w-full md:w-1/2 lg:w-1/2 border border-slate-300 my-4"
+                                className="bg-slate-100 w-full md:w-1/2 lg:w-2/3 border border-slate-300 my-4"
                                 type="text"
                             />
                         </div>

@@ -141,16 +141,9 @@ export default function Arrecadar() {
                         </div>
                     </div>
 
-                    <div className="h-[450px] col-span-1 border bg-white shadow-md">
+                    <div className="h-80 lg:h-[450px] col-span-1 border bg-white shadow-md">
                         <div className="h-full bg-gradient-to-r rounded-sm from-slate-800 to-slate-600">
-                            <Graph components={graficoSimples} />
-                        </div>
-                    </div>
-
-                    <div className="h-[530px] col-span-1 border bg-white shadow-md">
-
-                        <div className="h-full bg-gradient-to-r rounded-sm from-slate-800 to-slate-600">
-                            <TableListDeptor />
+                            <TableListDeptor className={`h-96 lg:h-[440px] p-4 w-full rounded-md`} />
                         </div>
                     </div>
                 </div>

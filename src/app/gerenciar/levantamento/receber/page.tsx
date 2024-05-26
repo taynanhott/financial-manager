@@ -41,7 +41,7 @@ const graficoSimples = [
                 data: [450]
             },
         ],
-        height: 400
+        height: 170
     },
 ]
 
@@ -53,11 +53,11 @@ const graficoDonut = [
             },
             labels: ['Pago', 'Atrasado', "Pendente"],
             legend: {
-                position: 'bottom' as const
+                position: 'right' as const
             }
         },
         series: [350, 250, 450],
-        height: 520
+        height: 170
     },
 ]
 
@@ -70,21 +70,24 @@ export default function Receber() {
 
             <div id="mid-page">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 px-[38px] pt-[38px]">
-                    <div className="h-[530px] col-span-1 border bg-white shadow-md">
+                    <div className="h-[340px] lg:h-[475px] col-span-1 border bg-white shadow-md">
                         <div className="items-center text-lg flex font-poppins-bold text-white bg-slate-900 rounded-t-sm">
                             <p className="px-6 py-4">Contas à Receber</p>
                         </div>
                         <div className="h-full">
-                            <ListDeptorDash />
+                            <ListDeptorDash className={`h-64 lg:h-96 p-4 w-full rounded-md`} />
                         </div>
                     </div>
-                    <div className="h-[530px] col-span-1 border bg-white shadow-md">
-                        <div className="h-full bg-gradient-to-r rounded-sm from-slate-800 to-slate-600">
-                            <Graph components={graficoSimples} />
+
+                    <div className="h-[475px] grid grid-cols-1 gap-8 col-span-1">
+                        <div className="col-span-1 border bg-white shadow-md">
+                            <Graph components={graficoDonut} />
                         </div>
-                    </div>
-                    <div className="h-[530px] col-span-1 border bg-white shadow-md">
-                        <Graph components={graficoDonut} />
+                        <div className="col-span-1 border bg-white shadow-md">
+                            <div className="h-full bg-gradient-to-r rounded-sm from-slate-800 to-slate-600">
+                                <Graph components={graficoSimples} />
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

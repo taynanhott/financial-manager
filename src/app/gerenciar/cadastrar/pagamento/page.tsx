@@ -173,17 +173,9 @@ export default function Pagamento() {
                         </div>
                     </div>
 
-                    <div className="h-[530px] col-span-1 rounded-sm border bg-white shadow-md">
-
-                        <div className="h-full bg-gradient-to-r from-slate-800 to-slate-600">
-                            <Graph components={graficoSimples} />
-                        </div>
-                    </div>
-
-                    <div className="h-[530px] col-span-1 rounded-sm border bg-white shadow-md">
-
-                        <div className="h-full bg-gradient-to-r from-slate-800 to-slate-600">
-                            <TableListPay />
+                    <div className="h-80 lg:h-[530px] col-span-1 rounded-sm border bg-white shadow-md">
+                        <div className="h-full rounded-sm bg-gradient-to-r from-slate-800 to-slate-600">
+                            <TableListPay className={`h-72 lg:h-[500px] p-4 w-full rounded-md`} />
                         </div>
                     </div>
                 </div>
