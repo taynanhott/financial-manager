@@ -79,14 +79,14 @@ export default function Receber() {
                         </div>
                     </div>
 
-                    <div className="h-[475px] grid grid-cols-1 gap-8 col-span-1">
-                        <div className="col-span-1 border bg-white shadow-md">
-                            <Graph components={graficoDonut} />
-                        </div>
-                        <div className="col-span-1 border bg-white shadow-md">
+                    <div className="h-[475px] grid grid-cols-1 lg:grid-cols-4 gap-8 col-span-1">
+                        <div className="col-span-1 lg:col-span-4 border bg-white shadow-md">
                             <div className="h-full bg-gradient-to-r rounded-sm from-slate-800 to-slate-600">
                                 <Graph components={graficoSimples} />
                             </div>
+                        </div>
+                        <div className="col-span-1 lg:col-span-3 border bg-white shadow-md">
+                            <Graph components={graficoDonut} />
                         </div>
                     </div>
                 </div>

@@ -1,4 +1,5 @@
 import { ScrollArea } from "@/components/ui/scroll-area"
+import { useCategory } from "@/context/CategoryContext";
 import { useDeptor } from "@/context/DebtorContext";
 import { useEntries } from "@/context/EntriesContext";
 
@@ -103,6 +104,39 @@ export function TableListDeptor({ className }: Props) {
                                     <td className="p-2 text-sm font-medium">{invoice.invoice}</td>
                                     <td className="p-2 text-sm">{invoice.paymentStatus}</td>
                                     <td className="p-2 text-sm text-right">{invoice.totalAmount}</td>
+                                </tr>
+                            ))
+                        ) : (
+                            <tr>
+                                <td colSpan={4} className="p-2 text-sm font-medium text-center">
+                                    Nenhum registro cadastrado
+                                </td>
+                            </tr>
+                        )}
+                    </tbody>
+                </table>
+            </div>
+        </ScrollArea>
+    );
+}
+
+export function TableListCategory({ className }: Props) {
+    const { category } = useCategory();
+
+    return (
+        <ScrollArea className={className}>
+            <div className="relative">
+                <table className="text-white divide-y divide-gray-200 w-full">
+                    <thead className="sticky top-0 bg-gradient-to-r from-slate-800 to-slate-600 z-10">
+                        <tr>
+                            <th className="p-2 text-left text-xs font-medium uppercase tracking-wider">Descrição da categoria</th>
+                        </tr>
+                    </thead>
+                    <tbody className=" divide-y divide-gray-200">
+                        {category.length > 0 ? (
+                            category.map((invoice: any, index: number) => (
+                                <tr key={index}>
+                                    <td className="p-2 text-sm font-medium">{invoice.description}</td>
                                 </tr>
                             ))
                         ) : (

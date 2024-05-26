@@ -1,7 +1,7 @@
 "use client"
 
 import Submenu from "@/components/Html/Body/Submenu/submenu";
-import { TableListDeptor } from "@/components/Resources/Table";
+import { TableListCategory, TableListDeptor } from "@/components/Resources/Table";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -52,7 +52,7 @@ export default function Categoria() {
 
                     <div className="h-80 col-span-1 border bg-white shadow-md">
                         <div className="h-full bg-gradient-to-r rounded-sm from-slate-800 to-slate-600">
-                            <TableListDeptor className={`h-72 p-4 w-full rounded-md`} />
+                            <TableListCategory className={`h-72 p-4 w-full rounded-md`} />
                         </div>
                     </div>
                 </div>
