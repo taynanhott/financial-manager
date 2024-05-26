@@ -49,6 +49,22 @@ const graficoSimples = [
     },
 ]
 
+const graficoDonut = [
+    {
+        options: {
+            chart: {
+                id: "donut" as const
+            },
+            labels: ['Crédito', 'Débito', "Parcelado", "Emprestado"],
+            legend: {
+                position: 'bottom' as const
+            }
+        },
+        series: [250, 650, 450, 150],
+        height: 520
+    },
+]
+
 export default function Pagar() {
     return (
         <section className="grow lg:ml-[240px] mt-14 lg:mt-auto pb-12">
@@ -59,6 +75,9 @@ export default function Pagar() {
             <div id="mid-page">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 px-[38px] pt-[38px]">
                     <div className="h-[530px] col-span-1 border bg-white shadow-md">
+                        <div className="items-center text-lg flex font-poppins-bold text-white bg-slate-900 rounded-t-sm">
+                            <p className="px-6 py-4">Contas à Pagar</p>
+                        </div>
                         <div className="h-full">
                             <TableListPaymount />
                         </div>
@@ -68,10 +87,11 @@ export default function Pagar() {
                             <Graph components={graficoSimples} />
                         </div>
                     </div>
-
+                    <div className="h-[530px] col-span-1 border bg-white shadow-md">
+                        <Graph components={graficoDonut} />
+                    </div>
                 </div>
             </div>
         </section >
-
     );
 }
