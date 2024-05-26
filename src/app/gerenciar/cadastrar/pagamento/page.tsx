@@ -124,8 +124,8 @@ export default function Pagamento() {
                                     <SelectItem value="Débito">Débito</SelectItem>
                                     <SelectItem value="Parcelado">Parcelado</SelectItem>
                                     <SelectItem value="Emprestado">Emprestado</SelectItem>
-                                    {category.map((invoice: any) => (
-                                        <SelectItem value={invoice.description}>{invoice.description}</SelectItem>
+                                    {category.map((invoice: any, index: number) => (
+                                        <SelectItem key={index} value={invoice.description}>{invoice.description}</SelectItem>
                                     ))}
                                 </SelectContent>
                             </Select>
