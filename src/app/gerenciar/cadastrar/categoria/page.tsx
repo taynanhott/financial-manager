@@ -1,7 +1,7 @@
 "use client"
 
 import Submenu from "@/components/Html/Body/Submenu/submenu";
-import { TableListCategory, TableListDeptor } from "@/components/Resources/Table";
+import { TableListAction } from "@/components/Resources/Table";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -10,11 +10,17 @@ import { useState } from "react";
 
 export default function Categoria() {
     const [description, setDescription] = useState<string>("");
-    const { addCategory } = useCategory();
+    const { category, addCategory } = useCategory();
 
     function cadastrar(description: string) {
-        const newCategory = { description };
-        addCategory(newCategory);
+        if (description) {
+            const newCategory = { description };
+            addCategory(newCategory);
+            alert("Cadastro realizado com sucesso.");
+            setDescription(``)
+        } else {
+            alert("Por favor, preencha todos os campos.");
+        }
     }
 
     return (
@@ -52,7 +58,10 @@ export default function Categoria() {
 
                     <div className="h-80 col-span-1 border bg-white shadow-md">
                         <div className="h-full bg-gradient-to-r rounded-sm from-slate-800 to-slate-600">
-                            <TableListCategory className={`h-72 p-4 w-full rounded-md`} />
+                            <div className="items-center text-lg flex font-poppins-bold text-white  rounded-t-sm">
+                                <p className="px-6 py-4">Lista de Categoorias</p>
+                            </div>
+                            <TableListAction className={`h-64 p-4 w-full rounded-md`} context={category} variant={`category`} />
                         </div>
                     </div>
                 </div>

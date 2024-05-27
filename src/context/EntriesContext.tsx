@@ -3,10 +3,10 @@
 import React, { createContext, useState, useContext, ReactNode } from 'react';
 
 interface Entry {
-    descricao: string;
-    categoria: string;
+    description: string;
     date: Date | undefined;
-    valor: string;
+    value: string;
+    type: string;
 }
 
 interface EntriesContextType {

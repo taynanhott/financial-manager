@@ -1,7 +1,6 @@
 "use client"
 
 import Submenu from "@/components/Html/Body/Submenu/submenu";
-import Graph from "@/components/Resources/GraphApex";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -15,59 +14,26 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-import { TableListDeptor } from "@/components/Resources/Table";
-
-const graficoSimples = [
-    {
-        options: {
-            chart: {
-                id: "bar" as const,
-                foreColor: '#F5F5F5'
-            },
-            xaxis: {
-                categories: ['Estado da Dívida']
-            },
-            grid: {
-                position: 'front'
-            },
-            fill: {
-                colors: ['#F5F5F5', '#b1b7b4']
-            },
-            colors: ['#F5F5F5', '#b1b7b4'],
-            dataLabels: {
-                style: {
-                    colors: ['#0f172a']
-                }
-            },
-        },
-        series: [
-            {
-                name: "Pago",
-                data: [350]
-            },
-            {
-                name: "Atrasado",
-                data: [250]
-            },
-            {
-                name: "Pendente",
-                data: [450]
-            },
-        ],
-        height: 400
-    },
-]
+import { TableListAction } from "@/components/Resources/Table";
 
 export default function Arrecadar() {
 
-    const [invoice, setInvoice] = useState<string>("");
-    const [totalAmount, setTotal] = useState<string>("");
+    const [description, setDescription] = useState<string>("");
     const [date, setDate] = useState<Date>()
-    const { addDeptor } = useDeptor();
+    const [value, setValue] = useState<string>("");
+    const { deptor, addDeptor } = useDeptor();
 
-    function cadastrar(invoice: string, date: Date | undefined, totalAmount: string) {
-        const newDeptor = { invoice, date, totalAmount };
-        addDeptor(newDeptor);
+    function cadastrar(description: string, date: Date | undefined, value: string) {
+        if (description && date && value) {
+            const newDeptor = { description, date, value };
+            addDeptor(newDeptor);
+            alert("Cadastro realizado com sucesso.");
+            setValue(``)
+            setDate(undefined);
+            setDescription(``)
+        } else {
+            alert("Por favor, preencha todos os campos.");
+        }
     }
 
     return (
@@ -94,8 +60,8 @@ export default function Arrecadar() {
                                 id="descricao"
                                 name="descricao"
                                 type="text"
-                                value={invoice}
-                                onChange={(e) => setInvoice(e.target.value)}
+                                value={description}
+                                onChange={(e) => setDescription(e.target.value)}
                             />
 
                             <Label>Prazo de recebimento</Label>
@@ -110,7 +76,7 @@ export default function Arrecadar() {
                                             )}
                                         >
                                             <CalendarIcon className="mr-2 h-4 w-4" />
-                                            {date ? format(date, "PPP") : <span>Selecione um período</span>}
+                                            {date ? format(date, "PPP") : <span>--/--/----</span>}
                                         </Button>
                                     </PopoverTrigger>
                                     <PopoverContent className="w-auto p-0">
@@ -131,19 +97,22 @@ export default function Arrecadar() {
                                 id="valor"
                                 name="valor"
                                 type="text"
-                                value={totalAmount}
-                                onChange={(e) => setTotal(e.target.value)}
+                                value={value}
+                                onChange={(e) => setValue(e.target.value)}
                             />
 
-                            <Button onClick={() => cadastrar(invoice, date, totalAmount)}>
+                            <Button onClick={() => cadastrar(description, date, value)}>
                                 Salvar
                             </Button>
                         </div>
                     </div>
 
                     <div className="h-80 lg:h-[450px] col-span-1 border bg-white shadow-md">
-                        <div className="h-full bg-gradient-to-r rounded-sm from-slate-800 to-slate-600">
-                            <TableListDeptor className={`h-96 lg:h-[440px] p-4 w-full rounded-md`} />
+                        <div className="h-full rounded-sm bg-gradient-to-r from-slate-800 to-slate-600">
+                            <div className="items-center text-lg flex font-poppins-bold text-white  rounded-t-sm">
+                                <p className="px-6 py-4">Lista de Devedores</p>
+                            </div>
+                            <TableListAction className={`h-64 lg:h-96 p-4 w-full rounded-md`} context={deptor} variant={`deptor`} />
                         </div>
                     </div>
                 </div>

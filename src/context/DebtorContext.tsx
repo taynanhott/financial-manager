@@ -3,9 +3,9 @@
 import React, { createContext, useState, useContext, ReactNode } from 'react';
 
 interface Entry {
-    invoice: string;
+    description: string;
     date: Date | undefined;
-    totalAmount: string;
+    value: string;
 }
 
 interface DeptorContextType {

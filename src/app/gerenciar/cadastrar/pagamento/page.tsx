@@ -22,65 +22,29 @@ import { CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { TableListPay } from "@/components/Resources/Table";
+import { TableListAction } from "@/components/Resources/Table";
 import { useCategory } from "@/context/CategoryContext";
 
-const graficoSimples = [
-    {
-        options: {
-            chart: {
-                id: "bar" as const,
-                foreColor: '#F5F5F5'
-            },
-            xaxis: {
-                categories: ['Categoria da Movimentação']
-            },
-            grid: {
-                position: 'front'
-            },
-            fill: {
-                colors: ['#F5F5F5', '#b1b7b4']
-            },
-            colors: ['#F5F5F5', '#b1b7b4'],
-            dataLabels: {
-                style: {
-                    colors: ['#0f172a']
-                }
-            },
-        },
-        series: [
-            {
-                name: "Crédito",
-                data: [250]
-            },
-            {
-                name: "Débito",
-                data: [650]
-            },
-            {
-                name: "Parcelado",
-                data: [450]
-            },
-            {
-                name: "Emprestado",
-                data: [150]
-            }
-        ],
-        height: 480
-    },
-]
-
 export default function Pagamento() {
-    const [descricao, setDescricao] = useState<string>("");
-    const [categoria, setCategoria] = useState<string>("");
+    const [description, setDescription] = useState<string>("");
+    const [type, setType] = useState<string>("");
     const [date, setDate] = useState<Date>()
-    const [valor, setValor] = useState<string>("");
-    const { addEntry } = useEntries();
+    const [value, setValue] = useState<string>("");
+    const { entries, addEntry } = useEntries();
     const { category } = useCategory();
 
-    function cadastrar(descricao: string, categoria: string, date: Date | undefined, valor: string) {
-        const newEntry = { descricao, categoria, date, valor };
-        addEntry(newEntry);
+    function cadastrar(description: string, type: string, date: Date | undefined, value: string) {
+        if (description && type && date && value) {
+            const newEntry = { description, type, date, value };
+            addEntry(newEntry);
+            alert("Cadastro realizado com sucesso.");
+            setType(``)
+            setValue(``)
+            setDate(undefined);
+            setDescription(``)
+        } else {
+            alert("Por favor, preencha todos os campos.");
+        }
     }
 
     return (
@@ -107,14 +71,14 @@ export default function Pagamento() {
                                 id="descricao"
                                 name="descricao"
                                 type="text"
-                                value={descricao}
-                                onChange={(e) => setDescricao(e.target.value)}
+                                value={description}
+                                onChange={(e) => setDescription(e.target.value)}
                             />
 
                             <Label>Categoria</Label>
                             <Select
-                                value={categoria}
-                                onValueChange={(value) => setCategoria(value)}
+                                value={type}
+                                onValueChange={(value) => setType(value)}
                             >
                                 <SelectTrigger className="bg-slate-100 w-full md:w-1/2 lg:w-1/2 border border-slate-300 my-4">
                                     <SelectValue placeholder="Selecione uma categoria" />
@@ -142,7 +106,7 @@ export default function Pagamento() {
                                             )}
                                         >
                                             <CalendarIcon className="mr-2 h-4 w-4" />
-                                            {date ? format(date, "PPP") : <span>Selecione um período</span>}
+                                            {date ? format(date, "PPP") : <span>--/--/----</span>}
                                         </Button>
                                     </PopoverTrigger>
                                     <PopoverContent className="w-auto p-0">
@@ -163,11 +127,11 @@ export default function Pagamento() {
                                 id="valor"
                                 name="valor"
                                 type="text"
-                                value={valor}
-                                onChange={(e) => setValor(e.target.value)}
+                                value={value}
+                                onChange={(e) => setValue(e.target.value)}
                             />
 
-                            <Button onClick={() => cadastrar(descricao, categoria, date, valor)}>
+                            <Button onClick={() => cadastrar(description, type, date, value)}>
                                 Salvar
                             </Button>
                         </div>
@@ -175,7 +139,10 @@ export default function Pagamento() {
 
                     <div className="h-80 lg:h-[530px] col-span-1 rounded-sm border bg-white shadow-md">
                         <div className="h-full rounded-sm bg-gradient-to-r from-slate-800 to-slate-600">
-                            <TableListPay className={`h-72 lg:h-[500px] p-4 w-full rounded-md`} />
+                            <div className="items-center text-lg flex font-poppins-bold text-white  rounded-t-sm">
+                                <p className="px-6 py-4">Lista de Movimentações</p>
+                            </div>
+                            <TableListAction className={`h-64 lg:h-[450px] p-4 w-full rounded-md`} context={entries} variant={`paymount`} />
                         </div>
                     </div>
                 </div>

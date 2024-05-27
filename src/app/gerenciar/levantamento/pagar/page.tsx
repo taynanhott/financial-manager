@@ -2,7 +2,8 @@
 
 import Submenu from "@/components/Html/Body/Submenu/submenu";
 import Graph from "@/components/Resources/GraphApex";
-import { ListPaytDash } from "@/components/Resources/Table";
+import { ListDash } from "@/components/Resources/Table";
+import { useDeptor } from "@/context/DebtorContext";
 
 const graficoSimples = [
     {
@@ -66,6 +67,8 @@ const graficoDonut = [
 ]
 
 export default function Pagar() {
+    const { deptor } = useDeptor();
+
     return (
         <section className="grow lg:ml-[240px] mt-14 lg:mt-auto pb-12">
             <div id="header-page">
@@ -79,7 +82,7 @@ export default function Pagar() {
                             <p className="px-6 py-4">Contas à Pagar</p>
                         </div>
                         <div className="h-full">
-                            <ListPaytDash className={`h-64 lg:h-96 p-4 w-full rounded-md`} />
+                            <ListDash className={`h-64 lg:h-96 p-4 w-full rounded-md`} context={deptor} variant={`deptor`} />
                         </div>
                     </div>
                     <div className="h-[475px] grid grid-cols-1 lg:grid-cols-4 gap-8 col-span-1">

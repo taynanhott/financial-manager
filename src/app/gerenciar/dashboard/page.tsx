@@ -3,10 +3,11 @@
 import Graph from "@/components/Resources/GraphApex";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { ListDeptorDash } from "@/components/Resources/Table";
+import { ListDash } from "@/components/Resources/Table";
 import React from "react";
 import Submenu from "@/components/Html/Body/Submenu/submenu";
 import Link from "next/link";
+import { useDeptor } from "@/context/DebtorContext";
 
 const graficoDetalhado = [
     {
@@ -171,6 +172,7 @@ function CardDashBoard({ cards }: Props) {
 }
 
 export default function Gerenciar() {
+    const { deptor } = useDeptor();
 
     return (
         <section className="grow lg:ml-[240px] mt-14 lg:mt-auto pb-12">
@@ -212,7 +214,7 @@ export default function Gerenciar() {
                 <div className="grid grid-cols-2 lg:grid-cols-12 gap-8 px-[38px] pt-[38px]">
                     <div className="h-[341px] col-span-8 lg:col-span-5 rounded-sm border bg-white shadow-md">
                         <div className="col-span-1 items-center text-lg font-poppins-bold px-4 pt-4">Lista de Devedores</div>
-                        <ListDeptorDash className={`h-72 p-4 w-full rounded-md`} />
+                        <ListDash className={`h-72 p-4 w-full rounded-md`} context={deptor} variant={`deptor`} />
                     </div>
                     <div className="h-[341px] col-span-8 lg:col-span-4 rounded-sm border bg-white shadow-md">
                         <div className="col-span-1 items-center text-lg font-poppins-bold px-4 pt-4">% Por Categoria</div>
