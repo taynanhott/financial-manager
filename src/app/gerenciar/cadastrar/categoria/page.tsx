@@ -51,7 +51,7 @@ export default function Categoria() {
                                 onChange={(e) => setDescription(e.target.value)}
                             />
                             <Button type="submit" onClick={() => cadastrar(description)}>
-                                Salvar
+                                Cadastrar
                             </Button>
                         </div>
                     </div>

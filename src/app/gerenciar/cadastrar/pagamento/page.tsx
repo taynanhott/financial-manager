@@ -29,17 +29,17 @@ export default function Pagamento() {
     const [description, setDescription] = useState<string>("");
     const [type, setType] = useState<string>("");
     const [date, setDate] = useState<Date>()
-    const [value, setValue] = useState<string>("");
+    const [value, setValue] = useState<number>();
     const { entries, addEntry } = useEntries();
     const { category } = useCategory();
 
-    function cadastrar(description: string, type: string, date: Date | undefined, value: string) {
+    function cadastrar(description: string, type: string, date: Date | undefined, value: number | undefined) {
         if (description && type && date && value) {
             const newEntry = { description, type, date, value };
             addEntry(newEntry);
             alert("Cadastro realizado com sucesso.");
             setType(``)
-            setValue(``)
+            setValue(undefined)
             setDate(undefined);
             setDescription(``)
         } else {
@@ -128,11 +128,11 @@ export default function Pagamento() {
                                 name="valor"
                                 type="text"
                                 value={value}
-                                onChange={(e) => setValue(e.target.value)}
+                                onChange={(e) => setValue(Number(e.target.value))}
                             />
 
                             <Button onClick={() => cadastrar(description, type, date, value)}>
-                                Salvar
+                                Cadastrar
                             </Button>
                         </div>
                     </div>

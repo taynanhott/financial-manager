@@ -5,7 +5,7 @@ import React, { createContext, useState, useContext, ReactNode } from 'react';
 interface Entry {
     description: string;
     date: Date | undefined;
-    value: string;
+    value: number | undefined;
     type: string;
 }
 

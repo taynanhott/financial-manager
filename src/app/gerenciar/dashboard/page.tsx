@@ -2,12 +2,14 @@
 
 import Graph from "@/components/Resources/GraphApex";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { animate, motion, useMotionValue, useTransform } from "framer-motion";
 import { ListDash } from "@/components/Resources/Table";
-import React from "react";
+import React, { useEffect } from "react";
 import Submenu from "@/components/Html/Body/Submenu/submenu";
 import Link from "next/link";
 import { useDeptor } from "@/context/DebtorContext";
+import { useEntries } from "@/context/EntriesContext";
+import { useCategory } from "@/context/CategoryContext";
 
 const graficoDetalhado = [
     {
@@ -96,7 +98,7 @@ const graficoDonut = [
 
 interface Props {
     cards: {
-        title: string,
+        title: number,
         icon?: string,
         href: string,
         text: string,
@@ -104,33 +106,18 @@ interface Props {
     }[]
 }
 
-const cards = [
-    {
-        title: `R$ 1000`,
-        icon: '/image/menu/levantamento.png',
-        text: `de previsão de faturamento`,
-        href: '/gerenciar/levantamento/faturamento',
-        footer: `Conferir os Lançamentos`,
-    }, {
-        title: `R$ 2000`,
-        icon: '/image/menu/receber.png',
-        text: `à receber`,
-        href: '/gerenciar/levantamento/receber',
-        footer: `Conferir os Devedores`,
-    }, {
-        title: `R$ 1500`,
-        icon: '/image/menu/cadastrar.png',
-        text: `pendente pagamento`,
-        href: '/gerenciar/levantamento/pagar',
-        footer: `Conferir as Dívidas`,
-    }, {
-        title: `R$ 800`,
-        icon: '/image/menu/levantamento.png',
-        text: `de reserva financeira`,
-        href: '/gerenciar/levantamento/reserva',
-        footer: `Conferir as Estimativas`,
-    },
-]
+function useAnimatedCount(targetValue: number, duration: number = 1.5) {
+    const count = useMotionValue(0);
+    const rounded = useTransform(count, latest => Math.round(latest));
+
+    useEffect(() => {
+        const controls = animate(count, targetValue, { duration });
+
+        return () => controls.stop();
+    }, [targetValue, duration]);
+
+    return rounded;
+}
 
 function CardDashBoard({ cards }: Props) {
 
@@ -141,7 +128,7 @@ function CardDashBoard({ cards }: Props) {
                     key={`card-${index}`}
                     className="backdrop-blur-sm shadow-md"
                     initial={{ opacity: 0, y: 50 }}
-                    whileInView={{ opacity: 1, y: 0 }}
+                    animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: index * 0.1 }}
                     viewport={{ once: true }}
@@ -149,12 +136,15 @@ function CardDashBoard({ cards }: Props) {
                     <Link href={card.href} target="_self">
                         <div className="h-48 min-h-48 grid grid-cols-2 lg:hover:scale-105 rounded-sm border bg-white transition ease-in-out hover:-translate-y-1 duration-700">
                             <div className="col-span-2 px-4 pt-2 flex justify-between items-center">
-                                <div className="text-lg font-poppins-bold">{card.title}</div>
+                                {card.title >= 0 ?
+                                    <div className="text-lg font-poppins-bold inline-block">R$ <motion.div className="inline-block">{useAnimatedCount(card.title)}</motion.div></div>
+                                    :
+                                    <div className="text-lg font-poppins-bold inline-block">- R$ <motion.div className="inline-block">{useAnimatedCount(card.title * -1)}</motion.div></div>}
                                 <Image
                                     className=""
                                     src={card.icon ?? ``}
-                                    width={45}
-                                    height={45}
+                                    width={30}
+                                    height={30}
                                     alt=""
                                 />
                             </div>
@@ -173,6 +163,41 @@ function CardDashBoard({ cards }: Props) {
 
 export default function Gerenciar() {
     const { deptor } = useDeptor();
+    const { entries } = useEntries();
+    const { category } = useCategory();
+
+    const totalDeptor = deptor.reduce((acc, element) => acc + (element.value ?? 0), 0);
+    const totalEntries = entries.reduce((acc, element) => acc + (element.value ?? 0), 0);
+    const totalFat = totalDeptor - totalEntries;
+    const totalRes = totalFat * 0.05;
+
+    const cards = [
+        {
+            title: totalFat,
+            icon: '/image/menu/levantamento.png',
+            text: `de previsão de faturamento`,
+            href: '/gerenciar/levantamento/faturamento',
+            footer: `Conferir os Lançamentos`,
+        }, {
+            title: totalDeptor,
+            icon: '/image/menu/receber.png',
+            text: `à receber`,
+            href: '/gerenciar/levantamento/receber',
+            footer: `Conferir os Devedores`,
+        }, {
+            title: totalEntries,
+            icon: '/image/menu/cadastrar.png',
+            text: `pendente pagamento`,
+            href: '/gerenciar/levantamento/pagar',
+            footer: `Conferir as Dívidas`,
+        }, {
+            title: totalRes >= 0 ? totalRes : 0,
+            icon: '/image/menu/levantamento.png',
+            text: `de reserva financeira`,
+            href: '/gerenciar/levantamento/reserva',
+            footer: `Conferir as Estimativas`,
+        },
+    ]
 
     return (
         <section className="grow lg:ml-[240px] mt-14 lg:mt-auto pb-12">
@@ -224,14 +249,16 @@ export default function Gerenciar() {
                     </div>
                     <div className="h-52 lg:h-[341px] grid grid-cols-8 lg:grid-cols-1 gap-8 col-span-8 lg:col-span-3 rounded-sm">
                         <div className="col-span-8 md:col-span-4 lg:col-span-1 rounded-sm border bg-white shadow-md">
-                            <div className="col-span-1 h-2/3 flex justify-center text-[160%] text-nowrap items-center font-poppins-bold p-4 text-rose-500 bg-gradient-to-r from-rose-300 to-rose-200">R$ 1.250,75</div>
-                            <div className="px-4 h-1/3 flex justify-center lg:justify-start font-poppins-bold items-center">Movimentações Debitadas</div>
-                        </div>
-                        <div className="col-span-8 md:col-span-4 lg:col-span-1 rounded-sm border bg-white shadow-md">
                             <div className="h-2/3 flex justify-center items-center p-4 text-green-500  bg-gradient-to-r from-green-300 to-green-200">
-                                <p className="font-poppins-bold flex text-[160%] text-nowrap justify-center">R$ 1.750,20</p>
+                                <p className="font-poppins-bold flex text-[160%] text-nowrap justify-center">R$ <motion.div>{useAnimatedCount(totalDeptor)}</motion.div></p>
                             </div>
                             <div className="px-4 h-1/3 flex  justify-center lg:justify-start  font-poppins-bold items-center">Movimentações Creditadas</div>
+                        </div>
+                        <div className="col-span-8 md:col-span-4 lg:col-span-1 rounded-sm border bg-white shadow-md">
+                            <div className="h-2/3 flex justify-center items-center p-4 text-rose-500 bg-gradient-to-r from-rose-300 to-rose-200">
+                                <p className="font-poppins-bold flex text-[160%] text-nowrap justify-center">R$ <motion.div>{useAnimatedCount(totalEntries)}</motion.div></p>
+                            </div>
+                            <div className="px-4 h-1/3 flex justify-center lg:justify-start font-poppins-bold items-center">Movimentações Debitadas</div>
                         </div>
                     </div>
                 </div>

@@ -20,15 +20,16 @@ export default function Arrecadar() {
 
     const [description, setDescription] = useState<string>("");
     const [date, setDate] = useState<Date>()
-    const [value, setValue] = useState<string>("");
+    const [value, setValue] = useState<number>();
     const { deptor, addDeptor } = useDeptor();
 
-    function cadastrar(description: string, date: Date | undefined, value: string) {
+    function cadastrar(description: string, date: Date | undefined, value: number | undefined) {
+        console.log(value);
         if (description && date && value) {
             const newDeptor = { description, date, value };
             addDeptor(newDeptor);
             alert("Cadastro realizado com sucesso.");
-            setValue(``)
+            setValue(undefined)
             setDate(undefined);
             setDescription(``)
         } else {
@@ -94,15 +95,13 @@ export default function Arrecadar() {
                             <Label>Valor</Label>
                             <Input
                                 className="bg-slate-100 w-full md:w-1/2 lg:w-1/2 border border-slate-300 my-4"
-                                id="valor"
-                                name="valor"
-                                type="text"
+                                type="number"
                                 value={value}
-                                onChange={(e) => setValue(e.target.value)}
+                                onChange={(e) => setValue(Number(e.target.value))}
                             />
 
                             <Button onClick={() => cadastrar(description, date, value)}>
-                                Salvar
+                                Cadastrar
                             </Button>
                         </div>
                     </div>
