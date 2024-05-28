@@ -64,7 +64,7 @@ export function ListDash({ className, context, variant }: Props) {
                                         </td>
                                     )}
                                     {element.value && (
-                                        <td className="p-2 text-sm text-left">R$ {element.value}</td>
+                                        <td className="p-2 text-sm text-left">R$ {Number(element.value).toFixed(2)}</td>
                                     )}
                                 </motion.tr>
                             ))
@@ -136,7 +136,7 @@ export function TableListAction({ className, context, variant }: Props) {
                                         </td>
                                     )}
                                     {element.value && (
-                                        <td className="p-2 text-sm text-left">R$ {element.value}</td>
+                                        <td className="p-2 text-sm text-left">R$ {Number(element.value).toFixed(2)}</td>
                                     )}
                                 </motion.tr>
                             ))
