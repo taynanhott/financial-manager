@@ -25,7 +25,7 @@ export default function Arrecadar() {
 
     function cadastrar(description: string, date: Date | undefined, value: string | undefined) {
         console.log(value);
-        if (description && date && value) {
+        if (description && date && value && !isNaN(+value)) {
             const newDeptor = { description, date, value };
             addDeptor(newDeptor);
             alert("Cadastro realizado com sucesso.");
@@ -97,10 +97,10 @@ export default function Arrecadar() {
                                 className="bg-slate-100 w-full md:w-1/2 lg:w-1/2 border border-slate-300 my-4"
                                 type="text"
                                 value={value}
-                                pattern="[0-9]*"
+                                pattern="^\d*\.?\d*$"
                                 onChange={(e) => {
                                     const newValue = e.target.value;
-                                    if (newValue != undefined && /^[0-9]*$/.test(newValue)) {
+                                    if (newValue !== undefined && /^\d*\.?\d*$/.test(newValue)) {
                                         setValue(newValue);
                                     }
                                 }}

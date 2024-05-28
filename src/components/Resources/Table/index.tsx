@@ -1,4 +1,5 @@
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { useCategory } from "@/context/CategoryContext";
 import { motion } from "framer-motion";
 
 interface Props {
@@ -13,6 +14,8 @@ interface Props {
 }
 
 export function ListDash({ className, context, variant }: Props) {
+    const { category } = useCategory();
+
     return (
         <ScrollArea className={className}>
             <div className="relative">
@@ -47,7 +50,9 @@ export function ListDash({ className, context, variant }: Props) {
                                 >
                                     <td className="p-2 text-sm font-medium">{element.description}</td>
                                     {element.type && (
-                                        <td className="p-2 text-sm">{element.type}</td>
+                                        <td className="p-2 text-sm">
+                                            {category[+element.type].description}
+                                        </td>
                                     )}
                                     {element.date !== undefined && (
                                         <td className="p-2 text-sm text-right">00/00/0000
@@ -80,6 +85,7 @@ export function ListDash({ className, context, variant }: Props) {
 
 
 export function TableListAction({ className, context, variant }: Props) {
+    const { category } = useCategory();
 
     return (
         <ScrollArea className={className}>
@@ -115,7 +121,9 @@ export function TableListAction({ className, context, variant }: Props) {
                                 >
                                     <td className="p-2 text-sm font-medium">{element.description}</td>
                                     {element.type && (
-                                        <td className="p-2 text-sm">{element.type}</td>
+                                        <td className="p-2 text-sm">
+                                            {category[+element.type].description}
+                                        </td>
                                     )}
                                     {element.date !== undefined && (
                                         <td className="p-2 text-sm text-right">00/00/0000

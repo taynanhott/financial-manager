@@ -1,9 +1,10 @@
-import { useEffect } from "react";
-import { animate, useMotionValue, useTransform } from "framer-motion";
+import { useEffect } from 'react';
+import { useMotionValue, useTransform, animate } from 'framer-motion';
 
 const useAnimatedCount = (targetValue: number, duration: number = 1.5) => {
     const count = useMotionValue(0);
-    const rounded = useTransform(count, latest => Math.round(latest));
+
+    const rounded = useTransform(count, latest => latest.toFixed(2));
 
     useEffect(() => {
         const controls = animate(count, targetValue, { duration });

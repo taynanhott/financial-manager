@@ -1,7 +1,8 @@
 "use client"
 
 import Graph from "@/components/Resources/GraphApex";
-import {motion} from "framer-motion";
+import { motion } from "framer-motion";
+import useAnimatedCount from "@/components/animation";
 import { ListDash } from "@/components/Resources/Table";
 import React from "react";
 import Submenu from "@/components/Html/Body/Submenu/submenu";
@@ -9,7 +10,6 @@ import { useDeptor } from "@/context/DebtorContext";
 import { useEntries } from "@/context/EntriesContext";
 import { useCategory } from "@/context/CategoryContext";
 import CardDashBoard from "@/components/Resources/CardBoard";
-import useAnimatedCount from "@/components/animation";
 
 const graficoDetalhado = [
     {
@@ -42,44 +42,6 @@ const graficoDetalhado = [
     },
 ]
 
-const graficoSimples = [
-    {
-        options: {
-            chart: {
-                id: "bar" as const,
-                foreColor: '#F5F5F5'
-            },
-            xaxis: {
-                categories: ['1ª semana', '2ª semana', '3ª semana', '4ª semana']
-            },
-            grid: {
-                position: 'front'
-            },
-            fill: {
-                colors: ['#F5F5F5', '#b1b7b4']
-            },
-            colors: ['#F5F5F5', '#b1b7b4'],
-            dataLabels: {
-                style: {
-                    colors: ['#0f172a']
-                }
-            },
-        },
-        series: [
-            {
-                name: "Valor semanal",
-                data: [250, 250, 250, 250]
-            },
-
-            {
-                name: "Valor Gasto",
-                data: [650, 450, 175, 50]
-            }
-        ],
-        height: 200
-    },
-]
-
 const graficoDonut = [
     {
         options: {
@@ -101,8 +63,8 @@ export default function Gerenciar() {
     const { entries } = useEntries();
     const { category } = useCategory();
 
-    const totalDeptor = deptor.reduce((acc, element) => acc + (element.value ? +element.value : 0), 0);
-    const totalEntries = entries.reduce((acc, element) => acc + (element.value ? +element.value : 0), 0);
+    const totalDeptor = deptor.reduce((acc, element) => acc + (element.value ? parseFloat(element.value) : 0), 0);
+    const totalEntries = entries.reduce((acc, element) => acc + (element.value ? parseFloat(element.value) : 0), 0);
     const totalFat = totalDeptor - totalEntries;
     const totalRes = totalFat * 0.05;
 
@@ -134,6 +96,44 @@ export default function Gerenciar() {
         },
     ]
 
+    const graficoSimples = [
+        {
+            options: {
+                chart: {
+                    id: "bar" as const,
+                    foreColor: '#F5F5F5'
+                },
+                xaxis: {
+                    categories: ['1ª semana', '2ª semana', '3ª semana', '4ª semana']
+                },
+                grid: {
+                    position: 'front'
+                },
+                fill: {
+                    colors: ['#F5F5F5', '#b1b7b4']
+                },
+                colors: ['#F5F5F5', '#b1b7b4'],
+                dataLabels: {
+                    style: {
+                        colors: ['#0f172a']
+                    }
+                },
+            },
+            series: [
+                {
+                    name: "Valor semanal",
+                    data: [totalFat / 4, totalFat / 4, totalFat / 4, totalFat / 4]
+                },
+
+                {
+                    name: "Valor Gasto",
+                    data: [655, 450, 175, 50]
+                }
+            ],
+            height: 200
+        },
+    ]
+
     return (
         <section className="grow lg:ml-[240px] mt-14 lg:mt-auto pb-12">
             <div id="header-dashboard">
@@ -158,7 +158,7 @@ export default function Gerenciar() {
                     </div>
                     <div className="h-[341px] col-span-1 rounded-sm border bg-white shadow-md">
 
-                        <div className="h-2/3 bg-gradient-to-r from-slate-800 to-slate-600">
+                        <div className="h-2/3 bg-gradient-to-r from-slate-500 to-slate-400">
                             <Graph components={graficoSimples} />
                         </div>
 

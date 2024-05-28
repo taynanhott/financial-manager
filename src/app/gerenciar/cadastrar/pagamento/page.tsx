@@ -34,7 +34,7 @@ export default function Pagamento() {
     const { category } = useCategory();
 
     function cadastrar(description: string, type: string, date: Date | undefined, value: string | undefined) {
-        if (description && type && date && value && typeof (+value) == `number`) {
+        if (description && type && date && value && !isNaN(+value)) {
             const newEntry = { description, type, date, value };
             addEntry(newEntry);
             alert("Cadastro realizado com sucesso.");
@@ -84,12 +84,8 @@ export default function Pagamento() {
                                     <SelectValue placeholder="Selecione uma categoria" />
                                 </SelectTrigger>
                                 <SelectContent>
-                                    <SelectItem value="Crédito">Crédito</SelectItem>
-                                    <SelectItem value="Débito">Débito</SelectItem>
-                                    <SelectItem value="Parcelado">Parcelado</SelectItem>
-                                    <SelectItem value="Emprestado">Emprestado</SelectItem>
                                     {category.map((invoice: any, index: number) => (
-                                        <SelectItem key={index} value={invoice.description}>{invoice.description}</SelectItem>
+                                        <SelectItem key={index} value={`${index}`}>{invoice.description}</SelectItem>
                                     ))}
                                 </SelectContent>
                             </Select>
@@ -126,10 +122,10 @@ export default function Pagamento() {
                                 className="bg-slate-100 w-full md:w-1/2 lg:w-1/2 border border-slate-300 my-4"
                                 type="text"
                                 value={value}
-                                pattern="[0-9]*"
+                                pattern="^\d*\.?\d*$"
                                 onChange={(e) => {
                                     const newValue = e.target.value;
-                                    if (newValue != undefined && /^[0-9]*$/.test(newValue)) {
+                                    if (newValue !== undefined && /^\d*\.?\d*$/.test(newValue)) {
                                         setValue(newValue);
                                     }
                                 }}

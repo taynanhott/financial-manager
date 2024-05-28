@@ -14,7 +14,12 @@ interface CategoryContextType {
 const CategoryContext = createContext<CategoryContextType | undefined>(undefined);
 
 export const CategoryProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-    const [category, setCategory] = useState<Entry[]>([]);
+    const [category, setCategory] = useState<Entry[]>([
+        { description: 'Débito' },
+        { description: 'Crédito' },
+        { description: 'Parcelado' },
+        { description: 'Emprestado' }
+    ]);
 
     const addCategory = (category: Entry) => {
         setCategory(prevCategory => [...prevCategory, category]);
