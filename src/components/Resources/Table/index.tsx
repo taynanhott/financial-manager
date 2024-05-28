@@ -1,4 +1,4 @@
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { useCategory } from "@/context/CategoryContext";
 import { motion } from "framer-motion";
 import moment from 'moment';
@@ -84,6 +84,7 @@ export function ListDash({ className, context, variant }: Props) {
                     </tbody>
                 </table>
             </div>
+            <ScrollBar orientation="horizontal" />
         </ScrollArea>
     );
 }
@@ -156,6 +157,7 @@ export function TableListAction({ className, context, variant }: Props) {
                     </tbody>
                 </table>
             </div>
+            <ScrollBar orientation="horizontal" />
         </ScrollArea>
     );
 }
