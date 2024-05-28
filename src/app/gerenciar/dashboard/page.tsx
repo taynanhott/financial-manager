@@ -121,6 +121,8 @@ function useAnimatedCount(targetValue: number, duration: number = 1.5) {
 
 function CardDashBoard({ cards }: Props) {
 
+    const animatedCounts = cards.map(card => useAnimatedCount(+card.title >= 0 ? +card.title : +card.title * -1));
+
     return (
         <>
             {cards.map((card: any, index: number) => (
@@ -136,10 +138,7 @@ function CardDashBoard({ cards }: Props) {
                     <Link href={card.href} target="_self">
                         <div className="h-48 min-h-48 grid grid-cols-2 lg:hover:scale-105 rounded-sm border bg-white transition ease-in-out hover:-translate-y-1 duration-700">
                             <div className="col-span-2 px-4 pt-2 flex justify-between items-center">
-                                {card.title >= 0 ?
-                                    <div className="text-lg font-poppins-bold inline-block">R$ <motion.div className="inline-block">{useAnimatedCount(card.title)}</motion.div></div>
-                                    :
-                                    <div className="text-lg font-poppins-bold inline-block">- R$ <motion.div className="inline-block">{useAnimatedCount(card.title * -1)}</motion.div></div>}
+                                <div className="text-lg font-poppins-bold inline-block">{card.title >= 0 ? "R$" : "- R$"} <motion.div className="inline-block">{animatedCounts[index]}</motion.div></div>
                                 <Image
                                     className=""
                                     src={card.icon ?? ``}
@@ -166,8 +165,8 @@ export default function Gerenciar() {
     const { entries } = useEntries();
     const { category } = useCategory();
 
-    const totalDeptor = deptor.reduce((acc, element) => acc + (element.value ?? 0), 0);
-    const totalEntries = entries.reduce((acc, element) => acc + (element.value ?? 0), 0);
+    const totalDeptor = deptor.reduce((acc, element) => acc + (element.value ? +element.value : 0), 0);
+    const totalEntries = entries.reduce((acc, element) => acc + (element.value ? +element.value : 0), 0);
     const totalFat = totalDeptor - totalEntries;
     const totalRes = totalFat * 0.05;
 

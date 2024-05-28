@@ -29,17 +29,17 @@ export default function Pagamento() {
     const [description, setDescription] = useState<string>("");
     const [type, setType] = useState<string>("");
     const [date, setDate] = useState<Date>()
-    const [value, setValue] = useState<number>();
+    const [value, setValue] = useState<string>();
     const { entries, addEntry } = useEntries();
     const { category } = useCategory();
 
-    function cadastrar(description: string, type: string, date: Date | undefined, value: number | undefined) {
-        if (description && type && date && value) {
+    function cadastrar(description: string, type: string, date: Date | undefined, value: string | undefined) {
+        if (description && type && date && value && typeof (+value) == `number`) {
             const newEntry = { description, type, date, value };
             addEntry(newEntry);
             alert("Cadastro realizado com sucesso.");
             setType(``)
-            setValue(undefined)
+            setValue(``)
             setDate(undefined);
             setDescription(``)
         } else {
@@ -124,11 +124,15 @@ export default function Pagamento() {
                             <Label>Valor</Label>
                             <Input
                                 className="bg-slate-100 w-full md:w-1/2 lg:w-1/2 border border-slate-300 my-4"
-                                id="valor"
-                                name="valor"
                                 type="text"
                                 value={value}
-                                onChange={(e) => setValue(Number(e.target.value))}
+                                pattern="[0-9]*"
+                                onChange={(e) => {
+                                    const newValue = e.target.value;
+                                    if (newValue != undefined && /^[0-9]*$/.test(newValue)) {
+                                        setValue(newValue);
+                                    }
+                                }}
                             />
 
                             <Button onClick={() => cadastrar(description, type, date, value)}>

@@ -5,7 +5,7 @@ import React, { createContext, useState, useContext, ReactNode } from 'react';
 interface Entry {
     description: string;
     date: Date | undefined;
-    value: number | undefined;
+    value: string | undefined;
 }
 
 interface DeptorContextType {

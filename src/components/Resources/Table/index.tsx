@@ -6,7 +6,7 @@ interface Props {
     context: {
         description: string;
         date?: Date | undefined;
-        value?: number;
+        value?: string | undefined;
         type?: string;
     }[],
     variant: `deptor` | `paymount` | `category`
