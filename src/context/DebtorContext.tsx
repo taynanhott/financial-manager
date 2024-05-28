@@ -40,7 +40,7 @@ export const DeptorProvider: React.FC<{ children: ReactNode }> = ({ children }) 
         {
             description: 'Empréstimo',
             date: undefined,
-            value: '5000.70',
+            value: '500.70',
         },
         {
             description: 'Laura',

@@ -33,7 +33,7 @@ export const EntriesProvider: React.FC<{ children: ReactNode }> = ({ children })
         {
             description: "Mercado",
             date: undefined,
-            value: "670",
+            value: "270",
             type: "0"
         },
         {
@@ -57,14 +57,14 @@ export const EntriesProvider: React.FC<{ children: ReactNode }> = ({ children })
         {
             description: "Mecânico",
             date: undefined,
-            value: '1530.85',
+            value: '130.85',
             type: "0"
         },
         {
             description: "Formatura",
             date: undefined,
-            value: '4900.12',
-            type: "0"
+            value: '400.12',
+            type: "2"
         },
         {
             description: "Caio",

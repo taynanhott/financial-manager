@@ -125,10 +125,14 @@ export function TableListAction({ className, context, variant }: Props) {
                                             {category[+element.type].description}
                                         </td>
                                     )}
-                                    {element.date !== undefined && (
-                                        <td className="p-2 text-sm text-right">00/00/0000
-                                        </td>
-                                    )}
+                                    {
+                                        //element.date !== undefined && (
+                                        //    <td className="p-2 text-sm text-right">00/00/0000
+                                        //    </td>
+                                        //)
+                                    }
+                                    <td className="p-2 text-sm text-right">00/00/0000
+                                    </td>
                                     {element.value && (
                                         <td className="p-2 text-sm text-right">{element.value}</td>
                                     )}

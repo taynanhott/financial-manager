@@ -31,15 +31,15 @@ const graficoSimples = [
         series: [
             {
                 name: "Pago",
-                data: [350]
+                data: [2807.45]
             },
             {
                 name: "Atrasado",
-                data: [250]
+                data: [2380]
             },
             {
                 name: "Pendente",
-                data: [450]
+                data: [3213.75]
             },
         ],
         height: 170
@@ -57,7 +57,7 @@ const graficoDonut = [
                 position: 'right' as const
             }
         },
-        series: [350, 250, 450],
+        series: [2807.45, 2380, 3213.75],
         height: 170
     },
 ]
