@@ -43,12 +43,12 @@ export default function Faturamento() {
             series: [
                 {
                     name: "Valor semanal",
-                    data: [totalFat / 4, totalFat / 4, totalFat / 4, totalFat / 4]
+                    data: [Number((totalFat / 4).toFixed(2)), Number((totalFat / 4).toFixed(2)), Number((totalFat / 4).toFixed(2)), Number((totalFat / 4).toFixed(2))]
                 },
 
                 {
                     name: "Valor Gasto",
-                    data: [650, 450, 175, 50]
+                    data: [650, 450, 175, 145]
                 }
             ],
             height: 310
@@ -85,7 +85,7 @@ export default function Faturamento() {
                             <Input
                                 className="bg-slate-100 w-full md:w-1/2 lg:w-2/3 border border-slate-300 my-4"
                                 type="text"
-                                value={`R$ ${totalFat/4}`}
+                                value={`R$ ${totalFat / 4}`}
                             />
                         </div>
                     </div>

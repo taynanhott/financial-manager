@@ -3,71 +3,79 @@
 import Submenu from "@/components/Html/Body/Submenu/submenu";
 import Graph from "@/components/Resources/GraphApex";
 import { ListDash } from "@/components/Resources/Table";
+import { useCategory } from "@/context/CategoryContext";
 import { useDeptor } from "@/context/DebtorContext";
-
-const graficoSimples = [
-    {
-        options: {
-            chart: {
-                id: "bar" as const,
-                foreColor: '#F5F5F5'
-            },
-            xaxis: {
-                categories: ['Categoria da Movimentação']
-            },
-            grid: {
-                position: 'front'
-            },
-            fill: {
-                colors: ['#F5F5F5', '#b1b7b4']
-            },
-            colors: ['#F5F5F5', '#b1b7b4'],
-            dataLabels: {
-                style: {
-                    colors: ['#0f172a']
-                }
-            },
-        },
-        series: [
-            {
-                name: "Crédito",
-                data: [250]
-            },
-            {
-                name: "Débito",
-                data: [650]
-            },
-            {
-                name: "Parcelado",
-                data: [450]
-            },
-            {
-                name: "Emprestado",
-                data: [150]
-            }
-        ],
-        height: 170
-    },
-]
-
-const graficoDonut = [
-    {
-        options: {
-            chart: {
-                id: "donut" as const
-            },
-            labels: ['Crédito', 'Débito', "Parcelado", "Emprestado"],
-            legend: {
-                position: 'right' as const
-            }
-        },
-        series: [250, 650, 450, 150],
-        height: 171
-    },
-]
+import { useEntries } from "@/context/EntriesContext";
 
 export default function Pagar() {
     const { deptor } = useDeptor();
+    const { entries } = useEntries();
+    const { category } = useCategory();
+
+    const categoryLabels = category.map(cat => cat.description);
+    const sums = new Array(category.length).fill(0);
+
+    entries.forEach(entry => {
+        const value = parseFloat(entry.value ? entry.value : ``) || 0;
+        const typeIndex = parseInt(entry.type, 10);
+
+        if (!isNaN(typeIndex) && typeIndex >= 0 && typeIndex < sums.length) {
+            sums[typeIndex] += value;
+        }
+    });
+
+    const series = new Array(category.length);
+
+    category.map((category, index: number) => {
+        series[index] = {
+            name: category.description,
+            data: sums[index]
+        }
+    })
+
+    const graficoDonut = [
+        {
+            options: {
+                chart: {
+                    id: "donut" as const
+                },
+                labels: categoryLabels,
+                legend: {
+                    position: 'right' as const
+                }
+            },
+            series: sums,
+            height: 171
+        },
+    ]
+
+    const graficoSimples = [
+        {
+            options: {
+                chart: {
+                    id: "bar" as const,
+                    foreColor: '#F5F5F5'
+                },
+                xaxis: {
+                    categories: ['Categoria da Movimentação']
+                },
+                grid: {
+                    position: 'front'
+                },
+                fill: {
+                    colors: ['#F5F5F5', '#b1b7b4']
+                },
+                colors: ['#F5F5F5', '#b1b7b4'],
+                dataLabels: {
+                    style: {
+                        colors: ['#0f172a']
+                    }
+                },
+            },
+            series: series,
+            height: 170
+        },
+    ]
 
     return (
         <section className="grow lg:ml-[240px] mt-14 lg:mt-auto pb-12">
@@ -97,6 +105,6 @@ export default function Pagar() {
                     </div>
                 </div>
             </div>
-        </section >
+        </section>
     );
 }

@@ -17,7 +17,80 @@ interface EntriesContextType {
 const EntriesContext = createContext<EntriesContextType | undefined>(undefined);
 
 export const EntriesProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-    const [entries, setEntries] = useState<Entry[]>([]);
+    const [entries, setEntries] = useState<Entry[]>([
+        {
+            description: "Fatura Cartão",
+            date: undefined,
+            value: "650.17",
+            type: "1"
+        },
+        {
+            description: "Gasolina",
+            date: undefined,
+            value: "90",
+            type: "0"
+        },
+        {
+            description: "Mercado",
+            date: undefined,
+            value: "670",
+            type: "0"
+        },
+        {
+            description: "Delivery",
+            date: undefined,
+            value: "70",
+            type: "1"
+        },
+        {
+            description: "Luisa",
+            date: undefined,
+            value: '550.50',
+            type: "3"
+        },
+        {
+            description: "Parcela Empréstimo",
+            date: undefined,
+            value: '576.35',
+            type: "2"
+        },
+        {
+            description: "Mecânico",
+            date: undefined,
+            value: '1530.85',
+            type: "0"
+        },
+        {
+            description: "Formatura",
+            date: undefined,
+            value: '4900.12',
+            type: "0"
+        },
+        {
+            description: "Caio",
+            date: undefined,
+            value: '100',
+            type: "3"
+        },
+        {
+            description: 'Laura',
+            date: undefined,
+            value: '200',
+            type: "3"
+        },
+        {
+            description: 'Sofá',
+            date: undefined,
+            value: '750',
+            type: "0"
+        },
+        {
+            description: 'João Victor',
+            date: undefined,
+            value: '50',
+            type: "3"
+        },
+    ]);
 
     const addEntry = (entry: Entry) => {
         setEntries(prevEntries => [...prevEntries, entry]);

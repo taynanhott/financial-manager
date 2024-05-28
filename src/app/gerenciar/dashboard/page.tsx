@@ -42,22 +42,6 @@ const graficoDetalhado = [
     },
 ]
 
-const graficoDonut = [
-    {
-        options: {
-            chart: {
-                id: "donut" as const
-            },
-            labels: ['Débito', 'Crédito'],
-            legend: {
-                position: 'bottom' as const
-            }
-        },
-        series: [1570, 1250],
-        height: 290
-    },
-]
-
 export default function Gerenciar() {
     const { deptor } = useDeptor();
     const { entries } = useEntries();
@@ -106,9 +90,6 @@ export default function Gerenciar() {
                 xaxis: {
                     categories: ['1ª semana', '2ª semana', '3ª semana', '4ª semana']
                 },
-                grid: {
-                    position: 'front'
-                },
                 fill: {
                     colors: ['#F5F5F5', '#b1b7b4']
                 },
@@ -122,15 +103,43 @@ export default function Gerenciar() {
             series: [
                 {
                     name: "Valor semanal",
-                    data: [totalFat / 4, totalFat / 4, totalFat / 4, totalFat / 4]
+                    data: [Number((totalFat / 4).toFixed(2)), Number((totalFat / 4).toFixed(2)), Number((totalFat / 4).toFixed(2)), Number((totalFat / 4).toFixed(2))]
                 },
 
                 {
                     name: "Valor Gasto",
-                    data: [655, 450, 175, 50]
+                    data: [655, 450, 175, 150]
                 }
             ],
             height: 200
+        },
+    ]
+
+    const categoryLabels = category.map(cat => cat.description);
+    const sums = new Array(category.length).fill(0);
+
+    entries.forEach(entry => {
+        const value = parseFloat(entry.value ? entry.value : ``) || 0;
+        const typeIndex = parseInt(entry.type, 10);
+
+        if (!isNaN(typeIndex) && typeIndex >= 0 && typeIndex < sums.length) {
+            sums[typeIndex] += value;
+        }
+    });
+
+    const graficoDonut = [
+        {
+            options: {
+                chart: {
+                    id: "donut" as const
+                },
+                labels: categoryLabels,
+                legend: {
+                    position: 'bottom' as const
+                }
+            },
+            series: sums,
+            height: 290
         },
     ]
 
