@@ -1,6 +1,8 @@
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useCategory } from "@/context/CategoryContext";
 import { motion } from "framer-motion";
+import moment from 'moment';
+import 'moment/locale/pt-br';
 
 interface Props {
     className?: string,
@@ -16,12 +18,14 @@ interface Props {
 export function ListDash({ className, context, variant }: Props) {
     const { category } = useCategory();
 
+    console.log(context)
+
     return (
         <ScrollArea className={className}>
             <div className="relative">
                 <table className="text-gray-500 divide-y divide-gray-200 w-full">
                     <thead className="sticky top-0 z-10 bg-white">
-                        <tr>
+                        <tr className="text-center">
                             <th className="p-2 text-left text-xs font-medium uppercase tracking-wider">Descrição</th>
                             {variant === `paymount` ?
                                 <th className="p-2 text-left text-xs font-medium uppercase tracking-wider">Categoria</th>
@@ -30,8 +34,8 @@ export function ListDash({ className, context, variant }: Props) {
                             }
                             {variant === `paymount` || variant === `deptor` ?
                                 <>
-                                    <th className="p-2 text-right text-xs font-medium uppercase tracking-wider">Data</th>
-                                    <th className="p-2 text-right text-xs font-medium uppercase tracking-wider">Valor</th>
+                                    <th className="p-2 text-center text-xs font-medium uppercase tracking-wider">Data</th>
+                                    <th className="p-2 text-left text-xs font-medium uppercase tracking-wider">Valor</th>
                                 </>
                                 :
                                 <></>
@@ -54,16 +58,13 @@ export function ListDash({ className, context, variant }: Props) {
                                             {category[+element.type].description}
                                         </td>
                                     )}
-                                    {
-                                        //element.date !== undefined && (
-                                        //    <td className="p-2 text-sm text-right">00/00/0000
-                                        //    </td>
-                                        //)
-                                    }
-                                    <td className="p-2 text-sm text-right">00/00/0000
-                                    </td>
+                                    {element.date !== undefined && (
+                                        <td className="p-2 text-sm text-center">
+                                            {moment(element.date).format('DD/MM/YYYY')}
+                                        </td>
+                                    )}
                                     {element.value && (
-                                        <td className="p-2 text-sm text-right">{element.value}</td>
+                                        <td className="p-2 text-sm text-left">R$ {element.value}</td>
                                     )}
                                 </motion.tr>
                             ))
@@ -105,8 +106,8 @@ export function TableListAction({ className, context, variant }: Props) {
                             }
                             {variant === `paymount` || variant === `deptor` ?
                                 <>
-                                    <th className="p-2 text-right text-xs font-medium uppercase tracking-wider">Data</th>
-                                    <th className="p-2 text-right text-xs font-medium uppercase tracking-wider">Valor</th>
+                                    <th className="p-2 text-center text-xs font-medium uppercase tracking-wider">Data</th>
+                                    <th className="p-2 text-left text-xs font-medium uppercase tracking-wider">Valor</th>
                                 </>
                                 :
                                 <></>
@@ -129,16 +130,13 @@ export function TableListAction({ className, context, variant }: Props) {
                                             {category[+element.type].description}
                                         </td>
                                     )}
-                                    {
-                                        //element.date !== undefined && (
-                                        //    <td className="p-2 text-sm text-right">00/00/0000
-                                        //    </td>
-                                        //)
-                                    }
-                                    <td className="p-2 text-sm text-right">00/00/0000
-                                    </td>
+                                    {element.date !== undefined && (
+                                        <td className="p-2 text-sm text-center">
+                                            {moment(element.date).format('DD/MM/YYYY')}
+                                        </td>
+                                    )}
                                     {element.value && (
-                                        <td className="p-2 text-sm text-right">{element.value}</td>
+                                        <td className="p-2 text-sm text-left">R$ {element.value}</td>
                                     )}
                                 </motion.tr>
                             ))

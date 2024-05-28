@@ -1,5 +1,6 @@
 'use client'
 
+import generateRandomDate from '@/components/functions';
 import React, { createContext, useState, useContext, ReactNode } from 'react';
 
 interface Entry {
@@ -19,52 +20,52 @@ export const DeptorProvider: React.FC<{ children: ReactNode }> = ({ children }) 
     const [deptor, setDeptor] = useState<Entry[]>([
         {
             description: 'Salário Maio',
-            date: undefined,
+            date: generateRandomDate(),
             value: '2650',
         },
         {
             description: 'Projeto Freelancer - Amazon',
-            date: undefined,
+            date: generateRandomDate(),
             value: '1200',
         },
         {
             description: 'Luisa',
-            date: undefined,
+            date: generateRandomDate(),
             value: '550.50',
         },
         {
             description: 'Caio',
-            date: undefined,
+            date: generateRandomDate(),
             value: '100',
         },
         {
             description: 'Empréstimo',
-            date: undefined,
+            date: generateRandomDate(),
             value: '500.70',
         },
         {
             description: 'Laura',
-            date: undefined,
+            date: generateRandomDate(),
             value: '200',
         },
         {
             description: 'Projeto Freelancer - AOC',
-            date: undefined,
+            date: generateRandomDate(),
             value: '1900',
         },
         {
             description: 'Venda Televisão',
-            date: undefined,
+            date: generateRandomDate(),
             value: '700',
         },
         {
             description: 'Henrique',
-            date: undefined,
+            date: generateRandomDate(),
             value: '450',
         },
         {
             description: 'João Victor',
-            date: undefined,
+            date: generateRandomDate(),
             value: '50',
         },
     ]);

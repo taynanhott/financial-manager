@@ -1,5 +1,6 @@
 'use client'
 
+import generateRandomDate from '@/components/functions';
 import React, { createContext, useState, useContext, ReactNode } from 'react';
 
 interface Entry {
@@ -20,73 +21,73 @@ export const EntriesProvider: React.FC<{ children: ReactNode }> = ({ children })
     const [entries, setEntries] = useState<Entry[]>([
         {
             description: "Fatura Cartão",
-            date: undefined,
+            date: generateRandomDate(),
             value: "650.17",
             type: "1"
         },
         {
             description: "Gasolina",
-            date: undefined,
+            date: generateRandomDate(),
             value: "90",
             type: "0"
         },
         {
             description: "Mercado",
-            date: undefined,
+            date: generateRandomDate(),
             value: "270",
             type: "0"
         },
         {
             description: "Delivery",
-            date: undefined,
+            date: generateRandomDate(),
             value: "70",
             type: "1"
         },
         {
             description: "Luisa",
-            date: undefined,
+            date: generateRandomDate(),
             value: '550.50',
             type: "3"
         },
         {
             description: "Parcela Empréstimo",
-            date: undefined,
+            date: generateRandomDate(),
             value: '576.35',
             type: "2"
         },
         {
             description: "Mecânico",
-            date: undefined,
+            date: generateRandomDate(),
             value: '130.85',
             type: "0"
         },
         {
             description: "Formatura",
-            date: undefined,
+            date: generateRandomDate(),
             value: '400.12',
             type: "2"
         },
         {
             description: "Caio",
-            date: undefined,
+            date: generateRandomDate(),
             value: '100',
             type: "3"
         },
         {
             description: 'Laura',
-            date: undefined,
+            date: generateRandomDate(),
             value: '200',
             type: "3"
         },
         {
             description: 'Sofá',
-            date: undefined,
+            date: generateRandomDate(),
             value: '750',
             type: "0"
         },
         {
             description: 'João Victor',
-            date: undefined,
+            date: generateRandomDate(),
             value: '50',
             type: "3"
         },
