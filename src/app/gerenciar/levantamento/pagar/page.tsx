@@ -24,14 +24,10 @@ export default function Pagar() {
         }
     });
 
-    const series = new Array(category.length);
-
-    category.map((category, index: number) => {
-        series[index] = {
-            name: category.description,
-            data: sums[index]
-        }
-    })
+    const series = category.map((cat, index) => ({
+        name: cat.description,
+        data: [Number(sums[index].toFixed(2))]
+    }));
 
     const graficoDonut = [
         {
@@ -76,6 +72,8 @@ export default function Pagar() {
             height: 170
         },
     ]
+
+    console.log(graficoSimples)
 
     return (
         <section className="grow lg:ml-[240px] mt-14 lg:mt-auto pb-12">
