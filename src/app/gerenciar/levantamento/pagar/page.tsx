@@ -88,7 +88,7 @@ export default function Pagar() {
                             <p className="px-6 py-4">Contas à Pagar</p>
                         </div>
                         <div className="h-full">
-                            <ListDash className={`h-64 lg:h-96 p-4 w-full rounded-md`} context={deptor} variant={`deptor`} />
+                            <ListDash className={`h-64 lg:h-96 p-4 w-full rounded-md`} context={entries} variant={`paymount`} />
                         </div>
                     </div>
                     <div className="h-[475px] grid grid-cols-1 lg:grid-cols-4 gap-8 col-span-1">

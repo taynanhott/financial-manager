@@ -3,6 +3,7 @@
 import Submenu from "@/components/Html/Body/Submenu/submenu";
 import Graph from "@/components/Resources/GraphApex";
 import { ListDash } from "@/components/Resources/Table";
+import { useDeptor } from "@/context/DebtorContext";
 import { useEntries } from "@/context/EntriesContext";
 
 const graficoSimples = [
@@ -63,7 +64,8 @@ const graficoDonut = [
 ]
 
 export default function Receber() {
-    const {entries} = useEntries();
+    const { deptor } = useDeptor();
+
     return (
         <section className="grow lg:ml-[240px] mt-14 lg:mt-auto pb-12">
             <div id="header-page">
@@ -77,7 +79,7 @@ export default function Receber() {
                             <p className="px-6 py-4">Contas à Receber</p>
                         </div>
                         <div className="h-full">
-                            <ListDash className={`h-64 lg:h-96 p-4 w-full rounded-md`} context={entries} variant={`paymount`} />
+                            <ListDash className={`h-64 lg:h-96 p-4 w-full rounded-md`} context={deptor} variant={`deptor`} />
                         </div>
                     </div>
 

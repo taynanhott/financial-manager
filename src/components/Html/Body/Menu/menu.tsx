@@ -34,7 +34,6 @@ const variantes = {
 
 interface Props {
     components: {
-        index: number,
         name: string,
         href: string,
     }
@@ -42,12 +41,10 @@ interface Props {
 
 const navegation = [
     {
-        index: 0,
         name: 'Dashboard',
         href: '/gerenciar/dashboard',
     },
     {
-        index: 1,
         name: 'Portfólio',
         href: 'https://taynan.dev/home',
     },
@@ -55,17 +52,14 @@ const navegation = [
 
 const cadastro = [
     {
-        index: 0,
         name: 'Pagamento',
         href: '/gerenciar/cadastrar/pagamento',
     },
     {
-        index: 0,
         name: 'Arrecadação',
         href: '/gerenciar/cadastrar/arrecadar',
     },
     {
-        index: 1,
         name: 'Categoria',
         href: '/gerenciar/cadastrar/categoria',
     },
@@ -73,22 +67,18 @@ const cadastro = [
 
 const levantamento = [
     {
-        index: 0,
         name: 'Faturamento',
         href: '/gerenciar/levantamento/faturamento',
     },
     {
-        index: 1,
         name: 'Contas à receber',
         href: '/gerenciar/levantamento/receber',
     },
     {
-        index: 2,
         name: 'Contas à pagar',
         href: '/gerenciar/levantamento/pagar',
     },
     {
-        index: 3,
         name: 'Reserva',
         href: '/gerenciar/levantamento/reserva',
     },
@@ -153,7 +143,7 @@ export default function Menu() {
                                     exit={{ opacity: 1, y: 0 }}
                                     transition={{ duration: 0.5, delay: index * 0.1 }}
                                 >
-                                    <MenuItem components={project} key={project.index} />
+                                    <MenuItem components={project} key={index} />
                                 </motion.div>
                             ))}
                         </motion.li>
@@ -184,7 +174,7 @@ export default function Menu() {
                                     exit={{ opacity: 1, y: 0 }}
                                     transition={{ duration: 0.5, delay: index * 0.1 }}
                                 >
-                                    <MenuItem components={project} key={project.index} />
+                                    <MenuItem components={project} key={index} />
                                 </motion.div>
                             ))}
                         </motion.li>
@@ -211,7 +201,7 @@ export default function Menu() {
                                     exit={{ opacity: 1, y: 0 }}
                                     transition={{ duration: 0.5, delay: index * 0.1 }}
                                 >
-                                    <MenuItem components={project} key={project.index} />
+                                    <MenuItem components={project} key={index} />
                                 </motion.div>
                             ))}
                         </motion.li>
