@@ -113,14 +113,14 @@ const useAnimatedCount = (targetValue: number, duration: number = 1.5) => {
     useEffect(() => {
         const controls = animate(count, targetValue, { duration });
         return () => controls.stop();
-    }, [targetValue, duration]);
+    }, [targetValue, duration, count]);
 
     return rounded;
 }
 
 function CardDashBoard({ cards }: Props) {
 
-    const animatedCounts = cards.map(card => useAnimatedCount(+card.title >= 0 ? +card.title : +card.title * -1));
+    const animatedCounts = cards.map(card => useAnimatedCount(+card.title >= 0 ? +card.title : (+card.title * -1)));
 
     return (
         <>
