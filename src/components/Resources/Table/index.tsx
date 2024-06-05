@@ -17,6 +17,16 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog"
+
 interface Props {
     className?: string,
     context: {
@@ -110,6 +120,15 @@ export function TableListAction({ className, context, variant }: Props) {
     const [date, setDate] = useState<Date>();
     const [type, setType] = useState<string>("");
 
+    const status = [
+        {
+            description: `Pago`
+        },
+        {
+            description: `Pendente`
+        }
+    ]
+
     return (
         <ScrollArea className={className}>
             <div className="relative">
@@ -135,10 +154,10 @@ export function TableListAction({ className, context, variant }: Props) {
                     <tbody className="divide-y divide-gray-200">
                         {context.length > 0 ? (
                             context.map((element: any, index: number) => (
-                                <Popover key={`popover-${index}`}>
-                                    <PopoverTrigger asChild>
+                                <Dialog key={`dialog-${index}`} >
+                                    <DialogTrigger asChild>
                                         <motion.tr
-                                            key={`td-${index}`}
+                                            key={`tr-${index}`}
                                             className={`hover:bg-slate-600 cursor-pointer`}
                                             initial={{ opacity: 0, y: 10 }}
                                             animate={{ opacity: 1, y: 0 }}
@@ -160,74 +179,54 @@ export function TableListAction({ className, context, variant }: Props) {
                                                 <td className="p-2 text-sm text-left">R$ {Number(element.value).toFixed(2)}</td>
                                             )}
                                         </motion.tr>
-                                    </PopoverTrigger>
-                                    <PopoverContent className="w-80">
+                                    </DialogTrigger>
+                                    <DialogContent className="w-10/12 rounded-lg">
                                         <div className="grid gap-4">
                                             <div className="space-y-2">
-                                                <h4 className="font-medium leading-none pointer-events-none">Gerenciar Registro</h4>
+                                                <div className="grid grid-cols-4">
+                                                    <h4 className="col-span-3 justify-start font-medium leading-none pointer-events-none">Gerenciar Registro</h4>
+                                                </div>
                                                 <p className="text-sm text-muted-foreground pointer-events-none">
                                                     Realize as ações desejadas para o registro cadastrado.
                                                 </p>
                                             </div>
                                             <div className="grid gap-2">
                                                 <div className="grid grid-cols-3 items-center gap-4">
-                                                    <Label htmlFor="maxWidth">Descrição</Label>
+                                                    <Label>Descrição</Label>
                                                     <Input
-                                                        id="maxWidth"
                                                         defaultValue="Descrição Item"
                                                         className="col-span-2 h-8"
                                                     />
                                                 </div>
-                                                {variant === `paymount` ?
 
-                                                    <div className="grid grid-cols-3 items-center gap-4">
-                                                        <Label htmlFor="height" className="col-span-1">Categoria</Label>
-                                                        <Select
-                                                            value={type}
-                                                            onValueChange={(value) => setType(value)}
-                                                        >
-                                                            <SelectTrigger className="bg-slate-100 col-span-2 border border-slate-300">
-                                                                <SelectValue placeholder="Selecione" />
-                                                            </SelectTrigger>
-                                                            <SelectContent>
-                                                                {category.map((invoice: any, index: number) => (
-                                                                    <SelectItem key={`edit-category-${index}`} value={`${index}`} className="cursor-pointer">
-                                                                        {invoice.description}
-                                                                    </SelectItem>
-                                                                ))}
-                                                            </SelectContent>
-                                                        </Select>
-                                                    </div>
-                                                    :
-                                                    <></>
-                                                }
-
-                                                {variant === `deptor` ?
-
-                                                    <div className="grid grid-cols-3 items-center gap-4">
-                                                        <Label htmlFor="height" className="col-span-1">Situação</Label>
-                                                        <Select
-                                                            value={type}
-                                                            onValueChange={(value) => setType(value)}
-                                                        >
-                                                            <SelectTrigger className="bg-slate-100 col-span-2 border border-slate-300">
-                                                                <SelectValue />
-                                                            </SelectTrigger>
-                                                            <SelectContent>
-                                                                <SelectItem value={'1'} className="cursor-pointer">
-                                                                    Pago
-                                                                </SelectItem>
-                                                                <SelectItem value={'0'} className="cursor-pointer">
-                                                                    Pendente
-                                                                </SelectItem>
-                                                            </SelectContent>
-                                                        </Select>
-                                                    </div>
-                                                    :
-                                                    <></>
-                                                }
                                                 {variant === `paymount` || variant === `deptor` ?
                                                     <>
+                                                        <div className="grid grid-cols-3 items-center gap-4">
+                                                            <Label htmlFor="height" className="col-span-1">{variant === `paymount` ? `Categoria` : `Situação`}</Label>
+                                                            <Select
+                                                                value={type}
+                                                                onValueChange={(value) => setType(value)}
+                                                            >
+                                                                <SelectTrigger className="bg-slate-100 col-span-2 border border-slate-300">
+                                                                    <SelectValue placeholder="Selecione" />
+                                                                </SelectTrigger>
+                                                                <SelectContent>
+                                                                    {(variant === `paymount` ? category : status).map((invoice: any, index: number) => (
+                                                                        <SelectItem key={`edit-category-${index}`} value={`${index}`} className="cursor-pointer">
+                                                                            {invoice.description}
+                                                                        </SelectItem>
+                                                                    ))}
+                                                                </SelectContent>
+                                                            </Select>
+                                                        </div>
+                                                        <div className="grid grid-cols-3 items-center gap-4">
+                                                            <Label htmlFor="maxHeight">Valor</Label>
+                                                            <Input
+                                                                id="maxHeight"
+                                                                defaultValue="R$ 350.00"
+                                                                className="col-span-2 h-8"
+                                                            />
+                                                        </div>
                                                         <div className="grid grid-cols-3 items-center gap-4">
                                                             <Label htmlFor="height">Data</Label>
                                                             <Popover>
@@ -254,23 +253,17 @@ export function TableListAction({ className, context, variant }: Props) {
                                                                 </PopoverContent>
                                                             </Popover>
                                                         </div>
-                                                        <div className="grid grid-cols-3 items-center gap-4">
-                                                            <Label htmlFor="maxHeight">Valor</Label>
-                                                            <Input
-                                                                id="maxHeight"
-                                                                defaultValue="R$ 350.00"
-                                                                className="col-span-2 h-8"
-                                                            />
-                                                        </div>
                                                     </>
                                                     :
                                                     <></>
                                                 }
-                                                <Button className="mt-4" variant="destructive">Excluir Registro</Button>
+                                                <DialogFooter>
+                                                    <Button className="mt-4 w-full" variant="destructive">Excluir Registro</Button>
+                                                </DialogFooter>
                                             </div>
                                         </div>
-                                    </PopoverContent>
-                                </Popover>
+                                    </DialogContent>
+                                </Dialog>
                             ))
                         ) : (
                             <motion.tr

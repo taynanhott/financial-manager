@@ -54,7 +54,7 @@ export default function Pagamento() {
 
             <div id="mid-page">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 px-[38px] pt-[38px]">
-                    <div className="h-[550px] lg:h-[530px] col-span-1 rounded-sm border bg-white shadow-md">
+                    <div className="h-[570px] lg:h-[540px] col-span-1 rounded-sm border bg-white shadow-md">
                         <div className="items-center text-lg flex font-poppins-bold text-white bg-slate-900 rounded-t-sm">
                             <p className="px-6 py-4 pointer-events-none">Cadastro de Pagamento</p>
                         </div>
@@ -136,7 +136,7 @@ export default function Pagamento() {
                         </div>
                     </div>
 
-                    <div className="h-80 lg:h-[530px] col-span-1 rounded-sm border bg-white shadow-md">
+                    <div className="h-80 lg:h-[540px] col-span-1 rounded-sm border bg-white shadow-md">
                         <div className="h-full rounded-sm bg-gradient-to-r from-slate-800 to-slate-600">
                             <div className="items-center text-lg flex font-poppins-bold text-white  rounded-t-sm">
                                 <p className="px-6 py-4 pointer-events-none">Lista de Movimentações</p>
