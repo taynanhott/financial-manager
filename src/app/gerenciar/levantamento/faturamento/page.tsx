@@ -2,7 +2,6 @@
 
 import Submenu from "@/components/Html/Body/Submenu/submenu";
 import Graph from "@/components/Resources/GraphApex";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useDeptor } from "@/context/DebtorContext";
 import { useEntries } from "@/context/EntriesContext";
@@ -70,23 +69,13 @@ export default function Faturamento() {
 
                         <div className="flex flex-col items-start px-6">
                             <Label>Período Contabilizado</Label>
-                            <Input
-                                className="bg-slate-100 w-full md:w-1/2 lg:w-2/3 border border-slate-300 my-4"
-                                type="text"
-                            />
+                            <p className="my-2 font-poppins-bold flex text-lg text-nowrap">01/06/2024 à 30/06/2024</p>
 
                             <Label>Valor Por Dia</Label>
-                            <Input
-                                className="bg-slate-100 w-full md:w-1/2 lg:w-2/3 border border-slate-300 my-4"
-                                type="text"
-                            />
+                            <p className="my-2 font-poppins-bold flex text-lg text-nowrap">R$ <motion.div>{useAnimatedCount(totalFat / 30)}</motion.div></p>
 
                             <Label>Valor Por Semana</Label>
-                            <Input
-                                className="bg-slate-100 w-full md:w-1/2 lg:w-2/3 border border-slate-300 my-4"
-                                type="text"
-                                value={`R$ ${totalFat / 4}`}
-                            />
+                            <p className="my-2 font-poppins-bold flex text-lg text-nowrap">R$ <motion.div>{useAnimatedCount(totalFat / 4)}</motion.div></p>
                         </div>
                     </div>
 

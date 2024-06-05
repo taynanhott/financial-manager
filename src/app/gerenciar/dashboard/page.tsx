@@ -173,7 +173,7 @@ export default function Gerenciar() {
 
                         <div className="p-4 h-1/3 items-center">
                             <div className="px-2 flex justify-start font-poppins-bold text-lg">Distribuição semanal</div>
-                            <div className="px-2 pt-2 flex justify-start text-nowrap font-poppins">01/05/2024 à 31/05/2024</div>
+                            <div className="px-2 pt-2 flex justify-start text-nowrap font-poppins-bold">01/06/2024 à 30/06/2024</div>
                         </div>
                     </div>
                 </div>

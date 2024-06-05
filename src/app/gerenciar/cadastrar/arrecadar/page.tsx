@@ -95,7 +95,7 @@ export default function Arrecadar() {
                             <Label>Valor</Label>
                             <Input
                                 className="bg-slate-100 w-full md:w-1/2 lg:w-1/2 border border-slate-300 my-4"
-                                type="text"
+                                type="number"
                                 value={value}
                                 pattern="^\d*\.?\d*$"
                                 onChange={(e) => {
