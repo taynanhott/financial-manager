@@ -62,12 +62,12 @@ export default function Faturamento() {
 
             <div id="mid-page">
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 px-[38px] pt-[38px]">
-                    <div className="h-[355px] col-span-1 border bg-white shadow-md">
+                    <div className="h-[355px] col-span-1 border bg-white shadow-md pointer-events-none">
                         <div className="items-center text-lg flex font-poppins-bold text-white bg-slate-900 rounded-t-sm mb-4">
-                            <p className="px-6 py-4">Faturamento</p>
+                            <p className="px-6 py-4 pointer-events-none">Faturamento</p>
                         </div>
 
-                        <div className="flex flex-col items-start px-6">
+                        <div className="flex flex-col items-start px-6 pointer-events-none">
                             <Label>Período Contabilizado</Label>
                             <p className="my-2 font-poppins-bold flex text-lg text-nowrap">01/06/2024 à 30/06/2024</p>
 
@@ -86,7 +86,7 @@ export default function Faturamento() {
                         </div>
                     </div>
 
-                    <div className="h-full lg:h-[340px] grid grid-cols-1 gap-8 col-span-1 rounded-sm">
+                    <div className="h-full lg:h-[340px] grid grid-cols-1 gap-8 col-span-1 rounded-sm pointer-events-none">
                         <div className="col-span-1 rounded-sm border bg-white shadow-md">
                             <div className="h-2/3 flex justify-center items-center p-4 text-green-500  bg-gradient-to-r from-green-300 to-green-200">
                                 <p className="font-poppins-bold flex text-[160%] text-nowrap justify-center">R$ <motion.div>{useAnimatedCount(totalDeptor)}</motion.div></p>
@@ -95,13 +95,13 @@ export default function Faturamento() {
                         </div>
                         <div className="col-span-1 rounded-sm border bg-white shadow-md">
                             <div className="col-span-1 h-2/3 flex justify-center text-nowrap items-center font-poppins-bold p-4 text-rose-500 bg-gradient-to-r from-rose-300 to-rose-200">
-                                <p className="font-poppins-bold flex text-[160%] text-nowrap justify-center">R$ <motion.div>{useAnimatedCount(totalEntries)}</motion.div></p>
+                                <p className="font-poppins-bold flex text-[160%] text-nowrap justify-center pointer-events-none">R$ <motion.div>{useAnimatedCount(totalEntries)}</motion.div></p>
                             </div>
                             <div className="px-4 h-1/3 flex justify-center lg:justify-start font-poppins-bold items-center">Total à Pagar</div>
                         </div>
                         <div className="col-span-1 rounded-sm border bg-white shadow-md">
                             <div className="h-2/3 flex justify-center items-center p-4 text-slate-500  bg-gradient-to-r from-slate-300 to-slate-200">
-                                <p className="font-poppins-bold flex text-[160%] text-nowrap justify-center">R$ <motion.div>{useAnimatedCount(totalFat)}</motion.div></p>
+                                <p className="font-poppins-bold flex text-[160%] text-nowrap justify-center pointer-events-none">R$ <motion.div>{useAnimatedCount(totalFat)}</motion.div></p>
                             </div>
                             <div className="px-4 h-1/3 flex  justify-center lg:justify-start  font-poppins-bold items-center">Restante Total</div>
                         </div>

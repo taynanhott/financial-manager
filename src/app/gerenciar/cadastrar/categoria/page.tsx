@@ -33,15 +33,15 @@ export default function Categoria() {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 px-[38px] pt-[38px]">
                     <div className="h-80 col-span-1 rounded-sm border bg-white shadow-md">
                         <div className="items-center text-lg flex font-poppins-bold text-white bg-slate-900 rounded-t-sm">
-                            <p className="px-6 py-4">Cadastro de Categoria</p>
+                            <p className="px-6 py-4 pointer-events-none">Cadastro de Categoria</p>
                         </div>
 
-                        <div className="px-6 my-4">
+                        <div className="px-6 my-4 pointer-events-none">
                             <p>Cadastre categoria de acordo com o tipo de movimentação financeira realizada.</p>
                         </div>
 
                         <div className="flex flex-col items-start px-6">
-                            <Label>Descrição Categoria</Label>
+                            <Label className="pointer-events-none">Descrição Categoria</Label>
                             <Input
                                 className="bg-slate-100 w-full md:w-1/2 lg:w-1/2 border border-slate-300 my-4"
                                 id="descricao"
@@ -59,7 +59,7 @@ export default function Categoria() {
                     <div className="h-80 col-span-1 border bg-white shadow-md">
                         <div className="h-full bg-gradient-to-r rounded-sm from-slate-800 to-slate-600">
                             <div className="items-center text-lg flex font-poppins-bold text-white  rounded-t-sm">
-                                <p className="px-6 py-4">Lista de Categoorias</p>
+                                <p className="px-6 py-4 pointer-events-none">Lista de Categoorias</p>
                             </div>
                             <TableListAction className={`h-64 p-4 w-full rounded-md`} context={category} variant={`category`} />
                         </div>

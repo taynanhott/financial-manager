@@ -76,7 +76,7 @@ export default function Receber() {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 px-[38px] pt-[38px]">
                     <div className="h-[340px] lg:h-[475px] col-span-1 border bg-white shadow-md">
                         <div className="items-center text-lg flex font-poppins-bold text-white bg-slate-900 rounded-t-sm">
-                            <p className="px-6 py-4">Contas à Receber</p>
+                            <p className="px-6 py-4 pointer-events-none">Contas à Receber</p>
                         </div>
                         <div className="h-full">
                             <ListDash className={`h-64 lg:h-96 p-4 w-full rounded-md`} context={deptor} variant={`deptor`} />

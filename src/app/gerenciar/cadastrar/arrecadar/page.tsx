@@ -47,15 +47,15 @@ export default function Arrecadar() {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 px-[38px] pt-[38px]">
                     <div className="h-[470px] lg:h-[450px] col-span-1 rounded-sm border bg-white shadow-md">
                         <div className="items-center text-lg flex font-poppins-bold text-white bg-slate-900 rounded-t-sm">
-                            <p className="px-6 py-4">Cadastro de Arrecadação</p>
+                            <p className="px-6 py-4 pointer-events-none">Cadastro de Arrecadação</p>
                         </div>
 
-                        <div className="px-6 my-4">
+                        <div className="px-6 my-4 pointer-events-none">
                             <p>Cadastre todos os valores pendentes recebimento.</p>
                         </div>
 
                         <div className="flex flex-col items-start px-6">
-                            <Label>Descrição da arrecadação</Label>
+                            <Label className="pointer-events-none">Descrição da arrecadação</Label>
                             <Input
                                 className="bg-slate-100 w-full md:w-1/2 lg:w-1/2 border border-slate-300 my-4"
                                 id="descricao"
@@ -65,7 +65,7 @@ export default function Arrecadar() {
                                 onChange={(e) => setDescription(e.target.value)}
                             />
 
-                            <Label>Prazo de recebimento</Label>
+                            <Label className="pointer-events-none">Prazo de recebimento</Label>
                             <div className="bg-slate-100 w-full md:w-1/2 lg:w-1/2 border border-slate-300 my-4">
                                 <Popover>
                                     <PopoverTrigger asChild>
@@ -92,7 +92,7 @@ export default function Arrecadar() {
                                 </Popover>
                             </div>
 
-                            <Label>Valor</Label>
+                            <Label className="pointer-events-none">Valor</Label>
                             <Input
                                 className="bg-slate-100 w-full md:w-1/2 lg:w-1/2 border border-slate-300 my-4"
                                 type="number"
@@ -114,8 +114,8 @@ export default function Arrecadar() {
 
                     <div className="h-80 lg:h-[450px] col-span-1 border bg-white shadow-md">
                         <div className="h-full rounded-sm bg-gradient-to-r from-slate-800 to-slate-600">
-                            <div className="items-center text-lg flex font-poppins-bold text-white  rounded-t-sm">
-                                <p className="px-6 py-4">Lista de Devedores</p>
+                            <div className="items-center text-lg flex font-poppins-bold text-white rounded-t-sm">
+                                <p className="px-6 py-4 pointer-events-none">Lista de Devedores</p>
                             </div>
                             <TableListAction className={`h-64 lg:h-96 p-4 w-full rounded-md`} context={deptor} variant={`deptor`} />
                         </div>

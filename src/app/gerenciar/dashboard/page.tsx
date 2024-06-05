@@ -158,7 +158,7 @@ export default function Gerenciar() {
             <div id="mid-dashboard">
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 px-[38px] pt-[38px]">
                     <div className="h-[341px] col-span-1 lg:col-span-2 rounded-sm border bg-white shadow-md">
-                        <div className="px-4 items-center text-lg flex font-poppins-bold pt-4">Faturamento Anual</div>
+                        <div className="px-4 items-center text-lg flex font-poppins-bold pt-4 pointer-events-none">Faturamento Anual</div>
 
                         <div className="tems-center flex">
                             <Graph components={graficoDetalhado} />
@@ -171,7 +171,7 @@ export default function Gerenciar() {
                             <Graph components={graficoSimples} />
                         </div>
 
-                        <div className="p-4 h-1/3 items-center">
+                        <div className="p-4 h-1/3 items-center pointer-events-none">
                             <div className="px-2 flex justify-start font-poppins-bold text-lg">Distribuição semanal</div>
                             <div className="px-2 pt-2 flex justify-start text-nowrap font-poppins-bold">01/06/2024 à 30/06/2024</div>
                         </div>
@@ -182,21 +182,21 @@ export default function Gerenciar() {
             <div id="features-dashboard">
                 <div className="grid grid-cols-2 lg:grid-cols-12 gap-8 px-[38px] pt-[38px]">
                     <div className="h-[341px] col-span-8 lg:col-span-5 rounded-sm border bg-white shadow-md">
-                        <div className="col-span-1 items-center text-lg font-poppins-bold px-4 pt-4">Lista de Devedores</div>
+                        <div className="col-span-1 items-center text-lg font-poppins-bold px-4 pt-4 pointer-events-none">Lista de Devedores</div>
                         <ListDash className={`h-72 p-4 w-full rounded-md`} context={deptor} variant={`deptor`} />
                     </div>
                     <div className="h-[341px] col-span-8 lg:col-span-4 rounded-sm border bg-white shadow-md">
-                        <div className="col-span-1 items-center text-lg font-poppins-bold px-4 pt-4">% Por Categoria</div>
+                        <div className="col-span-1 items-center text-lg font-poppins-bold px-4 pt-4 pointer-events-none">% Por Categoria</div>
                         <div className="bg-gradient-to-r">
                             <Graph components={graficoDonut} />
                         </div>
                     </div>
-                    <div className="h-52 lg:h-[341px] grid grid-cols-8 lg:grid-cols-1 gap-8 col-span-8 lg:col-span-3 rounded-sm">
+                    <div className="h-52 lg:h-[341px] grid grid-cols-8 lg:grid-cols-1 gap-8 col-span-8 lg:col-span-3 rounded-sm pointer-events-none">
                         <div className="col-span-8 md:col-span-4 lg:col-span-1 rounded-sm border bg-white shadow-md">
                             <div className="h-2/3 flex justify-center items-center p-4 text-green-500  bg-gradient-to-r from-green-300 to-green-200">
                                 <p className="font-poppins-bold flex text-[160%] text-nowrap justify-center">R$ <motion.div>{useAnimatedCount(totalDeptor)}</motion.div></p>
                             </div>
-                            <div className="px-4 h-1/3 flex  justify-center lg:justify-start  font-poppins-bold items-center">Movimentações Creditadas</div>
+                            <div className="px-4 h-1/3 flex justify-center lg:justify-start font-poppins-bold items-center">Movimentações Creditadas</div>
                         </div>
                         <div className="col-span-8 md:col-span-4 lg:col-span-1 rounded-sm border bg-white shadow-md">
                             <div className="h-2/3 flex justify-center items-center p-4 text-rose-500 bg-gradient-to-r from-rose-300 to-rose-200">

@@ -1,7 +1,6 @@
 "use client";
 
 import Submenu from "@/components/Html/Body/Submenu/submenu";
-import Graph from "@/components/Resources/GraphApex";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import { useEntries } from "@/context/EntriesContext";
@@ -57,15 +56,15 @@ export default function Pagamento() {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 px-[38px] pt-[38px]">
                     <div className="h-[550px] lg:h-[530px] col-span-1 rounded-sm border bg-white shadow-md">
                         <div className="items-center text-lg flex font-poppins-bold text-white bg-slate-900 rounded-t-sm">
-                            <p className="px-6 py-4">Cadastro de Pagamento</p>
+                            <p className="px-6 py-4 pointer-events-none">Cadastro de Pagamento</p>
                         </div>
 
-                        <div className="px-6 my-4">
+                        <div className="px-6 my-4 pointer-events-none">
                             <p>Cadastre todas as movimentações financeiras que debitaram de sua conta.</p>
                         </div>
 
                         <div className="flex flex-col items-start px-6">
-                            <Label>Descrição da movimentação</Label>
+                            <Label className="pointer-events-none">Descrição da movimentação</Label>
                             <Input
                                 className="bg-slate-100 w-full md:w-1/2 lg:w-1/2 border border-slate-300 my-4"
                                 id="descricao"
@@ -75,7 +74,7 @@ export default function Pagamento() {
                                 onChange={(e) => setDescription(e.target.value)}
                             />
 
-                            <Label>Categoria</Label>
+                            <Label className="pointer-events-none">Categoria</Label>
                             <Select
                                 value={type}
                                 onValueChange={(value) => setType(value)}
@@ -90,7 +89,7 @@ export default function Pagamento() {
                                 </SelectContent>
                             </Select>
 
-                            <Label>Data da movimentação</Label>
+                            <Label className="pointer-events-none">Data da movimentação</Label>
                             <div className="bg-slate-100 w-full md:w-1/2 lg:w-1/2 border border-slate-300 my-4">
                                 <Popover>
                                     <PopoverTrigger asChild>
@@ -117,7 +116,7 @@ export default function Pagamento() {
                                 </Popover>
                             </div>
 
-                            <Label>Valor</Label>
+                            <Label className="pointer-events-none">Valor</Label>
                             <Input
                                 className="bg-slate-100 w-full md:w-1/2 lg:w-1/2 border border-slate-300 my-4"
                                 type="number"
@@ -140,7 +139,7 @@ export default function Pagamento() {
                     <div className="h-80 lg:h-[530px] col-span-1 rounded-sm border bg-white shadow-md">
                         <div className="h-full rounded-sm bg-gradient-to-r from-slate-800 to-slate-600">
                             <div className="items-center text-lg flex font-poppins-bold text-white  rounded-t-sm">
-                                <p className="px-6 py-4">Lista de Movimentações</p>
+                                <p className="px-6 py-4 pointer-events-none">Lista de Movimentações</p>
                             </div>
                             <TableListAction className={`h-64 lg:h-[450px] p-4 w-full rounded-md`} context={entries} variant={`paymount`} />
                         </div>

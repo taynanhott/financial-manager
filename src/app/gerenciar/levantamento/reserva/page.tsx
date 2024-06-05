@@ -26,21 +26,23 @@ export default function Reserva() {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 px-[38px] pt-[38px]">
                     <div className="h-[400px] col-span-1 border bg-white shadow-md">
                         <div className="items-center text-lg flex font-poppins-bold text-white bg-slate-900 rounded-t-sm mb-4">
-                            <p className="px-6 py-4">Reserva Financeira</p>
+                            <p className="px-6 py-4 pointer-events-none">Reserva Financeira</p>
                         </div>
 
                         <div className="flex flex-col items-start px-6">
-                            <Label>Porcentagem de Reserva</Label>
-                            <Slider className="bg-slate-100 w-full md:w-1/2 lg:w-2/3 border border-slate-300 my-4" defaultValue={[5]} max={100} step={1} />
+                            <Label className="pointer-events-none">Porcentagem de Reserva</Label>
+                            <Slider className="bg-slate-100 w-full md:w-1/2 lg:w-2/3 border border-slate-300 my-4 cursor-pointer" defaultValue={[5]} max={100} step={1} />
 
-                            <Label>Total após 5º dia util</Label>
-                            <p className="my-2 font-poppins-bold flex text-lg text-nowrap">R$ <motion.div>{useAnimatedCount(totalFat)}</motion.div></p>
+                            <div className="pointer-events-none">
+                                <Label>Total após 5º dia util</Label>
+                                <p className="my-2 font-poppins-bold flex text-lg text-nowrap">R$ <motion.div>{useAnimatedCount(totalFat)}</motion.div></p>
 
-                            <Label>Valor de Reserva</Label>
-                            <p className="my-2 font-poppins-bold flex text-lg text-nowrap">R$ <motion.div>{useAnimatedCount(totalFat * 0.05)}</motion.div></p>
+                                <Label>Valor de Reserva</Label>
+                                <p className="my-2 font-poppins-bold flex text-lg text-nowrap">R$ <motion.div>{useAnimatedCount(totalFat * 0.05)}</motion.div></p>
 
-                            <Label>Valor Restante sem Reserva</Label>
-                            <p className="my-2 font-poppins-bold flex text-lg text-nowrap">R$ <motion.div>{useAnimatedCount(totalFat - (totalFat * 0.05))}</motion.div></p>
+                                <Label>Valor Restante sem Reserva</Label>
+                                <p className="my-2 font-poppins-bold flex text-lg text-nowrap">R$ <motion.div>{useAnimatedCount(totalFat - (totalFat * 0.05))}</motion.div></p>
+                            </div>
                         </div>
                     </div>
                 </div>
