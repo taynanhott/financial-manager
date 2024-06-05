@@ -70,6 +70,7 @@ export default function Pagamento() {
                                 id="descricao"
                                 name="descricao"
                                 type="text"
+                                placeholder="Digite uma descrição..."
                                 value={description}
                                 onChange={(e) => setDescription(e.target.value)}
                             />
@@ -122,6 +123,7 @@ export default function Pagamento() {
                                 type="number"
                                 value={value}
                                 pattern="^\d*\.?\d*$"
+                                placeholder="Digite um valor..."
                                 onChange={(e) => {
                                     const newValue = e.target.value;
                                     if (newValue !== undefined && /^\d*\.?\d*$/.test(newValue)) {

@@ -19,11 +19,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 
 import {
     Dialog,
+    DialogClose,
     DialogContent,
-    DialogDescription,
     DialogFooter,
-    DialogHeader,
-    DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
 
@@ -257,9 +255,9 @@ export function TableListAction({ className, context, variant }: Props) {
                                                     :
                                                     <></>
                                                 }
-                                                <DialogFooter>
+                                                <DialogClose>
                                                     <Button className="mt-4 w-full" variant="destructive">Excluir Registro</Button>
-                                                </DialogFooter>
+                                                </DialogClose>
                                             </div>
                                         </div>
                                     </DialogContent>

@@ -46,6 +46,7 @@ export default function Categoria() {
                                 className="bg-slate-100 w-full md:w-1/2 lg:w-1/2 border border-slate-300 my-4"
                                 id="descricao"
                                 name="descricao"
+                                placeholder="Digite uma descrição..."
                                 type="text"
                                 value={description}
                                 onChange={(e) => setDescription(e.target.value)}

@@ -60,6 +60,7 @@ export default function Arrecadar() {
                                 className="bg-slate-100 w-full md:w-1/2 lg:w-1/2 border border-slate-300 my-4"
                                 id="descricao"
                                 name="descricao"
+                                placeholder="Digite uma descrição..."
                                 type="text"
                                 value={description}
                                 onChange={(e) => setDescription(e.target.value)}
@@ -98,6 +99,7 @@ export default function Arrecadar() {
                                 type="number"
                                 value={value}
                                 pattern="^\d*\.?\d*$"
+                                placeholder="Digite um valor..."
                                 onChange={(e) => {
                                     const newValue = e.target.value;
                                     if (newValue !== undefined && /^\d*\.?\d*$/.test(newValue)) {

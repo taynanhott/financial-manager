@@ -135,16 +135,17 @@ export default function Menu() {
                                 Menus
                             </div>
                             {navegation.map((project, index) => (
-                                <motion.div
-                                    className="font-poppins text-gray-400"
+                                <motion.button
+                                    className="font-poppins text-gray-400 block"
                                     key={`li-${index}`}
                                     initial={{ opacity: 0, y: 50 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     exit={{ opacity: 1, y: 0 }}
                                     transition={{ duration: 0.5, delay: index * 0.1 }}
+                                    onClick={() => setIsOpen(!isOpen)}
                                 >
                                     <MenuItem components={project} key={index} />
-                                </motion.div>
+                                </motion.button>
                             ))}
                         </motion.li>
                     </motion.ul>
@@ -166,16 +167,17 @@ export default function Menu() {
                                 Cadastro
                             </div>
                             {cadastro.map((project, index) => (
-                                <motion.div
-                                    className="font-poppins text-gray-400"
+                                <motion.button
+                                    className="font-poppins text-gray-400 block"
                                     key={`li-${index}`}
                                     initial={{ opacity: 0, y: 50 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     exit={{ opacity: 1, y: 0 }}
                                     transition={{ duration: 0.5, delay: index * 0.1 }}
+                                    onClick={() => setIsOpen(!isOpen)}
                                 >
                                     <MenuItem components={project} key={index} />
-                                </motion.div>
+                                </motion.button>
                             ))}
                         </motion.li>
                     </motion.ul>
@@ -193,16 +195,17 @@ export default function Menu() {
                                 Levantamento
                             </div>
                             {levantamento.map((project, index) => (
-                                <motion.div
-                                    className="font-poppins text-gray-400"
+                                <motion.button
+                                    className="font-poppins text-gray-400 block"
                                     key={`li-${index}`}
                                     initial={{ opacity: 0, y: 50 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     exit={{ opacity: 1, y: 0 }}
                                     transition={{ duration: 0.5, delay: index * 0.1 }}
+                                    onClick={() => setIsOpen(!isOpen)}
                                 >
                                     <MenuItem components={project} key={index} />
-                                </motion.div>
+                                </motion.button>
                             ))}
                         </motion.li>
                     </motion.ul>
