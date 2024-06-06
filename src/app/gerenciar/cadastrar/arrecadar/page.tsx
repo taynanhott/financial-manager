@@ -21,12 +21,12 @@ export default function Arrecadar() {
     const [description, setDescription] = useState<string>("");
     const [date, setDate] = useState<Date>()
     const [value, setValue] = useState<string>();
+    const [status, setStatus] = useState<boolean>(false);
     const { deptor, addDeptor } = useDeptor();
 
-    function cadastrar(description: string, date: Date | undefined, value: string | undefined) {
-        console.log(value);
+    function cadastrar(description: string, date: Date | undefined, value: string | undefined, status: boolean) {
         if (description && date && value && !isNaN(+value)) {
-            const newDeptor = { description, date, value };
+            const newDeptor = { description, date, value, status };
             addDeptor(newDeptor);
             alert("Cadastro realizado com sucesso.");
             setValue(``)
@@ -108,7 +108,7 @@ export default function Arrecadar() {
                                 }}
                             />
 
-                            <Button onClick={() => cadastrar(description, date, value)}>
+                            <Button onClick={() => cadastrar(description, date, value, status)}>
                                 Cadastrar
                             </Button>
                         </div>

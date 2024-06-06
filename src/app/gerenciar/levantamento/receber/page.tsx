@@ -4,67 +4,80 @@ import Submenu from "@/components/Html/Body/Submenu/submenu";
 import Graph from "@/components/Resources/GraphApex";
 import { ListDash } from "@/components/Resources/Table";
 import { useDeptor } from "@/context/DebtorContext";
-import { useEntries } from "@/context/EntriesContext";
-
-const graficoSimples = [
-    {
-        options: {
-            chart: {
-                id: "bar" as const,
-                foreColor: '#F5F5F5'
-            },
-            xaxis: {
-                categories: ['Estado da Dívida']
-            },
-            grid: {
-                position: 'front'
-            },
-            fill: {
-                colors: ['#F5F5F5', '#b1b7b4']
-            },
-            colors: ['#F5F5F5', '#b1b7b4'],
-            dataLabels: {
-                style: {
-                    colors: ['#0f172a']
-                }
-            },
-        },
-        series: [
-            {
-                name: "Pago",
-                data: [2807.45]
-            },
-            {
-                name: "Atrasado",
-                data: [2380]
-            },
-            {
-                name: "Pendente",
-                data: [3213.75]
-            },
-        ],
-        height: 170
-    },
-]
-
-const graficoDonut = [
-    {
-        options: {
-            chart: {
-                id: "donut" as const
-            },
-            labels: ['Pago', 'Atrasado', "Pendente"],
-            legend: {
-                position: 'right' as const
-            }
-        },
-        series: [2807.45, 2380, 3213.75],
-        height: 170
-    },
-]
+import moment from 'moment';
 
 export default function Receber() {
     const { deptor } = useDeptor();
+    const sumsDeptor = [0, 0, 0];
+
+    deptor.forEach(deptor => {
+        const value = parseFloat(deptor.value ? deptor.value : ``) || 0;
+
+        if (deptor.status) {
+            sumsDeptor[0] += value;
+        } else if (moment().isAfter(deptor.date) && !deptor.status) {
+            sumsDeptor[1] += value;
+        } else if (moment().isBefore(deptor.date) && !deptor.status) {
+            sumsDeptor[2] += value;
+        }
+    });
+
+    const graficoSimples = [
+        {
+            options: {
+                chart: {
+                    id: "bar" as const,
+                    foreColor: '#F5F5F5'
+                },
+                xaxis: {
+                    categories: ['Estado da Dívida']
+                },
+                grid: {
+                    position: 'front'
+                },
+                fill: {
+                    colors: ['#F5F5F5', '#b1b7b4']
+                },
+                colors: ['#F5F5F5', '#b1b7b4'],
+                dataLabels: {
+                    style: {
+                        colors: ['#0f172a']
+                    }
+                },
+            },
+            series: [
+                {
+                    name: "Pago",
+                    data: [sumsDeptor[0]]
+                },
+                {
+                    name: "Atrasado",
+                    data: [sumsDeptor[1]]
+                },
+                {
+                    name: "Pendente",
+                    data: [sumsDeptor[2]]
+                },
+            ],
+            height: 170
+        },
+    ]
+
+    const graficoDonut = [
+        {
+            options: {
+                chart: {
+                    id: "donut" as const
+                },
+                labels: ['Pago', 'Atrasado', "Pendente"],
+                legend: {
+                    position: 'right' as const
+                }
+            },
+            series: sumsDeptor,
+            height: 170
+        },
+    ]
 
     return (
         <section className="grow lg:ml-[240px] mt-14 lg:mt-auto pb-12">

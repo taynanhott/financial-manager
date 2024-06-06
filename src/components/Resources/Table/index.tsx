@@ -21,7 +21,6 @@ import {
     Dialog,
     DialogClose,
     DialogContent,
-    DialogFooter,
     DialogTrigger,
 } from "@/components/ui/dialog"
 
@@ -36,10 +35,39 @@ interface Props {
     variant: `deptor` | `paymount` | `category`
 }
 
+function thvariant(variant: "deptor" | "paymount" | "category") {
+    switch (variant) {
+        case `deptor`:
+            return (
+                <>
+                    <th className="p-2 text-xs font-medium uppercase tracking-wider text-left">Descrição</th>
+                    <th className="p-2 text-xs font-medium uppercase tracking-wider text-left">Situação</th>
+                    <th className="p-2 text-xs font-medium uppercase tracking-wider text-center">Data</th>
+                    <th className="p-2 text-xs font-medium uppercase tracking-wider text-left">Valor</th>
+                </>
+            )
+        case `paymount`:
+            return (
+                <>
+                    <th className="p-2 text-xs font-medium uppercase tracking-wider text-left">Descrição</th>
+                    <th className="p-2 text-xs font-medium uppercase tracking-wider text-left">Categoria</th>
+                    <th className="p-2 text-xs font-medium uppercase tracking-wider text-center">Data</th>
+                    <th className="p-2 text-xs font-medium uppercase tracking-wider text-left">Valor</th>
+                </>
+            )
+        case `category`:
+            return (
+                <>
+                    <th className="p-2 text-xs font-medium uppercase tracking-wider text-left">Descrição</th>
+                </>
+            )
+        default:
+            return <></>
+    }
+}
+
 export function ListDash({ className, context, variant }: Props) {
     const { category } = useCategory();
-
-    console.log(context)
 
     return (
         <ScrollArea className={className}>
@@ -47,20 +75,7 @@ export function ListDash({ className, context, variant }: Props) {
                 <table className="text-gray-500 divide-y divide-gray-200 w-full">
                     <thead className="sticky top-0 z-10 bg-white pointer-events-none">
                         <tr className="text-center">
-                            <th className="p-2 text-left text-xs font-medium uppercase tracking-wider">Descrição</th>
-                            {variant === `paymount` ?
-                                <th className="p-2 text-left text-xs font-medium uppercase tracking-wider">Categoria</th>
-                                :
-                                <></>
-                            }
-                            {variant === `paymount` || variant === `deptor` ?
-                                <>
-                                    <th className="p-2 text-center text-xs font-medium uppercase tracking-wider">Data</th>
-                                    <th className="p-2 text-left text-xs font-medium uppercase tracking-wider">Valor</th>
-                                </>
-                                :
-                                <></>
-                            }
+                            {thvariant(variant)}
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-200">
@@ -75,6 +90,11 @@ export function ListDash({ className, context, variant }: Props) {
                                     viewport={{ once: true }}
                                 >
                                     <td className="p-2 text-sm font-medium">{element.description}</td>
+                                    {element.status !== undefined && (
+                                        <td className="p-2 text-sm">
+                                            {element.status ? `Pago` : `Pendente`}
+                                        </td>
+                                    )}
                                     {element.type && (
                                         <td className="p-2 text-sm">
                                             {category[+element.type].description}
@@ -86,7 +106,7 @@ export function ListDash({ className, context, variant }: Props) {
                                         </td>
                                     )}
                                     {element.value && (
-                                        <td className="p-2 text-sm text-left">R$ {Number(element.value).toFixed(2)}</td>
+                                        <td className="p-2 text-sm text-left text-nowrap">R$ {Number(element.value).toFixed(2)}</td>
                                     )}
                                 </motion.tr>
                             ))
@@ -112,7 +132,6 @@ export function ListDash({ className, context, variant }: Props) {
     );
 }
 
-
 export function TableListAction({ className, context, variant }: Props) {
     const { category } = useCategory();
     const [date, setDate] = useState<Date>();
@@ -133,20 +152,7 @@ export function TableListAction({ className, context, variant }: Props) {
                 <table className="text-white divide-y divide-gray-200 w-full">
                     <thead className="sticky top-0 z-10 bg-gradient-to-r from-slate-800 to-slate-600 pointer-events-none">
                         <tr>
-                            <th className="p-2 text-left text-xs font-medium uppercase tracking-wider">Descrição</th>
-                            {variant === `paymount` ?
-                                <th className="p-2 text-left text-xs font-medium uppercase tracking-wider">Categoria</th>
-                                :
-                                <></>
-                            }
-                            {variant === `paymount` || variant === `deptor` ?
-                                <>
-                                    <th className="p-2 text-center text-xs font-medium uppercase tracking-wider">Data</th>
-                                    <th className="p-2 text-left text-xs font-medium uppercase tracking-wider">Valor</th>
-                                </>
-                                :
-                                <></>
-                            }
+                            {thvariant(variant)}
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-200">
@@ -163,6 +169,11 @@ export function TableListAction({ className, context, variant }: Props) {
                                             viewport={{ once: true }}
                                         >
                                             <td className="p-2 text-sm font-medium">{element.description}</td>
+                                            {element.status !== undefined && (
+                                                <td className="p-2 text-sm">
+                                                    {element.status ? `Pago` : `Pendente`}
+                                                </td>
+                                            )}
                                             {element.type && (
                                                 <td className="p-2 text-sm">
                                                     {category[+element.type].description}
@@ -174,7 +185,7 @@ export function TableListAction({ className, context, variant }: Props) {
                                                 </td>
                                             )}
                                             {element.value && (
-                                                <td className="p-2 text-sm text-left">R$ {Number(element.value).toFixed(2)}</td>
+                                                <td className="p-2 text-sm text-left text-nowrap">R$ {Number(element.value).toFixed(2)}</td>
                                             )}
                                         </motion.tr>
                                     </DialogTrigger>
@@ -218,9 +229,8 @@ export function TableListAction({ className, context, variant }: Props) {
                                                             </Select>
                                                         </div>
                                                         <div className="grid grid-cols-3 items-center gap-4">
-                                                            <Label htmlFor="maxHeight">Valor</Label>
+                                                            <Label>Valor</Label>
                                                             <Input
-                                                                id="maxHeight"
                                                                 defaultValue="R$ 350.00"
                                                                 className="col-span-2 h-8"
                                                             />

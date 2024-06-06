@@ -4,11 +4,9 @@ import Submenu from "@/components/Html/Body/Submenu/submenu";
 import Graph from "@/components/Resources/GraphApex";
 import { ListDash } from "@/components/Resources/Table";
 import { useCategory } from "@/context/CategoryContext";
-import { useDeptor } from "@/context/DebtorContext";
 import { useEntries } from "@/context/EntriesContext";
 
 export default function Pagar() {
-    const { deptor } = useDeptor();
     const { entries } = useEntries();
     const { category } = useCategory();
 
@@ -72,8 +70,6 @@ export default function Pagar() {
             height: 170
         },
     ]
-
-    console.log(graficoSimples)
 
     return (
         <section className="grow lg:ml-[240px] mt-14 lg:mt-auto pb-12">
