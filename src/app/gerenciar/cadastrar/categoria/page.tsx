@@ -6,18 +6,31 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useCategory } from "@/context/CategoryContext";
+import { useSubCategory } from "@/context/SubCategoryContext";
 import { useState } from "react";
 
 export default function Categoria() {
-    const [description, setDescription] = useState<string>("");
+    const [catdesc, setCatDesc] = useState<string>("");
+    const [subcatdesc, setSubCatDesc] = useState<string>("");
     const { category, addCategory } = useCategory();
+    const { subcategory, addSubCategory } = useSubCategory();
 
-    function cadastrar(description: string) {
+    function cadastrarCat(description: string) {
         if (description) {
             const newCategory = { description };
             addCategory(newCategory);
             alert("Cadastro realizado com sucesso.");
-            setDescription(``)
+            setSubCatDesc(``)
+        } else {
+            alert("Por favor, preencha todos os campos.");
+        }
+    }
+    function cadastrarSubCat(description: string) {
+        if (description) {
+            const newCategory = { description };
+            addSubCategory(newCategory);
+            alert("Cadastro realizado com sucesso.");
+            setSubCatDesc(``);
         } else {
             alert("Por favor, preencha todos os campos.");
         }
@@ -48,10 +61,10 @@ export default function Categoria() {
                                 name="descricao"
                                 placeholder="Digite uma descrição..."
                                 type="text"
-                                value={description}
-                                onChange={(e) => setDescription(e.target.value)}
+                                value={catdesc}
+                                onChange={(e) => setCatDesc(e.target.value)}
                             />
-                            <Button type="submit" onClick={() => cadastrar(description)}>
+                            <Button type="submit" onClick={() => cadastrarCat(catdesc)}>
                                 Cadastrar
                             </Button>
                         </div>
@@ -68,6 +81,46 @@ export default function Categoria() {
                             <TableListAction className={`h-64 p-4 w-full rounded-md`} context={category} variant={`category`} />
                         </div>
                     </div>
+
+                    <div className="h-80 col-span-1 rounded-sm border bg-white shadow-md">
+                        <div className="items-center text-lg flex font-poppins-bold text-white bg-slate-900 rounded-t-sm">
+                            <p className="px-6 py-4 pointer-events-none">Cadastro de Subcategoria</p>
+                        </div>
+
+                        <div className="px-6 my-4 pointer-events-none">
+                            <p>Cadastre subcategoria de acordo com o tipo de movimentação financeira realizada.</p>
+                        </div>
+
+                        <div className="flex flex-col items-start px-6">
+                            <Label className="pointer-events-none">Descrição Subcategoria</Label>
+                            <Input
+                                className="bg-slate-100 w-full md:w-1/2 lg:w-1/2 border border-slate-300 my-4"
+                                id="descricao"
+                                name="descricao"
+                                placeholder="Digite uma descrição..."
+                                type="text"
+                                value={subcatdesc}
+                                onChange={(e) => setSubCatDesc(e.target.value)}
+                            />
+                            <Button type="submit" onClick={() => cadastrarSubCat(subcatdesc)}>
+                                Cadastrar
+                            </Button>
+                        </div>
+                    </div>
+
+
+                    <div className="h-80 col-span-1 border bg-white shadow-md">
+                        <div className="h-full bg-gradient-to-r rounded-sm from-slate-800 to-slate-600">
+                            <div className="items-center text-lg flex font-poppins-bold text-white  rounded-t-sm">
+                                <p className="px-6 pt-4 pointer-events-none">Lista de Categoorias</p>
+                            </div>
+                            <div className="items-center text-sm flex font-poppins-bold text-white rounded-t-sm">
+                                <p className="px-6 pointer-events-none">Clique no item caso deseje gerencia-lo.</p>
+                            </div>
+                            <TableListAction className={`h-64 p-4 w-full rounded-md`} context={subcategory} variant={`subcategory`} />
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </section >

@@ -5,43 +5,36 @@ import Graph from "@/components/Resources/GraphApex";
 import { ListDash } from "@/components/Resources/Table";
 import { useCategory } from "@/context/CategoryContext";
 import { useEntries } from "@/context/EntriesContext";
+import { useSubCategory } from "@/context/SubCategoryContext";
 
-export default function Pagar() {
-    const { entries } = useEntries();
-    const { category } = useCategory();
+function sums(variant: `category` | `subcategory`, context: any, entries: any) {
+    const contextLabels = context.map((element: any) => element.description);
+    const sums = new Array(context.length).fill(0);
 
-    const categoryLabels = category.map(cat => cat.description);
-    const sums = new Array(category.length).fill(0);
-
-    entries.forEach(entry => {
-        const value = parseFloat(entry.value ? entry.value : ``) || 0;
-        const typeIndex = parseInt(entry.type, 10);
+    entries.forEach((element: any) => {
+        const value = parseFloat(element.value ? element.value : ``) || 0;
+        const typeIndex = parseInt(variant === `category` ? element.type : element.subtype, 10);
 
         if (!isNaN(typeIndex) && typeIndex >= 0 && typeIndex < sums.length) {
             sums[typeIndex] += value;
         }
     });
 
-    const series = category.map((cat, index) => ({
-        name: cat.description,
+    const series = context.map((element: any, index: number) => ({
+        name: element.description,
         data: [Number(sums[index].toFixed(2))]
     }));
 
-    const graficoDonut = [
-        {
-            options: {
-                chart: {
-                    id: "donut" as const
-                },
-                labels: categoryLabels,
-                legend: {
-                    position: 'right' as const
-                }
-            },
-            series: sums,
-            height: 171
-        },
-    ]
+    return [contextLabels, sums, series];
+}
+
+export default function Pagar() {
+    const { entries } = useEntries();
+    const { category } = useCategory();
+    const { subcategory } = useSubCategory();
+
+    const sumsCat = sums(`category`, category, entries);
+    const sumsSubCat = sums(`subcategory`, subcategory, entries);
 
     const graficoSimples = [
         {
@@ -66,8 +59,40 @@ export default function Pagar() {
                     }
                 },
             },
-            series: series,
+            series: sumsCat[2],
             height: 170
+        },
+    ]
+
+    const graficoDonut = [
+        {
+            options: {
+                chart: {
+                    id: "donut" as const
+                },
+                labels: sumsCat[0],
+                legend: {
+                    position: 'right' as const
+                }
+            },
+            series: sumsCat[1],
+            height: 171
+        },
+    ]
+
+    const graficoDonutSub = [
+        {
+            options: {
+                chart: {
+                    id: "donut" as const
+                },
+                labels: sumsSubCat[0],
+                legend: {
+                    position: 'right' as const
+                }
+            },
+            series: sumsSubCat[1],
+            height: 171
         },
     ]
 
@@ -93,8 +118,11 @@ export default function Pagar() {
                                 <Graph components={graficoSimples} />
                             </div>
                         </div>
-                        <div className="col-span-1 lg:col-span-3 border bg-white shadow-md">
+                        <div className="col-span-1 lg:col-span-2 border bg-white shadow-md">
                             <Graph components={graficoDonut} />
+                        </div>
+                        <div className="col-span-1 lg:col-span-2 border bg-white shadow-md">
+                            <Graph components={graficoDonutSub} />
                         </div>
                     </div>
                 </div>

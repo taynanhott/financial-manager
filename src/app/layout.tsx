@@ -5,6 +5,7 @@ import Menu from "@/components/Html/Body/Menu/menu";
 import { DeptorProvider } from "@/context/DebtorContext";
 import { EntriesProvider } from "@/context/EntriesContext";
 import { CategoryProvider } from "@/context/CategoryContext";
+import { SubCategoryProvider } from "@/context/SubCategoryContext";
 
 interface Props {
   children: ReactNode
@@ -23,12 +24,14 @@ export default function RootLayout({ children }: Props) {
         </head>
         <body className="bg-gray-100">
           <CategoryProvider>
-            <EntriesProvider>
-              <DeptorProvider>
-                <Menu />
-                {children}
-              </DeptorProvider>
-            </EntriesProvider>
+            <SubCategoryProvider>
+              <EntriesProvider>
+                <DeptorProvider>
+                  <Menu />
+                  {children}
+                </DeptorProvider>
+              </EntriesProvider>
+            </ SubCategoryProvider>
           </ CategoryProvider>
         </body>
       </html>

@@ -19,8 +19,7 @@ export const CategoryProvider: React.FC<{ children: ReactNode }> = ({ children }
     const [category, setCategory] = useState<Entry[]>([
         { description: 'Débito' },
         { description: 'Crédito' },
-        { description: 'Parcelado' },
-        { description: 'Emprestado' }
+        { description: 'Parcelado' }
     ]);
 
     const addCategory = (category: Entry) => {

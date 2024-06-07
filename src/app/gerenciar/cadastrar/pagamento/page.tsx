@@ -23,24 +23,28 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { TableListAction } from "@/components/Resources/Table";
 import { useCategory } from "@/context/CategoryContext";
+import { useSubCategory } from "@/context/SubCategoryContext";
 
 export default function Pagamento() {
     const [description, setDescription] = useState<string>("");
     const [type, setType] = useState<string>("");
+    const [subtype, setSubType] = useState<string>("");
     const [date, setDate] = useState<Date>()
     const [value, setValue] = useState<string>();
     const { entries, addEntry } = useEntries();
     const { category } = useCategory();
+    const { subcategory } = useSubCategory();
 
-    function cadastrar(description: string, type: string, date: Date | undefined, value: string | undefined) {
-        if (description && type && date && value && !isNaN(+value)) {
-            const newEntry = { description, type, date, value };
+    function cadastrar(description: string, type: string, subtype: string, date: Date | undefined, value: string | undefined) {
+        if (description && type && subtype && date && value && !isNaN(+value)) {
+            const newEntry = { description, type, subtype, date, value };
             addEntry(newEntry);
             alert("Cadastro realizado com sucesso.");
-            setType(``)
-            setValue(``)
+            setType(``);
+            setSubType(``);
+            setValue(``);
             setDate(undefined);
-            setDescription(``)
+            setDescription(``);
         } else {
             alert("Por favor, preencha todos os campos.");
         }
@@ -54,7 +58,7 @@ export default function Pagamento() {
 
             <div id="mid-page">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 px-[38px] pt-[38px]">
-                    <div className="h-[570px] lg:h-[540px] col-span-1 rounded-sm border bg-white shadow-md">
+                    <div className="h-[650px] lg:h-[620px] col-span-1 rounded-sm border bg-white shadow-md">
                         <div className="items-center text-lg flex font-poppins-bold text-white bg-slate-900 rounded-t-sm">
                             <p className="px-6 py-4 pointer-events-none">Cadastro de Pagamento</p>
                         </div>
@@ -85,6 +89,21 @@ export default function Pagamento() {
                                 </SelectTrigger>
                                 <SelectContent>
                                     {category.map((invoice: any, index: number) => (
+                                        <SelectItem key={index} value={`${index}`}>{invoice.description}</SelectItem>
+                                    ))}
+                                </SelectContent>
+                            </Select>
+
+                            <Label className="pointer-events-none">Subcategoria</Label>
+                            <Select
+                                value={subtype}
+                                onValueChange={(value) => setSubType(value)}
+                            >
+                                <SelectTrigger className="bg-slate-100 w-full md:w-1/2 lg:w-1/2 border border-slate-300 my-4">
+                                    <SelectValue placeholder="Selecione uma categoria" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    {subcategory.map((invoice: any, index: number) => (
                                         <SelectItem key={index} value={`${index}`}>{invoice.description}</SelectItem>
                                     ))}
                                 </SelectContent>
@@ -132,13 +151,13 @@ export default function Pagamento() {
                                 }}
                             />
 
-                            <Button onClick={() => cadastrar(description, type, date, value)}>
+                            <Button onClick={() => cadastrar(description, type, subtype, date, value)}>
                                 Cadastrar
                             </Button>
                         </div>
                     </div>
 
-                    <div className="h-80 lg:h-[540px] col-span-1 rounded-sm border bg-white shadow-md">
+                    <div className="h-80 lg:h-[620px] col-span-1 rounded-sm border bg-white shadow-md">
                         <div className="h-full rounded-sm bg-gradient-to-r from-slate-800 to-slate-600">
                             <div className="items-center text-lg flex font-poppins-bold text-white  rounded-t-sm">
                                 <p className="px-6 pt-4 pointer-events-none">Lista de Movimentações</p>
@@ -146,7 +165,7 @@ export default function Pagamento() {
                             <div className="items-center text-sm flex font-poppins-bold text-white rounded-t-sm">
                                 <p className="px-6 pointer-events-none">Clique no item caso deseje gerencia-lo.</p>
                             </div>
-                            <TableListAction className={`h-64 lg:h-[450px] p-4 w-full rounded-md`} context={entries} variant={`paymount`} />
+                            <TableListAction className={`h-60 lg:h-[540px] p-4 w-full rounded-md`} context={entries} variant={`paymount`} />
                         </div>
                     </div>
                 </div>

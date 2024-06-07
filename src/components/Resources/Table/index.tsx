@@ -5,7 +5,8 @@ import { useCategory } from "@/context/CategoryContext";
 import { motion } from "framer-motion";
 import moment from 'moment';
 import 'moment/locale/pt-br';
-import { DialogCategory, DialogDeptor, DialogEntries } from "../Dialog";
+import { DialogCategory, DialogDeptor, DialogEntries, DialogSubCategory } from "../Dialog";
+import { useSubCategory } from "@/context/SubCategoryContext";
 
 interface Props {
     className?: string,
@@ -14,11 +15,12 @@ interface Props {
         date?: Date | undefined;
         value?: string | undefined;
         type?: string;
+        subtype?: string;
     }[],
-    variant: `deptor` | `paymount` | `category`
+    variant: `deptor` | `paymount` | `category` | "subcategory"
 }
 
-function thVariant(variant: "deptor" | "paymount" | "category") {
+function thVariant(variant: "deptor" | "paymount" | "category" | "subcategory") {
     switch (variant) {
         case `deptor`:
             return (
@@ -34,11 +36,18 @@ function thVariant(variant: "deptor" | "paymount" | "category") {
                 <>
                     <th className="p-2 text-xs font-medium uppercase tracking-wider text-left">Descrição</th>
                     <th className="p-2 text-xs font-medium uppercase tracking-wider text-left">Categoria</th>
+                    <th className="p-2 text-xs font-medium uppercase tracking-wider text-left">Subcategoria</th>
                     <th className="p-2 text-xs font-medium uppercase tracking-wider text-center">Data</th>
                     <th className="p-2 text-xs font-medium uppercase tracking-wider text-left">Valor</th>
                 </>
             )
         case `category`:
+            return (
+                <>
+                    <th className="p-2 text-xs font-medium uppercase tracking-wider text-left">Descrição</th>
+                </>
+            )
+        case `subcategory`:
             return (
                 <>
                     <th className="p-2 text-xs font-medium uppercase tracking-wider text-left">Descrição</th>
@@ -57,6 +66,8 @@ function dialogVariant(variant: string) {
             return <DialogEntries />
         case `category`:
             return <DialogCategory />
+        case `subcategory`:
+            return <DialogSubCategory />
         default:
             return <></>
     }
@@ -64,6 +75,7 @@ function dialogVariant(variant: string) {
 
 export function ListDash({ className, context, variant }: Props) {
     const { category } = useCategory();
+    const { subcategory } = useSubCategory();
 
     return (
         <ScrollArea className={className}>
@@ -94,6 +106,11 @@ export function ListDash({ className, context, variant }: Props) {
                                     {element.type && (
                                         <td className="p-2 text-sm">
                                             {category[+element.type].description}
+                                        </td>
+                                    )}
+                                    {element.subtype && (
+                                        <td className="p-2 text-sm">
+                                            {subcategory[+element.subtype].description}
                                         </td>
                                     )}
                                     {element.date !== undefined && (
@@ -128,17 +145,7 @@ export function ListDash({ className, context, variant }: Props) {
     );
 }
 
-export function TableListAction({ className, context, variant }: Props) {
-
-    const status = [
-        {
-            description: `Pago`
-        },
-        {
-            description: `Pendente`
-        }
-    ];
-
+export function TableListAction({ className, variant }: Props) {
     return (
         <ScrollArea className={className}>
             <div className="relative">

@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from "framer-motion";
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
@@ -36,6 +36,7 @@ import {
     DialogContent,
     DialogTrigger,
 } from "@/components/ui/dialog";
+import { useSubCategory } from '@/context/SubCategoryContext';
 
 export function DialogCategory() {
     const { category, editDescription, removeCategory } = useCategory();
@@ -79,6 +80,60 @@ export function DialogCategory() {
 
                                     <DialogClose>
                                         <Button className="mt-4 w-full" variant="destructive" onClick={(e) => removeCategory(index)}>Excluir Registro</Button>
+                                    </DialogClose>
+                                </div>
+                            </div>
+                        </DialogContent>
+                    </Dialog>
+                ))
+            ) : (<></>)
+            }
+        </>
+    )
+}
+
+export function DialogSubCategory() {
+    const { subcategory, editDescription, removeSubCategory } = useSubCategory();
+
+    return (
+        <>
+            {subcategory.length > 0 ? (
+                subcategory.map((element: any, index: number) => (
+                    <Dialog key={`dialog-${index}`} >
+                        <DialogTrigger asChild>
+                            <motion.tr
+                                key={`tr-${index}`}
+                                className={`hover:bg-slate-600 cursor-pointer`}
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.5, delay: index * 0.1 }}
+                                viewport={{ once: true }}
+                            >
+                                <td className="p-2 text-sm font-medium">{element.description}</td>
+                            </motion.tr>
+                        </DialogTrigger>
+                        <DialogContent className="w-10/12 rounded-lg">
+                            <div className="grid gap-4">
+                                <div className="space-y-2">
+                                    <div className="grid grid-cols-4">
+                                        <h4 className="col-span-3 justify-start font-medium leading-none pointer-events-none">Gerenciar Categorias</h4>
+                                    </div>
+                                    <p className="text-sm text-muted-foreground pointer-events-none">
+                                        Realize as ações desejadas para as categorias cadastradas.
+                                    </p>
+                                </div>
+                                <div className="grid gap-2">
+                                    <div className="grid grid-cols-3 items-center gap-4">
+                                        <Label>Descrição</Label>
+                                        <Input
+                                            defaultValue={element.description}
+                                            className="col-span-2 h-8"
+                                            onChange={(e) => editDescription(index, e.target.value)}
+                                        />
+                                    </div>
+
+                                    <DialogClose>
+                                        <Button className="mt-4 w-full" variant="destructive" onClick={(e) => removeSubCategory(index)}>Excluir Registro</Button>
                                     </DialogClose>
                                 </div>
                             </div>
@@ -230,8 +285,9 @@ export function DialogDeptor() {
 }
 
 export function DialogEntries() {
-    const { entries, editDescription, editType, editDate, editValue, removeEntries } = useEntries();
+    const { entries, editDescription, editType, editSubType, editDate, editValue, removeEntries } = useEntries();
     const { category } = useCategory();
+    const { subcategory } = useSubCategory();
 
     return (
         <>
@@ -249,6 +305,7 @@ export function DialogEntries() {
                             >
                                 <td className="p-2 text-sm font-medium">{element.description}</td>
                                 <td className="p-2 text-sm">{category[+element.type].description} </td>
+                                <td className="p-2 text-sm">{subcategory[+element.subtype].description}</td>
                                 <td className="p-2 text-sm text-center">{moment(element.date).format('DD/MM/YYYY')}</td>
                                 <td className="p-2 text-sm text-left text-nowrap">R$ {Number(element.value).toFixed(2)}</td>
                             </motion.tr>
@@ -274,7 +331,7 @@ export function DialogEntries() {
                                         />
                                     </div>
                                     <div className="grid grid-cols-3 items-center gap-4">
-                                        <Label className="col-span-1">Situação</Label>
+                                        <Label className="col-span-1">Categoria</Label>
                                         <Select
                                             value={element.type}
                                             onValueChange={(value) => editType(index, value)}
@@ -285,6 +342,24 @@ export function DialogEntries() {
                                             <SelectContent>
                                                 {category.map((invoice: any, index: number) => (
                                                     <SelectItem key={`edit-category-${index}`} value={`${index}`} className="cursor-pointer">
+                                                        {invoice.description}
+                                                    </SelectItem>
+                                                ))}
+                                            </SelectContent>
+                                        </Select>
+                                    </div>
+                                    <div className="grid grid-cols-3 items-center gap-4">
+                                        <Label className="col-span-1">Subcategoria</Label>
+                                        <Select
+                                            value={element.subtype}
+                                            onValueChange={(value) => editSubType(index, value)}
+                                        >
+                                            <SelectTrigger className="bg-slate-100 col-span-2 border border-slate-300">
+                                                <SelectValue placeholder="Selecione" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                {subcategory.map((invoice: any, index: number) => (
+                                                    <SelectItem key={`edit-subcategory-${index}`} value={`${index}`} className="cursor-pointer">
                                                         {invoice.description}
                                                     </SelectItem>
                                                 ))}
