@@ -141,7 +141,10 @@ export default function Pagamento() {
                     <div className="h-80 lg:h-[540px] col-span-1 rounded-sm border bg-white shadow-md">
                         <div className="h-full rounded-sm bg-gradient-to-r from-slate-800 to-slate-600">
                             <div className="items-center text-lg flex font-poppins-bold text-white  rounded-t-sm">
-                                <p className="px-6 py-4 pointer-events-none">Lista de Movimentações</p>
+                                <p className="px-6 pt-4 pointer-events-none">Lista de Movimentações</p>
+                            </div>
+                            <div className="items-center text-sm flex font-poppins-bold text-white rounded-t-sm">
+                                <p className="px-6 pointer-events-none">Clique no item caso deseje gerencia-lo.</p>
                             </div>
                             <TableListAction className={`h-64 lg:h-[450px] p-4 w-full rounded-md`} context={entries} variant={`paymount`} />
                         </div>

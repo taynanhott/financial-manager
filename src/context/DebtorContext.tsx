@@ -13,6 +13,11 @@ interface Entry {
 interface DeptorContextType {
     deptor: Entry[];
     addDeptor: (deptor: Entry) => void;
+    editDescription: (index: number, newDeptor: string) => void;
+    editStatus: (index: number, newDeptor: boolean) => void;
+    editDate: (index: number, newDeptor: Date) => void;
+    editValue: (index: number, newDeptor: string) => void;
+    removeDeptor: (index: number) => void;
 }
 
 const DeptorContext = createContext<DeptorContextType | undefined>(undefined);
@@ -85,8 +90,36 @@ export const DeptorProvider: React.FC<{ children: ReactNode }> = ({ children }) 
         setDeptor(prevDeptor => [...prevDeptor, deptor]);
     };
 
+    const editDescription = (index: number, newDescription: string) => {
+        setDeptor(prevDeptor => prevDeptor.map((dep, i) =>
+            i === index ? { ...dep, description: newDescription } : dep
+        ));
+    };
+
+    const editStatus = (index: number, newStatus: boolean) => {
+        setDeptor(prevDeptor => prevDeptor.map((dep, i) =>
+            i === index ? { ...dep, status: newStatus } : dep
+        ));
+    };
+
+    const editDate = (index: number, newDate: Date | undefined) => {
+        setDeptor(prevDeptor => prevDeptor.map((dep, i) =>
+            i === index ? { ...dep, date: newDate } : dep
+        ));
+    };
+
+    const editValue = (index: number, newValue: string) => {
+        setDeptor(prevDeptor => prevDeptor.map((dep, i) =>
+            i === index ? { ...dep, value: newValue } : dep
+        ));
+    };
+
+    const removeDeptor = (index: number) => {
+        setDeptor(prevDeptor => prevDeptor.filter((_, i) => i !== index));
+    };
+
     return (
-        <DeptorContext.Provider value={{ deptor, addDeptor }}>
+        <DeptorContext.Provider value={{ deptor, addDeptor, editDescription, editDate, editStatus, editValue, removeDeptor }}>
             {children}
         </DeptorContext.Provider>
     );

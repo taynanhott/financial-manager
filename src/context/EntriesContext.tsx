@@ -13,6 +13,11 @@ interface Entry {
 interface EntriesContextType {
     entries: Entry[];
     addEntry: (entry: Entry) => void;
+    editDescription: (index: number, newEntries: string) => void;
+    editType: (index: number, newEntries: string) => void;
+    editDate: (index: number, newEntries: Date) => void;
+    editValue: (index: number, newEntries: string) => void;
+    removeEntries: (index: number) => void;
 }
 
 const EntriesContext = createContext<EntriesContextType | undefined>(undefined);
@@ -97,8 +102,36 @@ export const EntriesProvider: React.FC<{ children: ReactNode }> = ({ children })
         setEntries(prevEntries => [...prevEntries, entry]);
     };
 
+    const editDescription = (index: number, newDescription: string) => {
+        setEntries(prevEntries => prevEntries.map((entry, i) =>
+            i === index ? { ...entry, description: newDescription } : entry
+        ));
+    };
+
+    const editType = (index: number, newType: string) => {
+        setEntries(prevEntries => prevEntries.map((entry, i) =>
+            i === index ? { ...entry, type: newType } : entry
+        ));
+    };
+
+    const editDate = (index: number, newDate: Date | undefined) => {
+        setEntries(prevEntries => prevEntries.map((entry, i) =>
+            i === index ? { ...entry, date: newDate } : entry
+        ));
+    };
+
+    const editValue = (index: number, newValue: string) => {
+        setEntries(prevEntries => prevEntries.map((entry, i) =>
+            i === index ? { ...entry, value: newValue } : entry
+        ));
+    };
+
+    const removeEntries = (index: number) => {
+        setEntries(prevEntries => prevEntries.filter((_, i) => i !== index));
+    };
+
     return (
-        <EntriesContext.Provider value={{ entries, addEntry }}>
+        <EntriesContext.Provider value={{ entries, addEntry, editDescription, editType, editDate, editValue, removeEntries }}>
             {children}
         </EntriesContext.Provider>
     );
