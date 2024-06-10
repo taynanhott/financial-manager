@@ -1,6 +1,7 @@
 "use client"
 
 import { Label } from "@/components/ui/label";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
@@ -117,7 +118,7 @@ function MenuList({ menu }: PropsMenu) {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-        <>
+        <ScrollArea className='h-full p-4 w-full rounded-md'>
             {menu.map((division, divIndex) => (
                 <div key={`menu-${divIndex}`}>
                     <div className="text-gray-500 lg:flex pl-4 pb-4 font-poppins pointer-events-none text-sm">
@@ -158,7 +159,7 @@ function MenuList({ menu }: PropsMenu) {
                     ))}
                 </div>
             ))}
-        </>
+        </ScrollArea>
     );
 }
 
