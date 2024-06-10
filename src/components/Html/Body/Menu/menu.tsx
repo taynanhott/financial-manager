@@ -6,40 +6,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
-const variants = {
-    open: {
-        y: 0,
-        opacity: 1,
-        transition: {
-            y: { stiffness: 1000, velocity: -100 }
-        }
-    },
-    closed: {
-        y: 50,
-        opacity: 0,
-        transition: {
-            y: { stiffness: 1000 }
-        }
-    }
-};
-
-const variantes = {
-    open: {
-        transition: { staggerChildren: 0.07, delayChildren: 0.2 }
-    },
-    closed: {
-        transition: { staggerChildren: 0.05, staggerDirection: -1 }
-    }
-};
-
 interface Props {
-    components: {
-        name: string,
-        href: string,
-    }
+    name: string;
+    href: string;
 }
 
-const navegation = [
+const navegation: Props[] = [
     {
         name: 'Dashboard',
         href: '/gerenciar/dashboard',
@@ -50,7 +22,7 @@ const navegation = [
     },
 ];
 
-const cadastro = [
+const cadastro: Props[] = [
     {
         name: 'Pagamento',
         href: '/gerenciar/cadastrar/pagamento',
@@ -65,7 +37,7 @@ const cadastro = [
     },
 ];
 
-const levantamento = [
+const levantamento: Props[] = [
     {
         name: 'Faturamento',
         href: '/gerenciar/levantamento/faturamento',
@@ -81,21 +53,114 @@ const levantamento = [
     {
         name: 'Reserva',
         href: '/gerenciar/levantamento/reserva',
+    }
+];
+
+interface PropsMenu {
+    menu: {
+        title: string;
+        subtitle: string[];
+        img: string[];
+        position: string;
+        href: Props[][];
+    }[];
+}
+
+const menu: PropsMenu['menu'] = [
+    {
+        title: 'Navegação',
+        subtitle: ['Menus'],
+        position: '21',
+        img: ['/image/menu/home.png'],
+        href: [navegation],
+    },
+    {
+        title: 'Funcionalidades',
+        subtitle: ['Cadastro', 'Levantamento'],
+        position: '12',
+        img: ['/image/menu/cadastro.png', '/image/menu/levantamento-menu.png'],
+        href: [cadastro, levantamento],
     },
 ];
 
-export const MenuItem = ({ components }: Props) => {
+function MenuItem({ name, href }: Props) {
+    const variants = {
+        open: {
+            y: 0,
+            opacity: 1,
+            transition: {
+                y: { stiffness: 1000, velocity: -100 }
+            }
+        },
+        closed: {
+            y: 50,
+            opacity: 0,
+            transition: {
+                y: { stiffness: 1000 }
+            }
+        }
+    };
+
     return (
         <motion.li
             variants={variants}
             className="block items-center ml-4 max-h-6 cursor-pointer"
         >
-            <Link href={components.href} target="_self" className="hover:border-b mt-4 hover:border-white flex items-center">
-                {`> ${components.name}`}
+            <Link href={href} target="_self" className="hover:border-b mt-4 hover:border-white flex items-center">
+                {`> ${name}`}
             </Link>
         </motion.li>
     );
-};
+}
+
+function MenuList({ menu }: PropsMenu) {
+    const [isOpen, setIsOpen] = useState(false);
+
+    return (
+        <>
+            {menu.map((division, divIndex) => (
+                <div key={`menu-${divIndex}`}>
+                    <div className="text-gray-500 lg:flex pl-4 pb-4 font-poppins pointer-events-none text-sm">
+                        {division.title}
+                    </div>
+                    {division.subtitle.map((label, subIndex: number) => (
+                        <motion.ul
+                            key={`submenu-${subIndex}`}
+                            className="pl-4 pb-4 w-[240px] lg:flex"
+                            variants={{ hidden: { opacity: 0 }, visible: { opacity: 1 } }}
+                        >
+                            <motion.li key={`li-${subIndex}`}>
+                                <div className="text-gray-100 text-xl font-poppins-bold flex items-center pointer-events-none">
+                                    <Image
+                                        className="mr-2"
+                                        src={division.img[subIndex]}
+                                        width={25}
+                                        height={25}
+                                        alt=""
+                                    />
+                                    {label}
+                                </div>
+                                {division.href[subIndex]?.map((link, index) => (
+                                    <motion.button
+                                        className="font-poppins text-gray-400 block"
+                                        key={`link-${subIndex}-${index}`}
+                                        initial={{ opacity: 0, y: 50 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        exit={{ opacity: 1, y: 0 }}
+                                        transition={{ duration: 0.5, delay: index * 0.1 }}
+                                        onClick={() => setIsOpen(!isOpen)}
+                                    >
+                                        <MenuItem name={link.name} href={link.href} />
+                                    </motion.button>
+                                ))}
+                            </motion.li>
+                        </motion.ul>
+                    ))}
+                </div>
+            ))}
+        </>
+    );
+}
 
 export default function Menu() {
     const [isOpen, setIsOpen] = useState(false);
@@ -104,7 +169,6 @@ export default function Menu() {
         <>
             <button onClick={() => setIsOpen(!isOpen)} className="ml-4 mt-2 bg-transparent fixed top-2 items-center flex lg:hidden z-30">
                 <Image
-                    className=""
                     src='/image/menu/botao-menu.png'
                     width={25}
                     height={25}
@@ -118,97 +182,7 @@ export default function Menu() {
                     </Label>
                 </div>
                 <div className={`mt-1 h-screen w-[240px] ${isOpen ? '' : 'hidden lg:block'} bg-slate-700 lg:bg-slate-800 z-10`}>
-                    <div className="text-gray-500 pl-4 pt-4 lg:flex pb-4 font-poppins pointer-events-none text-sm">
-                        Navegação
-                    </div>
-
-                    <motion.ul className="pl-4 pb-4 w-[240px] lg:flex" variants={variantes}>
-                        <motion.li>
-                            <div className="text-gray-100 text-xl font-poppins-bold flex items-center pointer-events-none">
-                                <Image
-                                    className="mr-2"
-                                    src='/image/menu/home.png'
-                                    width={25}
-                                    height={25}
-                                    alt=""
-                                />
-                                Menus
-                            </div>
-                            {navegation.map((project, index) => (
-                                <motion.button
-                                    className="font-poppins text-gray-400 block"
-                                    key={`li-${index}`}
-                                    initial={{ opacity: 0, y: 50 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                                    onClick={() => setIsOpen(!isOpen)}
-                                >
-                                    <MenuItem components={project} key={index} />
-                                </motion.button>
-                            ))}
-                        </motion.li>
-                    </motion.ul>
-
-                    <div className="text-gray-500 lg:flex pl-4 pb-4 font-poppins pointer-events-none text-sm">
-                        Funcionalidades
-                    </div>
-
-                    <motion.ul className="pl-4 pb-4 w-[240px] lg:flex" variants={variantes}>
-                        <motion.li>
-                            <div className="text-gray-100 text-xl font-poppins-bold flex items-center pointer-events-none">
-                                <Image
-                                    className="mr-2"
-                                    src='/image/menu/cadastro.png'
-                                    width={25}
-                                    height={25}
-                                    alt=""
-                                />
-                                Cadastro
-                            </div>
-                            {cadastro.map((project, index) => (
-                                <motion.button
-                                    className="font-poppins text-gray-400 block"
-                                    key={`li-${index}`}
-                                    initial={{ opacity: 0, y: 50 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                                    onClick={() => setIsOpen(!isOpen)}
-                                >
-                                    <MenuItem components={project} key={index} />
-                                </motion.button>
-                            ))}
-                        </motion.li>
-                    </motion.ul>
-
-                    <motion.ul className="pl-4 pb-4 w-[240px] lg:flex" variants={variantes}>
-                        <motion.li>
-                            <div className="text-gray-100 text-xl font-poppins-bold flex items-center pointer-events-none">
-                                <Image
-                                    className="mr-2"
-                                    src='/image/menu/levantamento-menu.png'
-                                    width={25}
-                                    height={25}
-                                    alt=""
-                                />
-                                Levantamento
-                            </div>
-                            {levantamento.map((project, index) => (
-                                <motion.button
-                                    className="font-poppins text-gray-400 block"
-                                    key={`li-${index}`}
-                                    initial={{ opacity: 0, y: 50 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                                    onClick={() => setIsOpen(!isOpen)}
-                                >
-                                    <MenuItem components={project} key={index} />
-                                </motion.button>
-                            ))}
-                        </motion.li>
-                    </motion.ul>
+                    <MenuList menu={menu} />
                 </div>
             </div>
         </>
