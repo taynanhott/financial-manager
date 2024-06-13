@@ -2,24 +2,22 @@
 
 import { Label } from "@/components/ui/label";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { MenuToggleProvider, useMenuToggle } from "@/context/MenuContext";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
 
 interface Props {
     name: string;
     href: string;
+    target?: `_self` | `_blank`;
 }
 
 const navegation: Props[] = [
     {
         name: 'Dashboard',
         href: '/gerenciar/dashboard',
-    },
-    {
-        name: 'Portfólio',
-        href: 'https://taynan.dev/home',
+        target: `_self`
     },
 ];
 
@@ -27,14 +25,17 @@ const cadastro: Props[] = [
     {
         name: 'Pagamento',
         href: '/gerenciar/cadastrar/pagamento',
+        target: `_self`
     },
     {
         name: 'Arrecadação',
         href: '/gerenciar/cadastrar/arrecadar',
+        target: `_self`
     },
     {
         name: 'Categoria',
         href: '/gerenciar/cadastrar/categoria',
+        target: `_self`
     },
 ];
 
@@ -42,27 +43,43 @@ const levantamento: Props[] = [
     {
         name: 'Faturamento',
         href: '/gerenciar/levantamento/faturamento',
+        target: `_self`
     },
     {
         name: 'Contas à receber',
         href: '/gerenciar/levantamento/receber',
+        target: `_self`
     },
     {
         name: 'Contas à pagar',
         href: '/gerenciar/levantamento/pagar',
+        target: `_self`
     },
     {
         name: 'Reserva',
         href: '/gerenciar/levantamento/reserva',
+        target: `_self`
     }
+];
+
+const outros: Props[] = [
+    {
+        name: 'Repositório Projeto',
+        href: 'https://github.com/taynanhott/financial-manager',
+        target: `_blank`
+    },
+    {
+        name: 'Portfólio',
+        href: 'https://taynan.dev/home',
+        target: `_blank`
+    },
 ];
 
 interface PropsMenu {
     menu: {
-        title: string;
+        title?: string;
         subtitle: string[];
         img: string[];
-        position: string;
         href: Props[][];
     }[];
 }
@@ -70,21 +87,25 @@ interface PropsMenu {
 const menu: PropsMenu['menu'] = [
     {
         title: 'Navegação',
-        subtitle: ['Menus'],
-        position: '21',
+        subtitle: ['Home'],
         img: ['/image/menu/home.png'],
         href: [navegation],
     },
     {
         title: 'Funcionalidades',
         subtitle: ['Cadastro', 'Levantamento'],
-        position: '12',
         img: ['/image/menu/cadastro.png', '/image/menu/levantamento-menu.png'],
         href: [cadastro, levantamento],
     },
+    {
+        title: 'Acesse também',
+        subtitle: ['Mais detalhes'],
+        img: ['/image/menu/repository.png'],
+        href: [outros],
+    },
 ];
 
-function MenuItem({ name, href }: Props) {
+function MenuItem({ name, href, target }: Props) {
     const variants = {
         open: {
             y: 0,
@@ -107,23 +128,26 @@ function MenuItem({ name, href }: Props) {
             variants={variants}
             className="block items-center ml-4 max-h-6 cursor-pointer"
         >
-            <Link href={href} target="_self" className="hover:border-b mt-4 hover:border-white flex items-center">
+            <Link href={href} target={target} className="hover:border-b mt-4 hover:border-white flex items-center">
                 {`> ${name}`}
             </Link>
         </motion.li>
     );
 }
+function MenuList({ menu }: { menu: PropsMenu['menu'] }) {
+    const { toggle, editToggle } = useMenuToggle();
 
-function MenuList({ menu }: PropsMenu) {
-    const [isOpen, setIsOpen] = useState(false);
+    const safeMenu = menu || [];
 
     return (
         <ScrollArea className='h-full p-4 w-full rounded-md'>
-            {menu.map((division, divIndex) => (
+            {safeMenu.map((division, divIndex) => (
                 <div key={`menu-${divIndex}`}>
-                    <div className="text-gray-500 lg:flex pl-4 pb-4 font-poppins pointer-events-none text-sm">
-                        {division.title}
-                    </div>
+                    {division.title ? (
+                        <div className="text-gray-500 lg:flex pl-4 pb-4 font-poppins pointer-events-none text-sm">
+                            {division.title}
+                        </div>
+                    ) : (<></>)}
                     {division.subtitle.map((label, subIndex: number) => (
                         <motion.ul
                             key={`submenu-${subIndex}`}
@@ -149,9 +173,9 @@ function MenuList({ menu }: PropsMenu) {
                                         animate={{ opacity: 1, y: 0 }}
                                         exit={{ opacity: 1, y: 0 }}
                                         transition={{ duration: 0.5, delay: index * 0.1 }}
-                                        onClick={() => setIsOpen(!isOpen)}
+                                        onClick={() => editToggle(!toggle)}
                                     >
-                                        <MenuItem name={link.name} href={link.href} />
+                                        <MenuItem name={link.name} href={link.href} target={link.target} />
                                     </motion.button>
                                 ))}
                             </motion.li>
@@ -163,12 +187,12 @@ function MenuList({ menu }: PropsMenu) {
     );
 }
 
-export default function Menu() {
-    const [isOpen, setIsOpen] = useState(false);
+function MenuToggle({ menu }: { menu: PropsMenu['menu'] }) {
+    const { toggle, editToggle } = useMenuToggle();
 
     return (
         <>
-            <button onClick={() => setIsOpen(!isOpen)} className="ml-4 mt-2 bg-transparent fixed top-2 items-center flex lg:hidden z-30">
+            <button onClick={() => editToggle(!toggle)} className="ml-4 mt-2 bg-transparent fixed top-2 items-center flex lg:hidden z-30">
                 <Image
                     src='/image/menu/botao-menu.png'
                     width={25}
@@ -182,10 +206,18 @@ export default function Menu() {
                         Gerenciador Financeiro
                     </Label>
                 </div>
-                <div className={`mt-1 h-screen w-[240px] ${isOpen ? '' : 'hidden lg:block'} bg-slate-700 lg:bg-slate-800 z-10`}>
+                <div className={`mt-1 h-screen w-[240px] ${toggle ? '' : 'hidden lg:block'} bg-slate-700 lg:bg-slate-800 z-10`}>
                     <MenuList menu={menu} />
                 </div>
             </div>
         </>
+    );
+}
+
+export default function Menu() {
+    return (
+        <MenuToggleProvider>
+            <MenuToggle menu={menu} />
+        </MenuToggleProvider>
     );
 }
