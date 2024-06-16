@@ -2,7 +2,6 @@
 
 import Submenu from "@/components/Html/Body/Submenu/submenu";
 import { Label } from "@/components/ui/label";
-import { Slider } from "@/components/ui/slider";
 import { motion } from "framer-motion";
 import useAnimatedCount from "@/components/animation";
 import { useDeptor } from "@/context/DebtorContext";
@@ -31,17 +30,17 @@ export default function Reserva() {
 
                         <div className="flex flex-col items-start px-6">
                             <Label className="pointer-events-none">Porcentagem de Reserva</Label>
-                            <Slider className="bg-slate-100 w-full md:w-1/2 lg:w-2/3 border border-slate-300 my-4 cursor-pointer" defaultValue={[5]} max={100} step={1} />
+                            <p className="my-2 font-poppins-bold flex text-lg text-nowrap"><motion.div>{useAnimatedCount(10)}</motion.div>% do faturamento total</p>
 
                             <div className="pointer-events-none">
-                                <Label>Total após 5º dia util</Label>
+                                <Label>Valor do Faturamento Total</Label>
                                 <p className="my-2 font-poppins-bold flex text-lg text-nowrap">R$ <motion.div>{useAnimatedCount(totalFat)}</motion.div></p>
 
                                 <Label>Valor de Reserva</Label>
-                                <p className="my-2 font-poppins-bold flex text-lg text-nowrap">R$ <motion.div>{useAnimatedCount(totalFat * 0.05)}</motion.div></p>
+                                <p className="my-2 font-poppins-bold flex text-lg text-nowrap">R$ <motion.div>{useAnimatedCount(totalFat * 0.1)}</motion.div></p>
 
                                 <Label>Valor Restante sem Reserva</Label>
-                                <p className="my-2 font-poppins-bold flex text-lg text-nowrap">R$ <motion.div>{useAnimatedCount(totalFat - (totalFat * 0.05))}</motion.div></p>
+                                <p className="my-2 font-poppins-bold flex text-lg text-nowrap">R$ <motion.div>{useAnimatedCount(totalFat - (totalFat * 0.1))}</motion.div></p>
                             </div>
                         </div>
                     </div>
