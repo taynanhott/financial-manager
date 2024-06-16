@@ -1,9 +1,9 @@
-"use client"
+'use client'
 
 import * as React from "react"
-import { format, addDays } from "date-fns"
+import { format } from "date-fns"
 import { Calendar as CalendarIcon } from "lucide-react"
-import { DateRange, DayPicker } from "react-day-picker";
+import { DateRange } from "react-day-picker";
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -14,6 +14,7 @@ import {
     PopoverTrigger,
 } from "@/components/ui/popover"
 import { ptBR } from "date-fns/locale";
+import { useDate } from "@/context/DateContext";
 
 export function DatePickerSimple() {
     const [date, setDate] = React.useState<Date>()
@@ -29,7 +30,7 @@ export function DatePickerSimple() {
                     )}
                 >
                     <CalendarIcon className="mr-2 h-4 w-4" />
-                    {date ? format(date, "PPP") : <span>--/--/----</span>}
+                    {date ? format(date, "PPP", { locale: ptBR }) : <span>--/--/----</span>}
                 </Button>
             </PopoverTrigger>
             <PopoverContent className="w-auto p-0">
@@ -45,16 +46,23 @@ export function DatePickerSimple() {
     )
 }
 
-
 export function DatePickerRange() {
-    const [date, setDate] = React.useState<Date>()
+    const { date, editDateIni, editDateEnd } = useDate();
+    const [range, setRange] = React.useState<DateRange>({
+        from: date?.dtini,
+        to: date?.dtend,
+    });
 
-    const initialRange: DateRange = {
-        from: new Date(),
-        to: addDays(new Date(), 2)
+    const handleRangeSelect = (newRange: DateRange | undefined) => {
+        if (newRange) {
+            const { from, to } = newRange;
+            setRange(newRange);
+            editDateIni(from || (to ?? new Date()));
+            editDateEnd(to || (from ?? new Date()));
+        }
+        console.log(date)
     };
 
-    const [range, setRange] = React.useState<DateRange | undefined>(initialRange);
     return (
         <Popover>
             <PopoverTrigger asChild>
@@ -66,14 +74,18 @@ export function DatePickerRange() {
                     )}
                 >
                     <CalendarIcon className="mr-2 h-4 w-4" />
-                    {date ? format(date, "PPP") : <span>--/--/----</span>}
+                    {range.from && range.to
+                        ? <span>{format(range.from, "PPP", { locale: ptBR })} à {format(range.to, "PPP", { locale: ptBR })}</span>
+                        : <span>--/--/----</span>}
                 </Button>
             </PopoverTrigger>
             <PopoverContent className="w-auto p-0">
                 <Calendar
                     mode="range"
                     selected={range}
-                    onSelect={setRange}
+                    onSelect={handleRangeSelect}
+                    initialFocus
+                    locale={ptBR}
                 />
             </PopoverContent>
         </Popover>
