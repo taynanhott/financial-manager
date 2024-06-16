@@ -10,57 +10,31 @@ import { useDeptor } from "@/context/DebtorContext";
 import { useEntries } from "@/context/EntriesContext";
 import { useCategory } from "@/context/CategoryContext";
 import CardDashBoard from "@/components/Resources/CardBoard";
-
-const graficoDetalhado = [
-    {
-        options: {
-            chart: {
-                id: "bar" as const
-            },
-            xaxis: {
-                categories: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro']
-            },
-            dataLabels: {
-                enabled: false,
-            },
-            fill: {
-                colors: ['#334155', '#0f172a']
-            },
-            colors: ['#64748b', '#0f172a']
-        },
-        series: [
-            {
-                name: "Ano Anterior",
-                data: [1500, 1800, 1400, 2000, 2150, 1900, 1400, 2000, 2250, 2300, 2650, 2450]
-            },
-            {
-                name: "Ano atual",
-                data: [2600, 2500, 2350, 2300, 2600, 2450, 2250, 2300, 1400, 2000, 3000, 3200]
-            }
-        ],
-        height: 250
-    },
-]
+import moment from 'moment';
+import { useDate } from "@/context/DateContext";
 
 export default function Gerenciar() {
+    const { date } = useDate();
     const { deptor } = useDeptor();
     const { entries } = useEntries();
     const { category } = useCategory();
 
     const totalDeptor = deptor.reduce((acc, element) => acc + (element.value ? parseFloat(element.value) : 0), 0);
     const totalEntries = entries.reduce((acc, element) => acc + (element.value ? parseFloat(element.value) : 0), 0);
+    const totalDeptorFalse = deptor.reduce((acc, element) => acc + (element.value && !element.status ? parseFloat(element.value) : 0), 0);
+    const totalDeptorTrue = deptor.reduce((acc, element) => acc + (element.value && element.status ? parseFloat(element.value) : 0), 0);
     const totalFat = totalDeptor - totalEntries;
-    const totalRes = totalFat * 0.05;
+    const totalRes = totalFat * 0.1;
 
     const cards = [
         {
-            title: totalFat,
+            title: totalDeptorTrue - totalEntries,
             icon: '/image/menu/levantamento.png',
-            text: `de previsão de faturamento`,
+            text: `de faturamento atual`,
             href: '/gerenciar/levantamento/faturamento',
             footer: `Conferir os Lançamentos`,
         }, {
-            title: totalDeptor,
+            title: totalDeptorFalse,
             icon: '/image/menu/receber.png',
             text: `à receber`,
             href: '/gerenciar/levantamento/receber',
@@ -68,7 +42,7 @@ export default function Gerenciar() {
         }, {
             title: totalEntries,
             icon: '/image/menu/cadastrar.png',
-            text: `pendente pagamento`,
+            text: `à pagar`,
             href: '/gerenciar/levantamento/pagar',
             footer: `Conferir as Dívidas`,
         }, {
@@ -79,6 +53,39 @@ export default function Gerenciar() {
             footer: `Conferir as Estimativas`,
         },
     ]
+
+    const sumsEntries = [0, 0, 0, 0];
+
+    function dateMoment(day: string) {
+
+        /*  
+            Ex:     date?.dtini = 05-06-2024 (format: DD-MM-YYYY)
+            Result: 05-{day}-2024
+        */
+        const newDate = moment().format(`${moment(date?.dtini).month()}-${day}-${moment(date?.dtini).year()}`)
+        return newDate;
+    }
+
+    entries.forEach(entries => {
+        const value = parseFloat(entries.value ? entries.value : ``) || 0;
+
+        if (moment(dateMoment(`07`)).isBefore(entries.date)) {
+            sumsEntries[0] += parseFloat(value.toFixed(2));
+        } else if (moment(dateMoment(`07`)).isAfter(entries.date) && moment(dateMoment(`14`)).isBefore(entries.date)) {
+            sumsEntries[1] += parseFloat(value.toFixed(2));
+        } else if (moment(dateMoment(`14`)).isAfter(entries.date) && moment(dateMoment(`21`)).isBefore(entries.date)) {
+            sumsEntries[2] += parseFloat(value.toFixed(2));
+        } else if (moment(dateMoment(`21`)).isAfter(entries.date)) {
+            sumsEntries[3] += parseFloat(value.toFixed(2));
+        }
+    });
+
+    const sumsEntriesYear = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+    deptor.forEach(deptor => {
+        const value = parseFloat(deptor.value ? deptor.value : ``) || 0;
+        sumsEntriesYear[+moment(deptor.date).month()] += parseFloat(value.toFixed(2));
+    });
 
     const graficoSimples = [
         {
@@ -108,10 +115,41 @@ export default function Gerenciar() {
 
                 {
                     name: "Valor Gasto",
-                    data: [655, 450, 175, 150]
+                    data: (sumsEntries)
                 }
             ],
             height: 200
+        },
+    ]
+
+    const graficoDetalhado = [
+        {
+            options: {
+                chart: {
+                    id: "bar" as const
+                },
+                xaxis: {
+                    categories: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro']
+                },
+                dataLabels: {
+                    enabled: false,
+                },
+                fill: {
+                    colors: ['#334155', '#0f172a']
+                },
+                colors: ['#64748b', '#0f172a']
+            },
+            series: [
+                {
+                    name: "Ano Anterior",
+                    data: [1500, 1800, 1400, 2000, 2150, 1900, 1400, 2000, 2250, 2300, 2650, 2450]
+                },
+                {
+                    name: "Ano atual",
+                    data: sumsEntriesYear
+                }
+            ],
+            height: 250
         },
     ]
 
@@ -173,7 +211,7 @@ export default function Gerenciar() {
 
                         <div className="p-4 h-1/3 items-center pointer-events-none">
                             <div className="px-2 flex justify-start font-poppins-bold text-lg">Distribuição semanal</div>
-                            <div className="px-2 pt-2 flex justify-start text-nowrap font-poppins-bold">01/06/2024 à 30/06/2024</div>
+                            <div className="px-2 pt-2 flex justify-start text-nowrap font-poppins-bold">01/{`${moment().format(`MM/YYYY`)}`} à {`${moment().endOf('month').date()}/${moment().format(`MM/YYYY`)}`}</div>
                         </div>
                     </div>
                 </div>

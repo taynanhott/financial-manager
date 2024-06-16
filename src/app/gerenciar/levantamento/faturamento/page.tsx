@@ -7,14 +7,43 @@ import { useDeptor } from "@/context/DebtorContext";
 import { useEntries } from "@/context/EntriesContext";
 import { motion } from "framer-motion";
 import useAnimatedCount from "@/components/animation";
+import moment from 'moment';
+import { useDate } from "@/context/DateContext";
 
 export default function Faturamento() {
+    const { date } = useDate();
     const { deptor } = useDeptor();
     const { entries } = useEntries();
 
     const totalDeptor = deptor.reduce((acc, element) => acc + (element.value ? parseFloat(element.value) : 0), 0);
     const totalEntries = entries.reduce((acc, element) => acc + (element.value ? parseFloat(element.value) : 0), 0);
     const totalFat = totalDeptor - totalEntries;
+
+    const sumsEntries = [0, 0, 0, 0];
+
+    function dateMoment(day: string) {
+
+        /*  
+            Ex:     date?.dtini = 05-06-2024 (format: DD-MM-YYYY)
+            Result: 05-{day}-2024
+        */
+        const newDate = moment().format(`${moment(date?.dtini).month()}-${day}-${moment(date?.dtini).year()}`)
+        return newDate;
+    }
+
+    entries.forEach(entries => {
+        const value = parseFloat(entries.value ? entries.value : ``) || 0;
+
+        if (moment(dateMoment(`07`)).isBefore(entries.date)) {
+            sumsEntries[0] += parseFloat(value.toFixed(2));
+        } else if (moment(dateMoment(`07`)).isAfter(entries.date) && moment(dateMoment(`14`)).isBefore(entries.date)) {
+            sumsEntries[1] += parseFloat(value.toFixed(2));
+        } else if (moment(dateMoment(`14`)).isAfter(entries.date) && moment(dateMoment(`21`)).isBefore(entries.date)) {
+            sumsEntries[2] += parseFloat(value.toFixed(2));
+        } else if (moment(dateMoment(`21`)).isAfter(entries.date)) {
+            sumsEntries[3] += parseFloat(value.toFixed(2));
+        }
+    });
 
     const graficoSimples = [
         {
@@ -44,10 +73,9 @@ export default function Faturamento() {
                     name: "Valor semanal",
                     data: [Number((totalFat / 4).toFixed(2)), Number((totalFat / 4).toFixed(2)), Number((totalFat / 4).toFixed(2)), Number((totalFat / 4).toFixed(2))]
                 },
-
                 {
                     name: "Valor Gasto",
-                    data: [650, 450, 175, 145]
+                    data: sumsEntries
                 }
             ],
             height: 310
@@ -69,7 +97,7 @@ export default function Faturamento() {
 
                         <div className="flex flex-col items-start px-6 pointer-events-none">
                             <Label>Período Contabilizado</Label>
-                            <p className="my-2 font-poppins-bold flex text-lg text-nowrap">01/06/2024 à 30/06/2024</p>
+                            <p className="my-2 font-poppins-bold flex text-lg text-nowrap">01/{`${moment().format(`MM/YYYY`)}`} à {`${moment().endOf('month').date()}/${moment().format(`MM/YYYY`)}`}</p>
 
                             <Label>Valor Por Dia</Label>
                             <p className="my-2 font-poppins-bold flex text-lg text-nowrap">R$ <motion.div>{useAnimatedCount(totalFat / 30)}</motion.div></p>
