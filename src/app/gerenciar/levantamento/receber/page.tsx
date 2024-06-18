@@ -3,15 +3,17 @@
 import Submenu from "@/components/Html/Body/Submenu/submenu";
 import Graph from "@/components/Resources/GraphApex";
 import { ListDash } from "@/components/Resources/Table";
+import { useDate } from "@/context/DateContext";
 import { useDeptor } from "@/context/DebtorContext";
 import moment from 'moment';
 
 export default function Receber() {
+    const { date } = useDate();
     const { deptor } = useDeptor();
     const sumsDeptor = [0, 0, 0];
 
     deptor.forEach(deptor => {
-        const value = parseFloat(deptor.value ? deptor.value : ``) || 0;
+        const value = parseFloat(deptor.value && (moment(deptor.date).isAfter(date.dtini) && moment(deptor.date).isBefore(date.dtend)) ? deptor.value : ``) || 0;
 
         if (deptor.status) {
             sumsDeptor[0] += value;

@@ -7,6 +7,7 @@ import moment from 'moment';
 import 'moment/locale/pt-br';
 import { DialogCategory, DialogDeptor, DialogEntries, DialogSubCategory } from "../Dialog";
 import { useSubCategory } from "@/context/SubCategoryContext";
+import { useDate } from "@/context/DateContext";
 
 interface Props {
     className?: string,
@@ -74,6 +75,7 @@ function dialogVariant(variant: string) {
 }
 
 export function ListDash({ className, context, variant }: Props) {
+    const { date } = useDate();
     const { category } = useCategory();
     const { subcategory } = useSubCategory();
 
@@ -89,39 +91,40 @@ export function ListDash({ className, context, variant }: Props) {
                     <tbody className="divide-y divide-gray-200">
                         {context.length > 0 ? (
                             context.map((element: any, index: number) => (
-                                <motion.tr
-                                    key={`td-${index}`}
-                                    className={`hover:bg-slate-200 pointer-events-none`}
-                                    initial={{ opacity: 0, y: 10 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                                    viewport={{ once: true }}
-                                >
-                                    <td className="p-2 text-sm font-medium">{element.description}</td>
-                                    {element.status !== undefined && (
-                                        <td className="p-2 text-sm">
-                                            {element.status ? `Pago` : `Pendente`}
-                                        </td>
-                                    )}
-                                    {element.type && (
-                                        <td className="p-2 text-sm">
-                                            {category[+element.type].description}
-                                        </td>
-                                    )}
-                                    {element.subtype && (
-                                        <td className="p-2 text-sm">
-                                            {subcategory[+element.subtype].description}
-                                        </td>
-                                    )}
-                                    {element.date !== undefined && (
-                                        <td className="p-2 text-sm text-center">
-                                            {moment(element.date).format('DD/MM/YYYY')}
-                                        </td>
-                                    )}
-                                    {element.value && (
-                                        <td className="p-2 text-sm text-left text-nowrap">R$ {Number(element.value).toFixed(2)}</td>
-                                    )}
-                                </motion.tr>
+                                moment(element.date).isAfter(date.dtini) && moment(element.date).isBefore(date.dtend) ? (
+                                    <motion.tr
+                                        key={`td-${index}`}
+                                        className={`hover:bg-slate-200 pointer-events-none`}
+                                        initial={{ opacity: 0, y: 10 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ duration: 0.5, delay: index * 0.1 }}
+                                        viewport={{ once: true }}
+                                    >
+                                        <td className="p-2 text-sm font-medium">{element.description}</td>
+                                        {element.status !== undefined && (
+                                            <td className="p-2 text-sm">
+                                                {element.status ? `Pago` : `Pendente`}
+                                            </td>
+                                        )}
+                                        {element.type && (
+                                            <td className="p-2 text-sm">
+                                                {category[+element.type].description}
+                                            </td>
+                                        )}
+                                        {element.subtype && (
+                                            <td className="p-2 text-sm">
+                                                {subcategory[+element.subtype].description}
+                                            </td>
+                                        )}
+                                        {element.date !== undefined && (
+                                            <td className="p-2 text-sm text-center">
+                                                {moment(element.date).format('DD/MM/YYYY')}
+                                            </td>
+                                        )}
+                                        {element.value && (
+                                            <td className="p-2 text-sm text-left text-nowrap">R$ {Number(element.value).toFixed(2)}</td>
+                                        )}
+                                    </motion.tr>) : (<></>)
                             ))
                         ) : (
                             <motion.tr

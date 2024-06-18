@@ -4,16 +4,18 @@ import Submenu from "@/components/Html/Body/Submenu/submenu";
 import Graph from "@/components/Resources/GraphApex";
 import { ListDash } from "@/components/Resources/Table";
 import { useCategory } from "@/context/CategoryContext";
+import { useDate } from "@/context/DateContext";
 import { useEntries } from "@/context/EntriesContext";
 import { useSubCategory } from "@/context/SubCategoryContext";
+import moment from "moment";
 
-function sums(variant: `category` | `subcategory`, context: any, entries: any) {
+function sums(variant: `category` | `subcategory`, context: any, entries: any, date: any) {
     const contextLabels = context.map((element: any) => element.description);
     const sums = new Array(context.length).fill(0);
 
     entries.forEach((element: any) => {
-        const value = parseFloat(element.value ? element.value : ``) || 0;
-        const typeIndex = parseInt(variant === `category` ? element.type : element.subtype, 10);
+        const value = parseFloat(element.value && (moment(element.date).isAfter(date.dtini) && moment(element.date).isBefore(date.dtend)) ? element.value : ``) || 0;
+        const typeIndex = parseInt(variant === `category` && (moment(element.date).isAfter(date.dtini) && moment(element.date).isBefore(date.dtend)) ? element.type : element.subtype, 10);
 
         if (!isNaN(typeIndex) && typeIndex >= 0 && typeIndex < sums.length) {
             sums[typeIndex] += value;
@@ -29,12 +31,13 @@ function sums(variant: `category` | `subcategory`, context: any, entries: any) {
 }
 
 export default function Pagar() {
+    const { date } = useDate();
     const { entries } = useEntries();
     const { category } = useCategory();
     const { subcategory } = useSubCategory();
 
-    const sumsCat = sums(`category`, category, entries);
-    const sumsSubCat = sums(`subcategory`, subcategory, entries);
+    const sumsCat = sums(`category`, category, entries, date);
+    const sumsSubCat = sums(`subcategory`, subcategory, entries, date);
 
     const graficoSimples = [
         {

@@ -19,10 +19,10 @@ export default function Gerenciar() {
     const { entries } = useEntries();
     const { category } = useCategory();
 
-    const totalDeptor = deptor.reduce((acc, element) => acc + (element.value ? parseFloat(element.value) : 0), 0);
-    const totalEntries = entries.reduce((acc, element) => acc + (element.value ? parseFloat(element.value) : 0), 0);
-    const totalDeptorFalse = deptor.reduce((acc, element) => acc + (element.value && !element.status ? parseFloat(element.value) : 0), 0);
-    const totalDeptorTrue = deptor.reduce((acc, element) => acc + (element.value && element.status ? parseFloat(element.value) : 0), 0);
+    const totalDeptor = deptor.reduce((acc, element) => acc + (element.value && moment(element.date).isAfter(date.dtini) && moment(element.date).isBefore(date.dtend) ? parseFloat(element.value) : 0), 0);
+    const totalEntries = entries.reduce((acc, element) => acc + (element.value && moment(element.date).isAfter(date.dtini) && moment(element.date).isBefore(date.dtend) ? parseFloat(element.value) : 0), 0);
+    const totalDeptorFalse = deptor.reduce((acc, element) => acc + ((element.value && !element.status) && moment(element.date).isAfter(date.dtini) && moment(element.date).isBefore(date.dtend) ? parseFloat(element.value) : 0), 0);
+    const totalDeptorTrue = deptor.reduce((acc, element) => acc + ((element.value && element.status) && moment(element.date).isAfter(date.dtini) && moment(element.date).isBefore(date.dtend) ? parseFloat(element.value) : 0), 0);
     const totalFat = totalDeptor - totalEntries;
     const totalRes = totalFat * 0.1;
 
@@ -66,9 +66,17 @@ export default function Gerenciar() {
         return newDate;
     }
 
-    entries.forEach(entries => {
-        const value = parseFloat(entries.value ? entries.value : ``) || 0;
+    const sumsEntriesYear = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
+    deptor.forEach(deptor => {
+        const value = parseFloat(deptor.value ? deptor.value : ``) || 0;
+        sumsEntriesYear[+moment(deptor.date).month()] += parseFloat(value.toFixed(2));
+    });
+
+    const totalEntriesWeek = entries.reduce((acc, element) => acc + (element.value ? parseFloat(element.value) : 0), 0);
+
+    entries.forEach(entries => {
+        const value = parseFloat(entries.value && (moment(entries.date).isBetween(moment().startOf('month'), moment().endOf('month'), null, '[]')) ? entries.value : ``) || 0;
         if (moment(dateMoment(`07`)).isBefore(entries.date)) {
             sumsEntries[0] += parseFloat(value.toFixed(2));
         } else if (moment(dateMoment(`07`)).isAfter(entries.date) && moment(dateMoment(`14`)).isBefore(entries.date)) {
@@ -78,13 +86,6 @@ export default function Gerenciar() {
         } else if (moment(dateMoment(`21`)).isAfter(entries.date)) {
             sumsEntries[3] += parseFloat(value.toFixed(2));
         }
-    });
-
-    const sumsEntriesYear = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-
-    deptor.forEach(deptor => {
-        const value = parseFloat(deptor.value ? deptor.value : ``) || 0;
-        sumsEntriesYear[+moment(deptor.date).month()] += parseFloat(value.toFixed(2));
     });
 
     const graficoSimples = [
@@ -110,7 +111,7 @@ export default function Gerenciar() {
             series: [
                 {
                     name: "Valor semanal",
-                    data: [Number((totalFat / 4).toFixed(2)), Number((totalFat / 4).toFixed(2)), Number((totalFat / 4).toFixed(2)), Number((totalFat / 4).toFixed(2))]
+                    data: [Number((totalEntriesWeek / 4).toFixed(2)), Number((totalEntriesWeek / 4).toFixed(2)), Number((totalEntriesWeek / 4).toFixed(2)), Number((totalEntriesWeek / 4).toFixed(2))]
                 },
 
                 {
@@ -149,7 +150,7 @@ export default function Gerenciar() {
                     data: sumsEntriesYear
                 }
             ],
-            height: 250
+            height: 251
         },
     ]
 
@@ -157,7 +158,7 @@ export default function Gerenciar() {
     const sums = new Array(category.length).fill(0);
 
     entries.forEach(entry => {
-        const value = parseFloat(entry.value ? entry.value : ``) || 0;
+        const value = parseFloat(entry.value && (moment(entry.date).isAfter(date.dtini) && moment(entry.date).isBefore(date.dtend)) ? entry.value : ``) || 0;
         const typeIndex = parseInt(entry.type, 10);
 
         if (!isNaN(typeIndex) && typeIndex >= 0 && typeIndex < sums.length) {
